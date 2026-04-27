@@ -1,0 +1,22 @@
+{
+  "name": "benden-iceri",
+  "version": "0.1.0",
+  "description": "Daily aşk yolculuğu verses, automated to Instagram",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "render": "node src/index.js render",
+    "post": "node src/index.js post",
+    "daily": "node src/index.js daily"
+  },
+  "dependencies": {
+    "playwright": "^1.49.0"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.0"
+  }
+}
