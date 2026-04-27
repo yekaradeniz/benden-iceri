@@ -10,9 +10,9 @@
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
-    "render": "node src/index.js render",
-    "post": "node src/index.js post",
-    "daily": "node src/index.js daily"
+    "daily": "node src/index.js daily",
+    "render": "node src/cli-render.js",
+    "post": "node src/cli-post.js"
   },
   "dependencies": {
     "playwright": "^1.49.0"
