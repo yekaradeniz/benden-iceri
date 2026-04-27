@@ -1,0 +1,52 @@
+[
+  {
+    "id": "001",
+    "verse": "Bir ben vardır bende\nbenden içeri.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["halvet", "ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "bir mısra, bir kapı 🌙\n\n#niyazimisri #salihbaba #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "002",
+    "verse": "Derman arardım derdime,\nderdim bana derman imiş.",
+    "original": null,
+    "source": "Niyazî-i Mısrî",
+    "moods": ["ic-dunya", "tefekkür", "ask-yangini"],
+    "format": "A",
+    "caption": "her derdin şifâsı kendisindedir 🌿\n\n#niyazimisri #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "003",
+    "verse": "Gönül Yâr ile,\nel iş ile olsun.",
+    "original": "\"Dil ber yâr u dest ber kâr\"",
+    "source": "Bahâeddin Nakşbend",
+    "moods": ["mihrap", "tefekkür", "halvet"],
+    "format": "C",
+    "caption": "gönlün ile elin aynı yerde olmasın 🕊️\n\n#askyolculugu #tasavvuf",
+    "verified": true
+  },
+  {
+    "id": "004",
+    "verse": "Aşkın elinden cânım,\nseyrânlara düştüm.",
+    "original": null,
+    "source": "Salih Baba Dîvânı",
+    "moods": ["seyran", "ask-yangini", "yalnizlik"],
+    "format": "A",
+    "caption": "aşk bir yolculuktur 🌙\n\n#salihbaba #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "005",
+    "verse": "Halvet der encümen.",
+    "original": null,
+    "source": "Bahâeddin Nakşbend",
+    "moods": ["halvet", "ic-dunya"],
+    "format": "A",
+    "caption": "kalabalıkta yalnızlık 🌿\n\n#askyolculugu",
+    "verified": true
+  }
+]
