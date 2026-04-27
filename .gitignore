@@ -3,6 +3,8 @@ node_modules/
 .DS_Store
 .env
 .env.local
+*.log
+npm-debug.log*
+coverage/
 
 # Output PNGs are committed for IG raw URL access — but exclude older than 30 days via maintenance script (Phase 2)
-# Comment: keep output/ tracked initially

@@ -2,6 +2,7 @@
   "name": "benden-iceri",
   "version": "0.1.0",
   "description": "Daily aşk yolculuğu verses, automated to Instagram",
+  "private": true,
   "type": "module",
   "engines": {
     "node": ">=20.0.0"
