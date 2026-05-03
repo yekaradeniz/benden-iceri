@@ -1,9 +1,9 @@
 {
   "launchDate": "2026-04-28",
   "lastPost": {
-    "date": "2026-05-02",
-    "verseId": "005",
-    "photoId": "water-reflect-01",
+    "date": "2026-05-03",
+    "verseId": "001",
+    "photoId": "window-light-01",
     "postId": null
   },
   "recentPhotos": [
@@ -11,6 +11,7 @@
     "mosque-light-01",
     "candle-warm-01",
     "lone-figure-01",
-    "water-reflect-01"
+    "water-reflect-01",
+    "window-light-01"
   ]
 }
