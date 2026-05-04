@@ -11,10 +11,10 @@ function calcFontSize(verse) {
   const totalChars = verse.replace(/\n/g, ' ').length;
   const lineCount = lines.length;
 
-  if (lineCount >= 6 || totalChars > 150) return 40;
-  if (lineCount >= 4 || totalChars > 90)  return 54;
-  if (lineCount >= 3 || totalChars > 55)  return 66;
-  return 78;
+  if (lineCount >= 6 || totalChars > 150) return 44;
+  if (lineCount >= 4 || totalChars > 90)  return 58;
+  if (lineCount >= 3 || totalChars > 55)  return 70;
+  return 82;
 }
 
 export function renderHtml({ verse, original, source, photoUrl }) {
@@ -32,10 +32,10 @@ export function renderHtml({ verse, original, source, photoUrl }) {
 
 function calcExplanationFontSize(explanation) {
   const chars = explanation.length;
-  if (chars > 420) return 27;
-  if (chars > 320) return 30;
-  if (chars > 220) return 33;
-  return 36;
+  if (chars > 420) return 31;
+  if (chars > 320) return 34;
+  if (chars > 220) return 37;
+  return 40;
 }
 
 export function renderExplanationHtml({ explanation, photoUrl }) {
