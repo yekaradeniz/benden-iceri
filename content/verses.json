@@ -118,5 +118,125 @@
     "format": "C",
     "caption": "kalbinde dâim O olsun — Onbir Esas'tan 🌙\n\n#nakşbend #askyolculugu",
     "verified": true
+  },
+  {
+    "id": "013",
+    "verse": "Aşkın aldı benden beni,\nbana seni gerek seni.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["ask-yangini", "ic-dunya", "halvet"],
+    "format": "A",
+    "caption": "aşk yolunun özü 🌙\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "014",
+    "verse": "Yaratılanı sev,\nYaratandan ötürü.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["ic-dunya", "tefekkür", "ask-yangini"],
+    "format": "A",
+    "caption": "muhabbet kapısı 🕊️\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "015",
+    "verse": "İlim ilim bilmektir,\nilim kendin bilmektir.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "kendini bilen Hakkını bilir 🌿\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "016",
+    "verse": "Bir kez gönül yıktın ise,\nbu kıldığın namaz değil.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "gönül kâbedir 🕊️\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "017",
+    "verse": "Sevelim, sevilelim,\ndünya kimseye kalmaz.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["ic-dunya", "ask-yangini", "tefekkür"],
+    "format": "A",
+    "caption": "fânî olanı bırak, bâkî olanı sev 🌙\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "018",
+    "verse": "Ya olduğun gibi görün,\nya göründüğün gibi ol.",
+    "original": null,
+    "source": "Mevlânâ Celâleddîn-i Rûmî",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "ihlâs — saflık iki yüzlülüğün karşısıdır 🌿\n\n#mevlana #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "019",
+    "verse": "Yine gel, yine gel,\nne olursan ol, yine gel.",
+    "original": null,
+    "source": "Mevlânâ Celâleddîn-i Rûmî",
+    "moods": ["ask-yangini", "ic-dunya", "halvet"],
+    "format": "A",
+    "caption": "kapı her dâim açıktır 🌙\n\n#mevlana #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "020",
+    "verse": "Hamdım, piştim, yandım.",
+    "original": null,
+    "source": "Mevlânâ Celâleddîn-i Rûmî",
+    "moods": ["ask-yangini", "ic-dunya", "seyran"],
+    "format": "A",
+    "caption": "aşk yolunun üç merhalesi 🔥\n\n#mevlana #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "021",
+    "verse": "Eline, beline, diline\nsahip ol.",
+    "original": null,
+    "source": "Hacı Bektâş-ı Velî",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "üç kapı — edebin özü 🕊️\n\n#hacibektasiveli #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "022",
+    "verse": "İncinsen de incitme.",
+    "original": null,
+    "source": "Hacı Bektâş-ı Velî",
+    "moods": ["ic-dunya", "tefekkür", "halvet"],
+    "format": "A",
+    "caption": "merhamet kapısı 🌿\n\n#hacibektasiveli #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "023",
+    "verse": "Mevlâ görelim neyler,\nneylerse güzel eyler.",
+    "original": null,
+    "source": "İbrâhim Hakkı Erzurûmî",
+    "moods": ["tefekkür", "ic-dunya", "ask-yangini"],
+    "format": "A",
+    "caption": "tevekkül — hayır gibi, şer gibi görünenin ötesi 🌙\n\n#ibrahimhakkı #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "024",
+    "verse": "Hoşça bak zâtına kim\nzübde-i âlemsin sen.",
+    "original": null,
+    "source": "Şeyh Gâlib",
+    "moods": ["tefekkür", "ic-dunya", "halvet"],
+    "format": "A",
+    "caption": "Hüsn ü Aşk'tan — kendindeki âlemi gör 🌿\n\n#şeyhgalib #mevlevi #askyolculugu",
+    "verified": true
   }
 ]
