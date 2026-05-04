@@ -15,6 +15,12 @@ if (!state.lastPost?.date) {
   throw new Error('Bekleyen post yok. Önce npm run render çalıştırın.');
 }
 
+// Zaten başarıyla paylaşıldıysa tekrar atma
+if (state.lastPost.postId) {
+  console.log(`Bu gün zaten paylaşıldı (postId: ${state.lastPost.postId}). Atlanıyor.`);
+  process.exit(0);
+}
+
 const entry = content.find(e => e.id === state.lastPost.verseId);
 if (!entry) throw new Error(`Entry ${state.lastPost.verseId} bulunamadı`);
 
