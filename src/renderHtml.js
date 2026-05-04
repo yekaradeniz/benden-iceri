@@ -32,10 +32,10 @@ export function renderHtml({ verse, original, source, photoUrl }) {
 
 function calcExplanationFontSize(explanation) {
   const chars = explanation.length;
-  if (chars > 420) return 31;
-  if (chars > 320) return 34;
-  if (chars > 220) return 37;
-  return 40;
+  if (chars > 420) return 35;
+  if (chars > 320) return 38;
+  if (chars > 220) return 41;
+  return 44;
 }
 
 export function renderExplanationHtml({ explanation, photoUrl }) {
