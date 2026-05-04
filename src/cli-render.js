@@ -16,12 +16,21 @@ const state = readState(statePath);
 const today = new Date().toISOString().slice(0, 10);
 const launchDate = state.launchDate ?? today;
 
-const postedSet = new Set(state.postedVerseIds);
-const unposted = content.filter(e => !postedSet.has(e.id));
-if (unposted.length === 0) {
-  throw new Error(`Tüm günler paylaşıldı (${state.postedVerseIds.length} gün). salih-baba.json bitti.`);
+// Onceki post basarisiz olduysa (postId null) ayni girisi tekrar kullan
+const pendingRetry = state.lastPost && !state.lastPost.postId && state.lastPost.verseId;
+let entry;
+if (pendingRetry) {
+  entry = content.find(e => e.id === state.lastPost.verseId);
+  if (!entry) throw new Error(`Retry: entry ${state.lastPost.verseId} bulunamadi`);
+  console.log(`Yeniden deneniyor: ${entry.id} (onceki post basarisiz)`);
+} else {
+  const postedSet = new Set(state.postedVerseIds);
+  const unposted = content.filter(e => !postedSet.has(e.id));
+  if (unposted.length === 0) {
+    throw new Error(`Tum gunler paylasildi (${state.postedVerseIds.length} gun). salih-baba.json bitti.`);
+  }
+  entry = unposted[0];
 }
-const entry = unposted[0];
 
 // Fotoğraf seçimi: Gemini API varsa AI kontrolü, yoksa mood bazlı
 const apiKey = process.env.GEMINI_API_KEY;
