@@ -36,7 +36,7 @@ if (state.lastPost.carousel) {
     imageUrls: [`${base}/${date}-1.png`, `${base}/${date}-2.png`],
     caption: entry.caption
   });
-  console.log(`✓ Carousel paylaşıldı — ${result.postId}`);
+  console.log(`✓ Carousel paylaşıldı: ${result.postId}`);
 } else {
   result = await postToInstagram({
     igUserId,
@@ -44,7 +44,7 @@ if (state.lastPost.carousel) {
     imageUrl: `${base}/${date}-1.png`,
     caption: entry.caption
   });
-  console.log(`✓ Tekli gönderi paylaşıldı — ${result.postId}`);
+  console.log(`✓ Tekli gönderi paylaşıldı: ${result.postId}`);
 }
 
 writeState(statePath, {

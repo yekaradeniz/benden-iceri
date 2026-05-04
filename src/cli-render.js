@@ -54,4 +54,4 @@ writeState(statePath, {
   postedVerseIds: [...state.postedVerseIds, entry.id]
 });
 
-console.log(`  Gün ${entry.day} / ${content.length} — ${entry.id}`);
+console.log(`  Gün ${entry.day} / ${content.length} - ${entry.id}`);

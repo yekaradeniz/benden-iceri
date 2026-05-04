@@ -45,10 +45,10 @@ const SUPPORTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/we
  */
 export async function isPhotoSpiritual(imageUrl, apiKey) {
   if (!apiKey) {
-    return { approved: true, reason: 'no api key — moderation skipped' };
+    return { approved: true, reason: 'no api key - moderation skipped' };
   }
 
-  // Fetch image to base64 (Gemini accepts inline base64 or remote URL — we use inline for reliability)
+  // Fetch image to base64 (Gemini accepts inline base64 or remote URL - we use inline for reliability)
   const response = await fetch(imageUrl);
   if (!response.ok) {
     return { approved: false, reason: `image fetch failed: ${response.status}` };

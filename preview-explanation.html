@@ -2,7 +2,36 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>benden içeri - mânâ</title>
+<title>Açıklama Slide Önizleme</title>
+<style>
+  body { background: #2a2a2a; margin: 0; padding: 40px; font-family: sans-serif; }
+  h2 { color: #aaa; font-weight: 300; margin-bottom: 20px; font-size: 14px; letter-spacing: 2px; }
+  .card {
+    display: inline-block;
+    width: 302px;
+    height: 378px;
+    overflow: hidden;
+    border-radius: 6px;
+    margin-right: 24px;
+    vertical-align: top;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  .card-inner {
+    width: 1080px;
+    height: 1350px;
+    transform: scale(0.28);
+    transform-origin: top left;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<h2>AÇIKLAMA SLIDE - GÜN 1</h2>
+<div class="card">
+  <iframe class="card-inner" srcdoc='<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -16,7 +45,7 @@
     padding: 110px 110px;
   }
   .header {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 500;
     font-size: 22px;
     letter-spacing: 11px;
@@ -33,7 +62,7 @@
     margin: 0 auto 72px;
   }
   .explanation {
-    font-family: 'Playfair Display', serif;
+    font-family: "Playfair Display", serif;
     font-weight: 400;
     font-style: normal;
     font-size: 34px;
@@ -50,7 +79,7 @@
     margin: 64px auto 36px;
   }
   .footer {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 500;
     font-size: 24px;
     letter-spacing: 10px;
@@ -64,8 +93,13 @@
 <body>
   <div class="header">Mânâ</div>
   <div class="divider"></div>
-  <div class="explanation">{{explanation}}</div>
+  <div class="explanation">Salih Baba şiirine &ldquo;başlayalım&rdquo; diyerek girer, besmele ve hamdele ile, yani Allah'ın adı ve şükrüyle. Şiirin tam ortasında bu söze yer vermesi anlamlıdır: her işin kalbi O&rsquo;nu anmaktır.
+
+İkinci beyitte derin bir itiraf var: bu kadar isyana, bu kadar hataya rağmen Hz. Muhammed bizleri ümmeti saydı, vazgeçmedi. Salat ve selam bu büyük şefkatin şükrüdür.</div>
   <div class="footer-divider"></div>
   <div class="footer">Salih Baba</div>
+</body>
+</html>' frameborder="0" scrolling="no"></iframe>
+</div>
 </body>
 </html>
