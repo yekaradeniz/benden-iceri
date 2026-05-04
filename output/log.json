@@ -2,8 +2,8 @@
   "launchDate": "2026-04-28",
   "lastPost": {
     "date": "2026-05-04",
-    "verseId": "002",
-    "photoId": "earth-rain-01",
+    "verseId": "001",
+    "photoId": "mountain-light-01",
     "postId": null
   },
   "recentPhotos": [
@@ -14,7 +14,11 @@
     "water-reflect-01",
     "window-light-01",
     "old-book-01",
-    "earth-rain-01"
+    "earth-rain-01",
+    "mountain-light-01"
   ],
-  "postedVerseIds": ["002"]
+  "postedVerseIds": [
+    "002",
+    "001"
+  ]
 }
