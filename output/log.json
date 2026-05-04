@@ -3,14 +3,16 @@
   "lastPost": {
     "date": "2026-05-04",
     "verseId": "sb-0001",
-    "photoId": "mecca-silhouette-01",
+    "photoId": "mushaf-tezhip-01",
     "postId": null,
     "carousel": true
   },
   "recentPhotos": [
-    "mecca-silhouette-01"
+    "mecca-silhouette-01",
+    "mushaf-tezhip-01"
   ],
   "postedVerseIds": [
+    "sb-0001",
     "sb-0001"
   ]
 }
