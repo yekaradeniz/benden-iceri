@@ -2,7 +2,7 @@
 
 Otomatik günlük tasavvuf paylaşımları için Instagram automation.
 
-Her gün 09:00'da (GMT+3) GitHub Actions, `content/verses.json`'dan sıradaki mısrayı seçer, `content/photos.json`'dan uygun mood'da bir fotoğraf eşleştirir, Cormorant Italic + dark overlay ile 1080×1350 PNG render eder ve Instagram Graph API üzerinden @benden.iceri'ye postlar.
+Her gün 09:00'da (GMT+3) GitHub Actions, `content/verses.json`'dan sıradaki mısrayı seçer, `content/photos.json`'dan uygun mood'da bir fotoğraf eşleştirir, Cormorant Italic + dark overlay ile 1080×1350 PNG render eder ve Instagram Graph API üzerinden @iceribenden'ye postlar.
 
 **Maliyet:** $0/ay forever. **Mac açık olması gerekmez.**
 
