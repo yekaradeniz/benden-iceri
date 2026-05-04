@@ -11,7 +11,7 @@ function calcFontSize(verse) {
   const totalChars = verse.replace(/\n/g, ' ').length;
   const lineCount = lines.length;
 
-  return 77;
+  return 85;
 }
 
 export function renderHtml({ verse, original, source, photoUrl }) {
