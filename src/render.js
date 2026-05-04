@@ -1,9 +1,7 @@
 import { chromium } from 'playwright';
-import { renderHtml } from './renderHtml.js';
+import { renderHtml, renderExplanationHtml } from './renderHtml.js';
 
-export async function renderToPng(data, outputPath) {
-  const html = renderHtml(data);
-
+async function renderHtmlToPng(html, outputPath) {
   const browser = await chromium.launch();
   try {
     const context = await browser.newContext({
@@ -12,11 +10,7 @@ export async function renderToPng(data, outputPath) {
     });
     const page = await context.newPage();
     await page.setContent(html, { waitUntil: 'networkidle' });
-
-    // Wait for fonts to fully load
     await page.evaluate(() => document.fonts.ready);
-
-    // Wait for background image to load
     await page.waitForFunction(() => {
       const bg = document.querySelector('.post-bg');
       if (!bg) return true;
@@ -27,14 +21,16 @@ export async function renderToPng(data, outputPath) {
       img.src = match[1];
       return img.complete;
     }, { timeout: 15_000 });
-
-    await page.screenshot({
-      path: outputPath,
-      type: 'png',
-      omitBackground: false,
-      fullPage: false
-    });
+    await page.screenshot({ path: outputPath, type: 'png', omitBackground: false, fullPage: false });
   } finally {
     await browser.close();
   }
+}
+
+export async function renderToPng(data, outputPath) {
+  await renderHtmlToPng(renderHtml(data), outputPath);
+}
+
+export async function renderExplanationToPng({ explanation }, outputPath) {
+  await renderHtmlToPng(renderExplanationHtml({ explanation }), outputPath);
 }
