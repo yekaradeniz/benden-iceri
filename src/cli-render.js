@@ -4,6 +4,7 @@ import { dirname, join } from 'node:path';
 import { pickContent } from './pickContent.js';
 import { pickPhoto } from './pickPhoto.js';
 import { renderToPng } from './render.js';
+import { pickValidatedPhoto } from './checkPhoto.js';
 import { readState, writeState, daysSinceLaunch } from './state.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -18,7 +19,19 @@ const launchDate = state.launchDate ?? today;
 const dayIndex = daysSinceLaunch(launchDate, today);
 
 const verse = pickContent(verses, dayIndex);
-const photo = pickPhoto(photos, verse.moods, new Set(state.recentPhotos));
+
+// Photo selection: AI moderation if ANTHROPIC_API_KEY is set, else fallback to pure pickPhoto.
+const apiKey = process.env.ANTHROPIC_API_KEY;
+const photo = apiKey
+  ? await pickValidatedPhoto({
+      photos,
+      verseMoods: verse.moods,
+      recentlyUsed: new Set(state.recentPhotos),
+      apiKey,
+      maxAttempts: photos.length
+    })
+  : pickPhoto(photos, verse.moods, new Set(state.recentPhotos));
+
 const outputPath = join(ROOT, 'output', `${today}.png`);
 
 await renderToPng({
