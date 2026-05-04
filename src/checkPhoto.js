@@ -59,25 +59,34 @@ export async function isPhotoSpiritual(imageUrl, apiKey) {
   const mimeType = SUPPORTED_IMAGE_TYPES.includes(rawType) ? rawType : 'image/jpeg';
 
   const ai = new GoogleGenAI({ apiKey });
-  const result = await ai.models.generateContent({
-    model: 'gemini-2.5-flash-lite',
-    contents: [{
-      role: 'user',
-      parts: [
-        { inlineData: { mimeType, data: base64 } },
-        { text: 'Is this image appropriate as the background for a Sufi poetry post?' }
-      ]
-    }],
-    config: {
-      systemInstruction: SYSTEM_PROMPT,
-      maxOutputTokens: 10,
-      temperature: 0
-    }
-  });
+  try {
+    const result = await ai.models.generateContent({
+      model: 'gemini-2.5-flash-lite',
+      contents: [{
+        role: 'user',
+        parts: [
+          { inlineData: { mimeType, data: base64 } },
+          { text: 'Is this image appropriate as the background for a Sufi poetry post?' }
+        ]
+      }],
+      config: {
+        systemInstruction: SYSTEM_PROMPT,
+        maxOutputTokens: 10,
+        temperature: 0
+      }
+    });
 
-  const answer = (result.text || '').trim().toUpperCase();
-  const approved = answer.startsWith('YES');
-  return { approved, reason: answer };
+    const answer = (result.text || '').trim().toUpperCase();
+    const approved = answer.startsWith('YES');
+    return { approved, reason: answer };
+  } catch (err) {
+    // Rate limit or quota exceeded - skip moderation and approve
+    if (err.status === 429 || (err.message && err.message.includes('quota'))) {
+      console.warn('Gemini quota exceeded, skipping moderation for this photo.');
+      return { approved: true, reason: 'quota-exceeded-skipped' };
+    }
+    throw err;
+  }
 }
 
 /**
