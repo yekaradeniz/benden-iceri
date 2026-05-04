@@ -2,116 +2,127 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Açıklama Slide Önizleme</title>
+<title>Carousel Önizleme - Gün 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  body { background: #2a2a2a; margin: 0; padding: 40px; font-family: sans-serif; }
-  h2 { color: #aaa; font-weight: 300; margin-bottom: 20px; font-size: 14px; letter-spacing: 2px; }
+  body { background: #1e1e1e; margin: 0; padding: 48px; font-family: sans-serif; display: flex; gap: 24px; align-items: flex-start; }
+  .label { color: #666; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+
   .card {
-    display: inline-block;
-    width: 302px;
-    height: 378px;
-    overflow: hidden;
-    border-radius: 6px;
-    margin-right: 24px;
-    vertical-align: top;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    width: 302px; height: 378px;
+    overflow: hidden; border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    position: relative; flex-shrink: 0;
   }
   .card-inner {
-    width: 1080px;
-    height: 1350px;
-    transform: scale(0.28);
-    transform-origin: top left;
-    pointer-events: none;
+    width: 1080px; height: 1350px;
+    transform: scale(0.28); transform-origin: top left;
+    position: absolute; top: 0; left: 0;
   }
-</style>
-</head>
-<body>
-<h2>AÇIKLAMA SLIDE - GÜN 1</h2>
-<div class="card">
-  <iframe class="card-inner" srcdoc='<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 1080px; height: 1350px; overflow: hidden; }
-  body { position: relative; background: #1a1a1a; }
+
+  /* --- Slide 1: Şiir --- */
   .post-bg {
     position: absolute; inset: 0;
     background-image: url("https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1200&q=85");
     background-size: cover; background-position: center;
   }
-  .post-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.82); }
-  .post-content {
+  .post-overlay-1 {
     position: absolute; inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 110px 110px;
-    z-index: 2;
+    background: linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.42) 45%, rgba(0,0,0,0.85) 100%);
+  }
+  .post-overlay-2 {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.82);
+  }
+  .post-content-1 {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 0 110px 145px;
+    text-align: center; color: #f5efe1; z-index: 2;
+  }
+  .verse {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-weight: 500;
+    font-size: 40px; line-height: 1.32;
+    color: #faf6ec; margin-bottom: 60px;
+    letter-spacing: 0.6px; white-space: pre-line;
+  }
+  .divider { width: 108px; height: 3px; background: rgba(217,199,154,0.6); margin: 0 auto 30px; }
+  .source {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; font-size: 31px;
+    letter-spacing: 13.5px; text-transform: uppercase; color: #d9c79a;
+  }
+
+  /* --- Slide 2: Açıklama --- */
+  .post-content-2 {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 110px 110px; z-index: 2;
   }
   .header {
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    font-size: 22px;
-    letter-spacing: 11px;
-    text-transform: uppercase;
-    color: #d9c79a;
-    opacity: 0.65;
-    margin-bottom: 52px;
-    text-align: center;
+    font-family: 'Inter', sans-serif; font-weight: 500;
+    font-size: 22px; letter-spacing: 11px;
+    text-transform: uppercase; color: #d9c79a;
+    opacity: 0.70; margin-bottom: 52px; text-align: center;
   }
-  .divider {
-    width: 90px;
-    height: 2px;
-    background: rgba(217, 199, 154, 0.35);
-    margin: 0 auto 72px;
-  }
+  .divider2 { width: 90px; height: 2px; background: rgba(217,199,154,0.40); margin: 0 auto 72px; }
   .explanation {
-    font-family: "Playfair Display", serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 27px;
-    line-height: 1.78;
-    color: #e4dcc8;
-    text-align: center;
-    white-space: pre-line;
-    flex: 1;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400; font-style: normal;
+    font-size: 27px; line-height: 1.78;
+    color: #e4dcc8; text-align: center;
+    white-space: pre-line; flex: 1;
   }
-  .footer-divider {
-    width: 90px;
-    height: 2px;
-    background: rgba(217, 199, 154, 0.35);
-    margin: 64px auto 36px;
-  }
+  .footer-divider { width: 90px; height: 2px; background: rgba(217,199,154,0.40); margin: 64px auto 36px; }
   .footer {
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    font-size: 24px;
-    letter-spacing: 10px;
-    text-transform: uppercase;
-    color: #d9c79a;
-    opacity: 0.65;
-    text-align: center;
+    font-family: 'Inter', sans-serif; font-weight: 500;
+    font-size: 24px; letter-spacing: 10px;
+    text-transform: uppercase; color: #d9c79a; opacity: 0.70; text-align: center;
   }
 </style>
 </head>
 <body>
-  <div class="post-bg"></div>
-  <div class="post-overlay"></div>
-  <div class="post-content">
-  <div class="header">Mânâ</div>
-  <div class="divider"></div>
-  <div class="explanation">Salih Baba şiirine &ldquo;başlayalım&rdquo; diyerek girer, besmele ve hamdele ile, yani Allah'ın adı ve şükrüyle. Şiirin tam ortasında bu söze yer vermesi anlamlıdır: her işin kalbi O&rsquo;nu anmaktır.
 
-İkinci beyitte derin bir itiraf var: bu kadar isyana, bu kadar hataya rağmen Hz. Muhammed bizleri ümmeti saydı, vazgeçmedi. Salat ve selam bu büyük şefkatin şükrüdür.</div>
-  <div class="footer-divider"></div>
-  <div class="footer">Salih Baba</div>
+<!-- Slide 1 -->
+<div>
+  <div class="label">Slayt 1 — Şiir</div>
+  <div class="card">
+    <div class="card-inner">
+      <div class="post-bg"></div>
+      <div class="post-overlay-1"></div>
+      <div class="post-content-1">
+        <div class="verse">Bed' olunsun besmeleyle hamdeleyle evsatı
+Salavatullah hatm olunsun bula cânlar izzeti
+
+Çok salât ile selâm olsun Resûlü Ahmed'e
+Bu kadar isyân ile bizlere demiş ümmetî</div>
+        <div class="divider"></div>
+        <div class="source">Salih Baba</div>
+      </div>
+    </div>
   </div>
-</body>
-</html>' frameborder="0" scrolling="no"></iframe>
 </div>
+
+<!-- Slide 2 -->
+<div>
+  <div class="label">Slayt 2 — Mânâ</div>
+  <div class="card">
+    <div class="card-inner">
+      <div class="post-bg"></div>
+      <div class="post-overlay-2"></div>
+      <div class="post-content-2">
+        <div class="header">Mânâ</div>
+        <div class="divider2"></div>
+        <div class="explanation">Salih Baba şiirine "başlayalım" diyerek girer, besmele ve hamdele ile, yani Allah'ın adı ve şükrüyle. Şiirin tam ortasında bu söze yer vermesi anlamlıdır: her işin kalbi O'nu anmaktır.
+
+İkinci beyitte derin bir itiraf var: bu kadar isyana rağmen Hz. Muhammed bizleri ümmeti saydı, vazgeçmedi. Salat ve selam bu büyük şefkatin şükrüdür.</div>
+        <div class="footer-divider"></div>
+        <div class="footer">Salih Baba</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
