@@ -18,16 +18,18 @@ async function apiGet(url, params) {
   return json;
 }
 
-async function waitUntilReady(mediaId, accessToken, maxWaitMs = 60000) {
+async function waitUntilReady(mediaId, accessToken, maxWaitMs = 120000) {
   const interval = 5000;
   const start = Date.now();
   while (Date.now() - start < maxWaitMs) {
-    const { status } = await apiGet(`${API_BASE}/${mediaId}`, {
-      fields: 'status',
+    const data = await apiGet(`${API_BASE}/${mediaId}`, {
+      fields: 'status_code',
       access_token: accessToken
     });
-    if (status === 'FINISHED' || status === 'READY') return;
-    if (status === 'ERROR') throw new Error(`Media ${mediaId} processing failed`);
+    const code = data.status_code;
+    console.log(`  Media ${mediaId} status_code: ${code}`);
+    if (code === 'FINISHED') return;
+    if (code === 'ERROR' || code === 'EXPIRED') throw new Error(`Media ${mediaId} status: ${code}`);
     await new Promise(r => setTimeout(r, interval));
   }
   throw new Error(`Media ${mediaId} not ready after ${maxWaitMs}ms`);
