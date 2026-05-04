@@ -3,7 +3,7 @@
   "lastPost": {
     "date": "2026-05-04",
     "verseId": "sb-0001",
-    "photoId": "manuscript-old-01",
+    "photoId": "rose-vase-01",
     "postId": null,
     "carousel": true
   },
@@ -11,9 +11,11 @@
     "mecca-silhouette-01",
     "mushaf-tezhip-01",
     "mountain-light-01",
-    "manuscript-old-01"
+    "manuscript-old-01",
+    "rose-vase-01"
   ],
   "postedVerseIds": [
+    "sb-0001",
     "sb-0001",
     "sb-0001",
     "sb-0001",
