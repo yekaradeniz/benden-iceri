@@ -11,10 +11,10 @@ function calcFontSize(verse) {
   const totalChars = verse.replace(/\n/g, ' ').length;
   const lineCount = lines.length;
 
-  if (lineCount >= 6 || totalChars > 150) return 54;
-  if (lineCount >= 4 || totalChars > 90)  return 68;
-  if (lineCount >= 3 || totalChars > 55)  return 80;
-  return 92;
+  if (lineCount >= 6 || totalChars > 150) return 58;
+  if (lineCount >= 4 || totalChars > 90)  return 72;
+  if (lineCount >= 3 || totalChars > 55)  return 84;
+  return 96;
 }
 
 export function renderHtml({ verse, original, source, photoUrl }) {
