@@ -1,0 +1,24 @@
+name: Delete Both Posts (one-time)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  delete-both:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Delete both posts and reset log
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: |
+          node --input-type=module << 'EOF'
+          const token = process.env.IG_ACCESS_TOKEN;
+          const base = 'https://graph.facebook.com/v21.0';
+          const ids = ['18019849016665117', '17886717771482686'];
+          for (const id of ids) {
+            const res = await fetch(`${base}/${id}?access_token=${token}`, { method: 'DELETE' });
+            const json = await res.json();
+            console.log(`Silindi ${id}:`, JSON.stringify(json));
+          }
+          EOF
