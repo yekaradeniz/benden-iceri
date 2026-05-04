@@ -31,7 +31,7 @@
   }
   .post-content {
     position: absolute; left: 0; right: 0; bottom: 0;
-    padding: 0 110px 145px;
+    padding: 0 70px 145px;
     text-align: center;
     color: #f5efe1;
     z-index: 2;
@@ -84,5 +84,18 @@
     <div class="divider"></div>
     <div class="source">{{source}}</div>
   </div>
+<script>
+  (function() {
+    const verse = document.querySelector('.verse');
+    if (!verse) return;
+    verse.style.whiteSpace = 'pre';
+    let size = parseFloat(window.getComputedStyle(verse).fontSize);
+    while (verse.scrollWidth > verse.clientWidth && size > 24) {
+      size -= 1;
+      verse.style.fontSize = size + 'px';
+    }
+    verse.style.whiteSpace = 'pre-line';
+  })();
+</script>
 </body>
 </html>
