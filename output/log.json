@@ -2,15 +2,17 @@
   "launchDate": "2026-05-04",
   "lastPost": {
     "date": "2026-05-04",
-    "verseId": "sb-0001",
-    "photoId": "manuscript-old-01",
-    "postId": "18041048813581895",
+    "verseId": "sb-0002",
+    "photoId": "mountain-light-01",
+    "postId": null,
     "carousel": true
   },
   "recentPhotos": [
-    "manuscript-old-01"
+    "manuscript-old-01",
+    "mountain-light-01"
   ],
   "postedVerseIds": [
-    "sb-0001"
+    "sb-0001",
+    "sb-0002"
   ]
 }
