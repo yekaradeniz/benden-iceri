@@ -15,7 +15,7 @@
     "post": "node src/cli-post.js"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.92.0",
+    "@google/genai": "^1.51.0",
     "playwright": "^1.49.0"
   },
   "devDependencies": {
