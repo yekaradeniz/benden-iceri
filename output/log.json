@@ -1,6 +1,16 @@
 {
   "launchDate": "2026-05-04",
-  "lastPost": null,
-  "recentPhotos": [],
-  "postedVerseIds": []
+  "lastPost": {
+    "date": "2026-05-04",
+    "verseId": "sb-0001",
+    "photoId": "manuscript-old-01",
+    "postId": null,
+    "carousel": true
+  },
+  "recentPhotos": [
+    "manuscript-old-01"
+  ],
+  "postedVerseIds": [
+    "sb-0001"
+  ]
 }
