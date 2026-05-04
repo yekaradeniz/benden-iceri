@@ -4,6 +4,7 @@ import { dirname, join } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TEMPLATE_PATH = join(__dirname, '..', 'template', 'post.html');
+const EXPLANATION_TEMPLATE_PATH = join(__dirname, '..', 'template', 'explanation.html');
 
 function calcFontSize(verse) {
   const lines = verse.split('\n');
@@ -27,4 +28,9 @@ export function renderHtml({ verse, original, source, photoUrl }) {
     .replace('{{originalHidden}}', original ? '' : 'hidden')
     .replace('{{source}}', source)
     .replace('{{photoUrl}}', photoUrl);
+}
+
+export function renderExplanationHtml({ explanation }) {
+  const template = readFileSync(EXPLANATION_TEMPLATE_PATH, 'utf-8');
+  return template.replace('{{explanation}}', explanation);
 }
