@@ -3,12 +3,15 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 const DEFAULT_STATE = {
   launchDate: null,
   lastPost: null,
-  recentPhotos: []
+  recentPhotos: [],
+  postedVerseIds: []
 };
 
 export function readState(path) {
   if (!existsSync(path)) return { ...DEFAULT_STATE };
-  return JSON.parse(readFileSync(path, 'utf-8'));
+  const parsed = JSON.parse(readFileSync(path, 'utf-8'));
+  // Backfill missing fields for backward compatibility
+  return { ...DEFAULT_STATE, ...parsed };
 }
 
 export function writeState(path, state) {

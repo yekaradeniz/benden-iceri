@@ -1,11 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { pickContent } from './pickContent.js';
 import { pickPhoto } from './pickPhoto.js';
 import { renderToPng } from './render.js';
 import { pickValidatedPhoto } from './checkPhoto.js';
-import { readState, writeState, daysSinceLaunch } from './state.js';
+import { readState, writeState } from './state.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -16,9 +15,16 @@ const statePath = join(ROOT, 'output', 'log.json');
 const state = readState(statePath);
 const today = new Date().toISOString().slice(0, 10);
 const launchDate = state.launchDate ?? today;
-const dayIndex = daysSinceLaunch(launchDate, today);
 
-const verse = pickContent(verses, dayIndex);
+// No-repeat: pick the next un-posted verse in JSON order. Throw if all consumed.
+const postedSet = new Set(state.postedVerseIds);
+const unposted = verses.filter(v => !postedSet.has(v.id));
+if (unposted.length === 0) {
+  throw new Error(
+    `Tüm mısralar paylaşıldı (${state.postedVerseIds.length} mısra). content/verses.json'a yenisini ekleyin.`
+  );
+}
+const verse = unposted[0];
 
 // Photo selection: AI moderation if GEMINI_API_KEY is set, else fallback to pure pickPhoto.
 const apiKey = process.env.GEMINI_API_KEY;
@@ -41,11 +47,15 @@ await renderToPng({
   photoUrl: photo.url
 }, outputPath);
 
-// Update state with selection (post step finalizes with postId)
+// Update state. Mark verse as posted now (before IG call) so a post failure doesn't
+// cause the same verse to retry forever; manual intervention can re-add to verses.json.
 writeState(statePath, {
+  ...state,
   launchDate,
   lastPost: { date: today, verseId: verse.id, photoId: photo.id, postId: null },
-  recentPhotos: [...state.recentPhotos.filter(id => id !== photo.id), photo.id].slice(-14)
+  recentPhotos: [...state.recentPhotos.filter(id => id !== photo.id), photo.id].slice(-14),
+  postedVerseIds: [...state.postedVerseIds, verse.id]
 });
 
 console.log(`✓ Rendered ${outputPath} (verse ${verse.id}, photo ${photo.id})`);
+console.log(`  Posted verses: ${state.postedVerseIds.length + 1} / ${verses.length}`);

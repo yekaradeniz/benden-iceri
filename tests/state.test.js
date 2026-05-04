@@ -18,6 +18,18 @@ describe('state', () => {
     expect(s.launchDate).toBeNull();
     expect(s.lastPost).toBeNull();
     expect(s.recentPhotos).toEqual([]);
+    expect(s.postedVerseIds).toEqual([]);
+  });
+
+  it('readState backfills postedVerseIds for legacy state files', () => {
+    writeFileSync(TEST_PATH, JSON.stringify({
+      launchDate: '2026-04-27',
+      lastPost: null,
+      recentPhotos: ['p1']
+    }));
+    const s = readState(TEST_PATH);
+    expect(s.postedVerseIds).toEqual([]);
+    expect(s.recentPhotos).toEqual(['p1']);
   });
 
   it('writeState then readState roundtrips', () => {
