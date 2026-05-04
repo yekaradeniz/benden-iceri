@@ -2,18 +2,19 @@
   "launchDate": "2026-05-04",
   "lastPost": {
     "date": "2026-05-04",
-    "verseId": "sb-0001",
-    "photoId": "rose-vase-01",
-    "postId": "18134543293547880",
+    "verseId": "sb-0002",
+    "photoId": "mountain-light-01",
+    "postId": null,
     "carousel": true
   },
   "recentPhotos": [
     "mushaf-tezhip-01",
     "mecca-silhouette-01",
-    "mountain-light-01",
-    "rose-vase-01"
+    "rose-vase-01",
+    "mountain-light-01"
   ],
   "postedVerseIds": [
-    "sb-0001"
+    "sb-0001",
+    "sb-0002"
   ]
 }
