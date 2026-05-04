@@ -5,11 +5,24 @@ import { dirname, join } from 'node:path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TEMPLATE_PATH = join(__dirname, '..', 'template', 'post.html');
 
+function calcFontSize(verse) {
+  const lines = verse.split('\n');
+  const totalChars = verse.replace(/\n/g, ' ').length;
+  const lineCount = lines.length;
+
+  if (lineCount >= 6 || totalChars > 150) return 40;
+  if (lineCount >= 4 || totalChars > 90)  return 54;
+  if (lineCount >= 3 || totalChars > 55)  return 66;
+  return 78;
+}
+
 export function renderHtml({ verse, original, source, photoUrl }) {
   const template = readFileSync(TEMPLATE_PATH, 'utf-8');
+  const fontSize = calcFontSize(verse);
 
   return template
     .replace('{{verse}}', verse)
+    .replace('{{verseFontSize}}', `${fontSize}px`)
     .replace('{{original}}', original ?? '')
     .replace('{{originalHidden}}', original ? '' : 'hidden')
     .replace('{{source}}', source)
