@@ -30,7 +30,9 @@ export function renderHtml({ verse, original, source, photoUrl }) {
     .replace('{{photoUrl}}', photoUrl);
 }
 
-export function renderExplanationHtml({ explanation }) {
+export function renderExplanationHtml({ explanation, photoUrl }) {
   const template = readFileSync(EXPLANATION_TEMPLATE_PATH, 'utf-8');
-  return template.replace('{{explanation}}', explanation);
+  return template
+    .replace('{{explanation}}', explanation)
+    .replace('{{photoUrl}}', photoUrl);
 }

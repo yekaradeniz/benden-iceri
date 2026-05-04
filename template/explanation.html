@@ -8,12 +8,27 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: 1080px; height: 1350px; overflow: hidden; }
   body {
-    background: #0f0e0b;
+    position: relative;
+    background: #1a1a1a;
+  }
+  .post-bg {
+    position: absolute; inset: 0;
+    background-image: url('{{photoUrl}}');
+    background-size: cover;
+    background-position: center;
+  }
+  .post-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+  }
+  .post-content {
+    position: absolute; inset: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 110px 110px;
+    z-index: 2;
   }
   .header {
     font-family: 'Inter', sans-serif;
@@ -22,14 +37,14 @@
     letter-spacing: 11px;
     text-transform: uppercase;
     color: #d9c79a;
-    opacity: 0.65;
+    opacity: 0.70;
     margin-bottom: 52px;
     text-align: center;
   }
   .divider {
     width: 90px;
     height: 2px;
-    background: rgba(217, 199, 154, 0.35);
+    background: rgba(217, 199, 154, 0.40);
     margin: 0 auto 72px;
   }
   .explanation {
@@ -46,7 +61,7 @@
   .footer-divider {
     width: 90px;
     height: 2px;
-    background: rgba(217, 199, 154, 0.35);
+    background: rgba(217, 199, 154, 0.40);
     margin: 64px auto 36px;
   }
   .footer {
@@ -56,16 +71,20 @@
     letter-spacing: 10px;
     text-transform: uppercase;
     color: #d9c79a;
-    opacity: 0.65;
+    opacity: 0.70;
     text-align: center;
   }
 </style>
 </head>
 <body>
-  <div class="header">Mânâ</div>
-  <div class="divider"></div>
-  <div class="explanation">{{explanation}}</div>
-  <div class="footer-divider"></div>
-  <div class="footer">Salih Baba</div>
+  <div class="post-bg"></div>
+  <div class="post-overlay"></div>
+  <div class="post-content">
+    <div class="header">Mânâ</div>
+    <div class="divider"></div>
+    <div class="explanation">{{explanation}}</div>
+    <div class="footer-divider"></div>
+    <div class="footer">Salih Baba</div>
+  </div>
 </body>
 </html>

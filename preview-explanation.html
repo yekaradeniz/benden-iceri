@@ -36,13 +36,21 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: 1080px; height: 1350px; overflow: hidden; }
-  body {
-    background: #0f0e0b;
+  body { position: relative; background: #1a1a1a; }
+  .post-bg {
+    position: absolute; inset: 0;
+    background-image: url("https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1200&q=85");
+    background-size: cover; background-position: center;
+  }
+  .post-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.82); }
+  .post-content {
+    position: absolute; inset: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 110px 110px;
+    z-index: 2;
   }
   .header {
     font-family: "Inter", sans-serif;
@@ -91,6 +99,9 @@
 </style>
 </head>
 <body>
+  <div class="post-bg"></div>
+  <div class="post-overlay"></div>
+  <div class="post-content">
   <div class="header">Mânâ</div>
   <div class="divider"></div>
   <div class="explanation">Salih Baba şiirine &ldquo;başlayalım&rdquo; diyerek girer, besmele ve hamdele ile, yani Allah'ın adı ve şükrüyle. Şiirin tam ortasında bu söze yer vermesi anlamlıdır: her işin kalbi O&rsquo;nu anmaktır.
@@ -98,6 +109,7 @@
 İkinci beyitte derin bir itiraf var: bu kadar isyana, bu kadar hataya rağmen Hz. Muhammed bizleri ümmeti saydı, vazgeçmedi. Salat ve selam bu büyük şefkatin şükrüdür.</div>
   <div class="footer-divider"></div>
   <div class="footer">Salih Baba</div>
+  </div>
 </body>
 </html>' frameborder="0" scrolling="no"></iframe>
 </div>

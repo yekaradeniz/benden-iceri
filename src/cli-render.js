@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { pickPhoto } from './pickPhoto.js';
+import { pickValidatedPhoto } from './checkPhoto.js';
 import { renderToPng, renderExplanationToPng } from './render.js';
 import { readState, writeState } from './state.js';
 
@@ -22,7 +23,17 @@ if (unposted.length === 0) {
 }
 const entry = unposted[0];
 
-const photo = pickPhoto(photos, entry.moods, new Set(state.recentPhotos));
+// Fotoğraf seçimi: Gemini API varsa AI kontrolü, yoksa mood bazlı
+const apiKey = process.env.GEMINI_API_KEY;
+const photo = apiKey
+  ? await pickValidatedPhoto({
+      photos,
+      verseMoods: entry.moods,
+      recentlyUsed: new Set(state.recentPhotos),
+      apiKey,
+      maxAttempts: photos.length
+    })
+  : pickPhoto(photos, entry.moods, new Set(state.recentPhotos));
 
 const slide1 = join(ROOT, 'output', `${today}-1.png`);
 await renderToPng({
@@ -36,7 +47,7 @@ console.log(`✓ Slide 1: ${slide1}`);
 const hasExplanation = entry.explanation && entry.explanation.trim().length > 0;
 if (hasExplanation) {
   const slide2 = join(ROOT, 'output', `${today}-2.png`);
-  await renderExplanationToPng({ explanation: entry.explanation }, slide2);
+  await renderExplanationToPng({ explanation: entry.explanation, photoUrl: photo.url }, slide2);
   console.log(`✓ Slide 2: ${slide2}`);
 }
 
