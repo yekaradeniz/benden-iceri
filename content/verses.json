@@ -6,7 +6,7 @@
     "source": "Yûnus Emre",
     "moods": ["halvet", "ic-dunya", "tefekkür"],
     "format": "A",
-    "caption": "bir mısra, bir kapı 🌙\n\n#niyazimisri #salihbaba #askyolculugu",
+    "caption": "bir mısra, bir kapı 🌙\n\n#yunusemre #askyolculugu",
     "verified": true
   },
   {
@@ -26,7 +26,7 @@
     "source": "Bahâeddin Nakşbend",
     "moods": ["mihrap", "tefekkür", "halvet"],
     "format": "C",
-    "caption": "gönlün ile elin aynı yerde olmasın 🕊️\n\n#askyolculugu #tasavvuf",
+    "caption": "gönlün ile elin aynı yerde olmasın 🕊️\n\n#nakşbend #askyolculugu",
     "verified": true
   },
   {
@@ -46,7 +46,77 @@
     "source": "Bahâeddin Nakşbend",
     "moods": ["halvet", "ic-dunya"],
     "format": "A",
-    "caption": "kalabalıkta yalnızlık 🌿\n\n#askyolculugu",
+    "caption": "kalabalıkta yalnızlık — Onbir Esas'tan 🌿\n\n#nakşbend #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "006",
+    "verse": "Her nefeste uyanık ol.",
+    "original": "\"Hûş der dem\"",
+    "source": "Bahâeddin Nakşbend",
+    "moods": ["tefekkür", "ic-dunya", "halvet"],
+    "format": "C",
+    "caption": "her nefes bir fırsattır — Onbir Esas'tan 🌙\n\n#nakşbend #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "007",
+    "verse": "Vatandayken yola düş.",
+    "original": "\"Sefer der vatan\"",
+    "source": "Bahâeddin Nakşbend",
+    "moods": ["seyran", "tefekkür", "ic-dunya"],
+    "format": "C",
+    "caption": "asıl yolculuk içe doğrudur — Onbir Esas'tan 🌿\n\n#nakşbend #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "008",
+    "verse": "Bakışın ayağında olsun.",
+    "original": "\"Nazar ber kadem\"",
+    "source": "Bahâeddin Nakşbend",
+    "moods": ["tefekkür", "ic-dunya", "halvet"],
+    "format": "C",
+    "caption": "huzûr için sade gözleri indir — Onbir Esas'tan 🕊️\n\n#nakşbend #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "009",
+    "verse": "Daima zikret.",
+    "original": "\"Yâd kerd\"",
+    "source": "Bahâeddin Nakşbend",
+    "moods": ["tefekkür", "ic-dunya", "halvet"],
+    "format": "C",
+    "caption": "dilin ile gönlün ile — Onbir Esas'tan 🌿\n\n#nakşbend #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "010",
+    "verse": "Her hâlde Hakk'a dön.",
+    "original": "\"Bâz geşt\"",
+    "source": "Bahâeddin Nakşbend",
+    "moods": ["tefekkür", "ic-dunya", "ask-yangini"],
+    "format": "C",
+    "caption": "yön daima O'na — Onbir Esas'tan 🌙\n\n#nakşbend #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "011",
+    "verse": "Gönlünü gözet.",
+    "original": "\"Nigâh dâşt\"",
+    "source": "Bahâeddin Nakşbend",
+    "moods": ["halvet", "tefekkür", "ic-dunya"],
+    "format": "C",
+    "caption": "kalbin koruması dilin koruması iledir — Onbir Esas'tan 🌿\n\n#nakşbend #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "012",
+    "verse": "Gönlü Hakk ile tut.",
+    "original": "\"Yâd dâşt\"",
+    "source": "Bahâeddin Nakşbend",
+    "moods": ["halvet", "tefekkür", "ic-dunya", "ask-yangini"],
+    "format": "C",
+    "caption": "kalbinde dâim O olsun — Onbir Esas'tan 🌙\n\n#nakşbend #askyolculugu",
     "verified": true
   }
 ]
