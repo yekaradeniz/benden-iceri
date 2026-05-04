@@ -4,7 +4,7 @@ Bir kerelik kurulum. ~30-60 dakika sürer.
 
 ## 1. Instagram Hesabını Business'e Çevir
 
-1. Instagram uygulamasından @benden.iceri profiline git
+1. Instagram uygulamasından @iceribenden profiline git
 2. Settings → Account → "Switch to Professional Account"
 3. Business veya Creator seç (her ikisi de Graph API'sine erişiyor)
 
@@ -12,7 +12,7 @@ Bir kerelik kurulum. ~30-60 dakika sürer.
 
 1. https://www.facebook.com/pages/create
 2. "Brand or Product" → "benden içeri" adıyla
-3. Page Settings → Linked Accounts → Instagram → @benden.iceri ile bağla
+3. Page Settings → Linked Accounts → Instagram → @iceribenden ile bağla
 
 ## 3. Meta Developer App
 
