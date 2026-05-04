@@ -5,7 +5,10 @@ async function apiPost(url, params) {
   for (const [k, v] of Object.entries(params)) u.searchParams.set(k, v);
   const res = await fetch(u.toString(), { method: 'POST' });
   const json = await res.json();
-  if (!res.ok) throw new Error(json.error?.message || res.statusText);
+  if (!res.ok) {
+    console.error('Instagram API error:', JSON.stringify(json));
+    throw new Error(json.error?.message || res.statusText);
+  }
   return json;
 }
 
