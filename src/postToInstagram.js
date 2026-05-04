@@ -76,6 +76,9 @@ export async function postCarouselToInstagram({ igUserId, accessToken, imageUrls
     access_token: accessToken
   });
 
+  // Step 2b: wait for carousel container to finish processing
+  await waitUntilReady(containerId, accessToken);
+
   // Step 3: publish
   const { id: postId } = await apiPost(`${API_BASE}/${igUserId}/media_publish`, {
     creation_id: containerId,
