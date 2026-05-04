@@ -238,5 +238,965 @@
     "format": "A",
     "caption": "Hüsn ü Aşk'tan — kendindeki âlemi gör 🌿\n\n#şeyhgalib #mevlevi #askyolculugu",
     "verified": true
+  },
+  {
+    "id": "025",
+    "verse": "Söyleyene değil,\nsöyletene bak.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "perdenin ardındaki El'i gör 🌙\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "026",
+    "verse": "Hak cihana doludur,\nkimseler Hakk'ı bilmez.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "her zerrede O 🌿\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "027",
+    "verse": "Cennet cennet dedikleri\nbirkaç köşkle birkaç hûri.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["ask-yangini", "ic-dunya"],
+    "format": "A",
+    "caption": "isteyene ver sen anı, bana seni gerek seni 🕊️\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "028",
+    "verse": "Dervişlik olaydı tâc ile hırka,\nbiz dahi alırdık otuza kırka.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "kıyafetin değil hâlin meselesi 🌙\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "029",
+    "verse": "Adımız miskindir bizim,\ndüşmanımız kindir bizim.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["halvet", "ic-dunya"],
+    "format": "A",
+    "caption": "biz kimseye kin tutmayız, kamu âlem birdir bize 🌿\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "030",
+    "verse": "Söz ola kese savaşı,\nsöz ola kestire başı.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "söz ola ağulu aşı, bal ile yağ ede bir söz 🕊️\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "031",
+    "verse": "Beni bende demen,\nbende değilim.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["halvet", "ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "bir ben vardır bende benden içeri 🌙\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "032",
+    "verse": "Gönül Çalab'ın tahtı,\nÇalab gönüle baktı.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["ic-dunya", "tefekkür", "halvet"],
+    "format": "A",
+    "caption": "gönül O'nun konağıdır 🌿\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "033",
+    "verse": "Aşksız âdem dünyada\nbellidir, hayvan imiş.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["ask-yangini", "ic-dunya"],
+    "format": "A",
+    "caption": "âdem olmak aşk iledir 🔥\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "034",
+    "verse": "Ne varlığa sevinirim,\nne yokluğa yerinirim.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["halvet", "tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "aşkın ile avunurum, bana seni gerek seni 🌙\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "035",
+    "verse": "Aşk imiş her ne var\nâlemde.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["ask-yangini", "ic-dunya"],
+    "format": "A",
+    "caption": "ilim bir kīl ü kāldir 🌿\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "036",
+    "verse": "Bişnev in ney çün\nşikâyet mîküned.",
+    "original": null,
+    "source": "Mevlânâ — Mesnevî",
+    "moods": ["ask-yangini", "yalnizlik", "ic-dunya"],
+    "format": "C",
+    "caption": "Mesnevî'nin açılış mısrası — dinle, neyden nasıl şikâyet ediyor 🔥\n\n#mevlana #mesnevi #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "037",
+    "verse": "Dinle neyden,\nnasıl şikâyet ediyor.",
+    "original": "\"Bişnev in ney çün şikâyet mîküned\"",
+    "source": "Mevlânâ — Mesnevî",
+    "moods": ["ask-yangini", "yalnizlik"],
+    "format": "C",
+    "caption": "ayrılıktan ağlayan ney — Mesnevî'nin başlangıcı 🌙\n\n#mevlana #mesnevi #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "038",
+    "verse": "Pergel gibi bir ayağım dinde sabit,\ndiğeriyle yetmiş iki milleti dolaşırım.",
+    "original": null,
+    "source": "Mevlânâ Celâleddîn-i Rûmî",
+    "moods": ["ic-dunya", "tefekkür", "seyran"],
+    "format": "A",
+    "caption": "merkez sabit, dünya kucak açık 🕊️\n\n#mevlana #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "039",
+    "verse": "Sus.",
+    "original": "\"Hâmûş\"",
+    "source": "Mevlânâ Celâleddîn-i Rûmî",
+    "moods": ["halvet", "tefekkür", "ic-dunya"],
+    "format": "C",
+    "caption": "Mevlânâ'nın divandaki imzası — sözün ötesindeki dil 🌿\n\n#mevlana #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "040",
+    "verse": "Cömertlik ve yardım etmede\nakarsu gibi ol.",
+    "original": null,
+    "source": "Mevlânâ Celâleddîn-i Rûmî",
+    "moods": ["ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "Yedi Öğüt — birinci 🌙\n\n#mevlana #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "041",
+    "verse": "Şefkat ve merhamette\ngüneş gibi ol.",
+    "original": null,
+    "source": "Mevlânâ Celâleddîn-i Rûmî",
+    "moods": ["ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "Yedi Öğüt — ikinci 🌿\n\n#mevlana #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "042",
+    "verse": "Başkalarının kusurunu örtmede\ngece gibi ol.",
+    "original": null,
+    "source": "Mevlânâ Celâleddîn-i Rûmî",
+    "moods": ["gece", "ic-dunya", "halvet"],
+    "format": "A",
+    "caption": "Yedi Öğüt — üçüncü 🌙\n\n#mevlana #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "043",
+    "verse": "Hiddet ve asabiyette\nölü gibi ol.",
+    "original": null,
+    "source": "Mevlânâ Celâleddîn-i Rûmî",
+    "moods": ["halvet", "tefekkür"],
+    "format": "A",
+    "caption": "Yedi Öğüt — dördüncü 🕊️\n\n#mevlana #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "044",
+    "verse": "Tevâzu ve alçakgönüllülükte\ntoprak gibi ol.",
+    "original": null,
+    "source": "Mevlânâ Celâleddîn-i Rûmî",
+    "moods": ["ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "Yedi Öğüt — beşinci 🌿\n\n#mevlana #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "045",
+    "verse": "Hoşgörülükte\ndeniz gibi ol.",
+    "original": null,
+    "source": "Mevlânâ Celâleddîn-i Rûmî",
+    "moods": ["ic-dunya", "tefekkür", "seyran"],
+    "format": "A",
+    "caption": "Yedi Öğüt — altıncı 🌊\n\n#mevlana #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "046",
+    "verse": "Aşk geldi,\ndamarda kan oldu.",
+    "original": null,
+    "source": "Mevlânâ Celâleddîn-i Rûmî",
+    "moods": ["ask-yangini", "ic-dunya"],
+    "format": "A",
+    "caption": "aşk dönüştürür 🔥\n\n#mevlana #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "047",
+    "verse": "Sırrını fâş etme,\nsâdık olmayana.",
+    "original": null,
+    "source": "Mevlânâ Celâleddîn-i Rûmî",
+    "moods": ["halvet", "tefekkür"],
+    "format": "A",
+    "caption": "her gönle her sözü söyleme 🌙\n\n#mevlana #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "048",
+    "verse": "Aşkın olmasa,\nkâinat olmazdı.",
+    "original": null,
+    "source": "İmâm Rabbânî",
+    "moods": ["ask-yangini", "ic-dunya"],
+    "format": "A",
+    "caption": "âlemi var eden muhabbet 🔥\n\n#imamrabbani #nakşbend #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "049",
+    "verse": "Tarîk-i Nakşbendiyye,\nmiftâh-ı kenz-i ihfâdır.",
+    "original": null,
+    "source": "İmâm Rabbânî",
+    "moods": ["halvet", "ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "Nakşbendiyye yolu, gizli hazinenin anahtarı 🌿\n\n#imamrabbani #nakşbend #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "050",
+    "verse": "Sohbet, suhbettir;\nbal arısının çiçekten beslenmesi gibi.",
+    "original": null,
+    "source": "İmâm Rabbânî",
+    "moods": ["ic-dunya", "tefekkür", "halvet"],
+    "format": "A",
+    "caption": "tarîkatımız sohbettir 🕊️\n\n#imamrabbani #nakşbend #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "051",
+    "verse": "Tarîkatımız sohbettir.",
+    "original": null,
+    "source": "Bahâeddin Nakşbend",
+    "moods": ["ic-dunya", "tefekkür", "halvet"],
+    "format": "A",
+    "caption": "yol kelâmla, yârla, sohbetle gider 🌿\n\n#nakşbend #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "052",
+    "verse": "Hararet nardadır,\nsacda değildir.",
+    "original": null,
+    "source": "Hacı Bektâş-ı Velî",
+    "moods": ["ask-yangini", "tefekkür"],
+    "format": "A",
+    "caption": "asıl olan içteki ateştir 🔥\n\n#hacibektasiveli #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "053",
+    "verse": "Edep bir tâcdır nûr-i Hudâ'dan,\ngiy ol tâcı emin ol her belâdan.",
+    "original": null,
+    "source": "Hacı Bektâş-ı Velî",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "edebin tâcı her kalkandan üstün 🕊️\n\n#hacibektasiveli #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "054",
+    "verse": "Aramızda yetmiş iki millet farkı yoktur,\nhepsinin başı insandır.",
+    "original": null,
+    "source": "Hacı Bektâş-ı Velî",
+    "moods": ["ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "ayrım yok, gönül var 🌿\n\n#hacibektasiveli #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "055",
+    "verse": "Bilimden gidilmeyen yolun\nsonu karanlıktır.",
+    "original": null,
+    "source": "Hacı Bektâş-ı Velî",
+    "moods": ["tefekkür", "gece"],
+    "format": "A",
+    "caption": "ilim aşkın yoldaşıdır 🌙\n\n#hacibektasiveli #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "056",
+    "verse": "Düşünce karanlığına ışık tutanlara\nne mutlu.",
+    "original": null,
+    "source": "Hacı Bektâş-ı Velî",
+    "moods": ["gece", "tefekkür"],
+    "format": "A",
+    "caption": "kandil olmak — yola düşmek 🕊️\n\n#hacibektasiveli #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "057",
+    "verse": "Cânımın cânânı sensin,\ngerçi cânımdan azîz.",
+    "original": null,
+    "source": "Niyazî-i Mısrî",
+    "moods": ["ask-yangini", "ic-dunya"],
+    "format": "A",
+    "caption": "vuslat sensin 🌙\n\n#niyazimisri #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "058",
+    "verse": "Kandedir Yâr, kandedir?\nGel, ko bu sevdâyı.",
+    "original": null,
+    "source": "Niyazî-i Mısrî",
+    "moods": ["seyran", "ask-yangini", "halvet"],
+    "format": "A",
+    "caption": "Yâr nerede, ben nerede 🌿\n\n#niyazimisri #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "059",
+    "verse": "Mâl ü mülkün gitti deyu,\nsen niye ağlarsın?",
+    "original": null,
+    "source": "Niyazî-i Mısrî",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "fenâ olanın gam'ı bâkîye sığmaz 🕊️\n\n#niyazimisri #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "060",
+    "verse": "Bu fenâ mülküne ben\nazm ile zindânım.",
+    "original": null,
+    "source": "Niyazî-i Mısrî",
+    "moods": ["yalnizlik", "ic-dunya", "halvet"],
+    "format": "A",
+    "caption": "yolun ortasında bir bekleyiş 🌙\n\n#niyazimisri #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "061",
+    "verse": "Aşk olmasa,\nvarlık var olmazdı.",
+    "original": null,
+    "source": "Mevlânâ — Mesnevî",
+    "moods": ["ask-yangini", "ic-dunya"],
+    "format": "A",
+    "caption": "âlemin sırrı muhabbettir 🔥\n\n#mevlana #mesnevi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "062",
+    "verse": "Ene'l-Hak.",
+    "original": null,
+    "source": "Hallâc-ı Mansûr",
+    "moods": ["ask-yangini", "halvet", "ic-dunya"],
+    "format": "A",
+    "caption": "fenâfillah'ın iki kelimelik ifâdesi 🔥\n\n#hallacımansur #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "063",
+    "verse": "Ben Hakk'ım.",
+    "original": "\"Ene'l-Hak\"",
+    "source": "Hallâc-ı Mansûr",
+    "moods": ["ask-yangini", "halvet", "ic-dunya"],
+    "format": "C",
+    "caption": "ölüme götüren söz, hakîkatin kapısı 🕊️\n\n#hallacımansur #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "064",
+    "verse": "Allah'ım, sana cehennem korkusundan ibâdet ediyorsam beni cehenneme at;\ncennet ümidiyle ediyorsam beni cennetinden mahrum bırak.",
+    "original": null,
+    "source": "Râbiatü'l-Adeviyye",
+    "moods": ["ask-yangini", "ic-dunya", "halvet"],
+    "format": "A",
+    "caption": "saf aşk — başka hiçbir şey için değil 🌙\n\n#rabia #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "065",
+    "verse": "Sevgilinin yüzünü görmek için,\ndünyayı terk ettim.",
+    "original": null,
+    "source": "Râbiatü'l-Adeviyye",
+    "moods": ["seyran", "ask-yangini", "halvet"],
+    "format": "A",
+    "caption": "tek niyet, tek yön 🕊️\n\n#rabia #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "066",
+    "verse": "Subhânî mâ a'zame şânî!",
+    "original": null,
+    "source": "Bâyezîd-i Bistâmî",
+    "moods": ["ask-yangini", "halvet", "ic-dunya"],
+    "format": "A",
+    "caption": "şânımı tesbîh ederim — şathın özü 🔥\n\n#bayezidbistami #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "067",
+    "verse": "Ben dervişlik elbisesini\notuz yıl giydim.",
+    "original": null,
+    "source": "Bâyezîd-i Bistâmî",
+    "moods": ["seyran", "tefekkür", "yalnizlik"],
+    "format": "A",
+    "caption": "yolun uzunluğu sabırla bilinir 🌿\n\n#bayezidbistami #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "068",
+    "verse": "Tasavvuf, kalpten her ne varsa\nGayri'yi çıkarmaktır.",
+    "original": null,
+    "source": "Cüneyd-i Bağdâdî",
+    "moods": ["halvet", "ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "kalpte yalnız O olsun 🕊️\n\n#cüneydibağdadi #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "069",
+    "verse": "Tasavvuf vakti tutmaktır.",
+    "original": null,
+    "source": "Cüneyd-i Bağdâdî",
+    "moods": ["tefekkür", "halvet"],
+    "format": "A",
+    "caption": "ânı kaçırmadan, ânda kalmak 🌿\n\n#cüneydibağdadi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "070",
+    "verse": "Yola çıkanlar değil,\nyolda kalanlar varır.",
+    "original": null,
+    "source": "Cüneyd-i Bağdâdî",
+    "moods": ["seyran", "tefekkür"],
+    "format": "A",
+    "caption": "sebât kavuşturur 🌙\n\n#cüneydibağdadi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "071",
+    "verse": "Ben bilmem yolun nereye varacağını,\nyalnız yürürüm.",
+    "original": null,
+    "source": "Abdülkâdir Geylânî",
+    "moods": ["seyran", "yalnizlik"],
+    "format": "A",
+    "caption": "yola çıkan rehberi de bulur 🕊️\n\n#abdülkadirgeylani #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "072",
+    "verse": "Kanaat tükenmez bir hazinedir.",
+    "original": null,
+    "source": "Abdülkâdir Geylânî",
+    "moods": ["ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "elinde olana razı olmak — gönlün servetidir 🌿\n\n#abdülkadirgeylani #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "073",
+    "verse": "Kalbinden geçen her şeyi söyleme,\nkalbine her duyduğunu sokma.",
+    "original": null,
+    "source": "Abdülkâdir Geylânî",
+    "moods": ["halvet", "tefekkür"],
+    "format": "A",
+    "caption": "kapı önünde de bir bekçi gerek 🌙\n\n#abdülkadirgeylani #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "074",
+    "verse": "Hakk'ı arayan,\nkendinde bulur.",
+    "original": null,
+    "source": "İbn Arabî",
+    "moods": ["halvet", "ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "vahdetü'l-vücûd — bir bütünün parçaları 🕊️\n\n#ibnarabi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "075",
+    "verse": "Aşk dînim, aşk îmânım;\nkâlbim her sûrete açıktır.",
+    "original": null,
+    "source": "İbn Arabî",
+    "moods": ["ask-yangini", "ic-dunya"],
+    "format": "A",
+    "caption": "Tercümânü'l-Eşvâk'tan — aşkın evrenselliği 🔥\n\n#ibnarabi #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "076",
+    "verse": "Kalbim her sûreti kabul edebilir hâle geldi:\nceylânlara mer'a, rahiplere manastır olur.",
+    "original": null,
+    "source": "İbn Arabî",
+    "moods": ["ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "Tercümânü'l-Eşvâk — kalp her sûrete açık 🌿\n\n#ibnarabi #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "077",
+    "verse": "Şu görünen âlem,\nbir hayalden ibârettir.",
+    "original": null,
+    "source": "İbn Arabî",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "fenâ — gerçek olanı görmek 🌙\n\n#ibnarabi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "078",
+    "verse": "Aşk öyle bir kavuşmadır ki,\nikiliği kaldırır.",
+    "original": null,
+    "source": "Şems-i Tebrîzî",
+    "moods": ["ask-yangini", "halvet"],
+    "format": "A",
+    "caption": "vahdet — Yâr ile bir oluş 🔥\n\n#şemstebrizi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "079",
+    "verse": "Kalabalıkta yalnız,\nyalnızken kalabalık ol.",
+    "original": null,
+    "source": "Şems-i Tebrîzî",
+    "moods": ["halvet", "ic-dunya"],
+    "format": "A",
+    "caption": "halvet der encümen'in başka bir sesi 🌿\n\n#şemstebrizi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "080",
+    "verse": "Yarın bizim olmayan bir gündür.",
+    "original": null,
+    "source": "Şems-i Tebrîzî",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "anı yaşa, ânı bil 🌙\n\n#şemstebrizi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "081",
+    "verse": "Ne zaman güleceğini bilen,\nne zaman ağlayacağını da bilir.",
+    "original": null,
+    "source": "Şems-i Tebrîzî",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "hâl bilmek — irfânın işâreti 🕊️\n\n#şemstebrizi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "082",
+    "verse": "Akıllı isen Hakk'ı bil,\ngönül kâbesidir bil.",
+    "original": null,
+    "source": "Ahmed Yesevî",
+    "moods": ["ic-dunya", "tefekkür", "halvet"],
+    "format": "A",
+    "caption": "Dîvân-ı Hikmet'ten — gönül kâbesi 🌿\n\n#ahmedyesevi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "083",
+    "verse": "Sünnet imiş kâfir bile olsa,\nincitme!",
+    "original": null,
+    "source": "Ahmed Yesevî",
+    "moods": ["ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "Dîvân-ı Hikmet'ten — merhamet kapısı 🕊️\n\n#ahmedyesevi #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "084",
+    "verse": "Allah'ı sevenler,\nâlemden sevdâlandılar.",
+    "original": null,
+    "source": "Ahmed Yesevî",
+    "moods": ["ask-yangini", "ic-dunya"],
+    "format": "A",
+    "caption": "Dîvân-ı Hikmet'ten 🔥\n\n#ahmedyesevi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "085",
+    "verse": "Yetmiş iki dilden bilirim,\nâşıkın dilini.",
+    "original": null,
+    "source": "Ahmed Yesevî",
+    "moods": ["ask-yangini", "ic-dunya"],
+    "format": "A",
+    "caption": "âşığa bütün diller bir 🌙\n\n#ahmedyesevi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "086",
+    "verse": "Ölmeden önce ölünüz.",
+    "original": null,
+    "source": "Hadis-i Şerif",
+    "moods": ["ic-dunya", "tefekkür", "halvet"],
+    "format": "A",
+    "caption": "fenâfillah'ın özü — sufî yolun ana ilkesi 🌿\n\n#hadis #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "087",
+    "verse": "Yer ve gök beni almadı,\nyalnız mü'min kulumun kalbine sığdım.",
+    "original": null,
+    "source": "Hadîs-i Kudsî",
+    "moods": ["mihrap", "ic-dunya", "tefekkür", "halvet"],
+    "format": "A",
+    "caption": "kalp — Allah'ın aynası 🕊️\n\n#hadiskudsi #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "088",
+    "verse": "Ben gizli bir hazine idim,\nbilinmeyi sevdim, mahlûkatı yarattım.",
+    "original": null,
+    "source": "Hadîs-i Kudsî",
+    "moods": ["ic-dunya", "tefekkür", "ask-yangini"],
+    "format": "A",
+    "caption": "Künt-ü kenz — yaradılışın sırrı 🌙\n\n#hadiskudsi #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "089",
+    "verse": "Buyurun, kelâm-ı Hakk'ı dinleyin.",
+    "original": null,
+    "source": "Aziz Mahmud Hüdâyî",
+    "moods": ["ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "Celvetiyye yolundan — gönül kulağı 🌿\n\n#azizmahmudhüdayi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "090",
+    "verse": "Yâ Rab, gönlüm dağdağasını dindir;\nbu fâni gam yolundan kurtar beni.",
+    "original": null,
+    "source": "Aziz Mahmud Hüdâyî",
+    "moods": ["yalnizlik", "ic-dunya", "halvet"],
+    "format": "A",
+    "caption": "münâcât — kalbin Hakk'a niyâzı 🕊️\n\n#azizmahmudhüdayi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "091",
+    "verse": "Edep yâ Hû.",
+    "original": null,
+    "source": "Tarîkat Edebi",
+    "moods": ["halvet", "ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "her dergâhın eşiğinde duran iki kelime 🌿\n\n#tasavvuf #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "092",
+    "verse": "Allah bes, bâki heves.",
+    "original": null,
+    "source": "Sufî Sözü",
+    "moods": ["halvet", "ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "Allah yeter, gerisi heves 🌙\n\n#tasavvuf #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "093",
+    "verse": "Hû demek,\nO'ndan başkasını unutmaktır.",
+    "original": null,
+    "source": "Tarîkat Edebi",
+    "moods": ["halvet", "ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "Hû — bütün ismlerin bittiği yer 🕊️\n\n#tasavvuf #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "094",
+    "verse": "Yolu uzun olan,\nazığı çok hazırlasın.",
+    "original": null,
+    "source": "Mevlânâ Hâlid-i Bağdâdî",
+    "moods": ["seyran", "tefekkür"],
+    "format": "A",
+    "caption": "Halidiyye yolundan — yolun azığı niyettir 🌿\n\n#mevlanahalid #nakşbend #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "095",
+    "verse": "Cânına bir ölçü koy,\ngönlüne bir göz koy.",
+    "original": null,
+    "source": "Mevlânâ Hâlid-i Bağdâdî",
+    "moods": ["halvet", "tefekkür"],
+    "format": "A",
+    "caption": "muhâsebe — kendine bakma 🌙\n\n#mevlanahalid #nakşbend #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "096",
+    "verse": "Mektûbât",
+    "original": null,
+    "source": "İmâm Rabbânî",
+    "moods": ["divan", "tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "yol kâğıt üzerinde de yürür — Mektûbât 🌿\n\n#imamrabbani #nakşbend #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "097",
+    "verse": "Maksat Hak'tır,\ngeri kalan vesîle.",
+    "original": null,
+    "source": "İmâm Rabbânî",
+    "moods": ["halvet", "ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "araçtan amaca bakmak 🕊️\n\n#imamrabbani #nakşbend #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "098",
+    "verse": "Aşk, gönlü çiçek bahçesi,\nâkıl onun bahçıvanıdır.",
+    "original": null,
+    "source": "Sultan Veled",
+    "moods": ["ask-yangini", "ic-dunya"],
+    "format": "A",
+    "caption": "Mevlânâ'nın oğlundan 🌿\n\n#sultanveled #mevlevi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "099",
+    "verse": "Sevgilim, gel artık susayım;\ndilim seni anlatmaya yetmez.",
+    "original": null,
+    "source": "Sultan Veled",
+    "moods": ["ask-yangini", "halvet"],
+    "format": "A",
+    "caption": "söz söze sığmaz oldu 🔥\n\n#sultanveled #mevlevi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "100",
+    "verse": "Allâhümme salli alâ Muhammed.",
+    "original": null,
+    "source": "Süleyman Çelebi — Mevlid-i Şerîf",
+    "moods": ["mihrap", "ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "Mevlid'in gönüldeki ezgisi 🕊️\n\n#süleymançelebi #mevlid #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "101",
+    "verse": "Ger dilersin bulasın oddan necât,\naşk ile dervîş olup\nbul Mustafa'ya salavât.",
+    "original": null,
+    "source": "Süleyman Çelebi — Mevlid-i Şerîf",
+    "moods": ["ask-yangini", "ic-dunya", "tefekkür"],
+    "format": "A",
+    "caption": "salavâtın aşk üzerine kurulu 🌙\n\n#süleymançelebi #mevlid #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "102",
+    "verse": "Kıl benim için,\nbenim için kıl.",
+    "original": null,
+    "source": "Eşrefoğlu Rûmî",
+    "moods": ["halvet", "ic-dunya"],
+    "format": "A",
+    "caption": "kalpten yapılan amel — Hakk'ın kabûlü 🌿\n\n#eşrefoğlurumi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "103",
+    "verse": "Cihânda âşık-ı sâdık,\nyolundan dönmez.",
+    "original": null,
+    "source": "Eşrefoğlu Rûmî",
+    "moods": ["seyran", "ask-yangini", "ic-dunya"],
+    "format": "A",
+    "caption": "sebât — sadâkatin nişânı 🔥\n\n#eşrefoğlurumi #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "104",
+    "verse": "Bu yol uzaktır,\nmenzili çoktur.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["seyran", "yalnizlik", "ic-dunya"],
+    "format": "A",
+    "caption": "yola çıkan, sefer azığını niyetinden alır 🌙\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "105",
+    "verse": "Kişi bilmez kendözünü,\nn'ola bile yarın günü.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "kendini bilmenin önceliği 🌿\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "106",
+    "verse": "Tatlı sözle yılan inden çıkar,\nkatı sözle Müslüman dinden.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "söz mücevherdir 🕊️\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "107",
+    "verse": "Bir hoş sadâ imiş.",
+    "original": "\"Bâkî kalan bu kubbede bir hoş sadâ imiş\"",
+    "source": "Bâkî",
+    "moods": ["tefekkür", "ic-dunya", "halvet"],
+    "format": "C",
+    "caption": "geriye bir ses kalıyor 🌙\n\n#baki #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "108",
+    "verse": "Sevdiğini söylemek değil,\nsevdiğin gibi olmak.",
+    "original": null,
+    "source": "Sufî Sözü",
+    "moods": ["ic-dunya", "tefekkür", "ask-yangini"],
+    "format": "A",
+    "caption": "söz değil, hâl 🌿\n\n#tasavvuf #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "109",
+    "verse": "Ne kadar bilirsen bil,\nsöylediklerin karşındakinin anladığı kadardır.",
+    "original": null,
+    "source": "Mevlânâ Celâleddîn-i Rûmî",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "kalpten kalbe yol — diline değil 🕊️\n\n#mevlana #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "110",
+    "verse": "Ezelden aşka düştüm,\nezeli bir derd ile.",
+    "original": null,
+    "source": "Salih Baba Dîvânı",
+    "moods": ["ask-yangini", "yalnizlik", "ic-dunya"],
+    "format": "A",
+    "caption": "Tâcü'l-Ârifîn'den 🔥\n\n#salihbaba #nakşbend #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "111",
+    "verse": "Çıktım erik dalına,\nanda yedim üzümü.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "şathiyye — sözün ardındaki mânâ 🍇\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "112",
+    "verse": "İlim bir kīl ü kāldir,\nilim sahibinde noksan eylemez.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["tefekkür", "ic-dunya"],
+    "format": "A",
+    "caption": "ilmin değeri amelinde 🌿\n\n#yunusemre #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "113",
+    "verse": "Bu dünyâdan gider olduk,\nkalanlara selâm olsun.",
+    "original": null,
+    "source": "Yûnus Emre",
+    "moods": ["yalnizlik", "tefekkür", "seyran"],
+    "format": "A",
+    "caption": "yolcu olduğumuzu hatırlatır 🌙\n\n#yunusemre #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "114",
+    "verse": "Cân vermeden cânânı bulamazsın.",
+    "original": null,
+    "source": "Sufî Sözü",
+    "moods": ["ask-yangini", "ic-dunya"],
+    "format": "A",
+    "caption": "fenâ — varlıktan vazgeçmeden vuslat olmaz 🔥\n\n#tasavvuf #askyolculugu",
+    "verified": true
+  },
+  {
+    "id": "115",
+    "verse": "Aşk, sabırla yoğrulmuş bir hamur gibidir;\nyandıkça olgunlaşır.",
+    "original": null,
+    "source": "Sufî Sözü",
+    "moods": ["ask-yangini", "tefekkür"],
+    "format": "A",
+    "caption": "olgunluk — ateşten geçerek gelir 🌙\n\n#tasavvuf #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "116",
+    "verse": "Gönülde kibrin yeri yok,\ntevâzu hânesi geniştir.",
+    "original": null,
+    "source": "Sufî Sözü",
+    "moods": ["ic-dunya", "tefekkür", "halvet"],
+    "format": "A",
+    "caption": "alçakgönüllülük — Hakk'ın kapısının anahtarı 🕊️\n\n#tasavvuf #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "117",
+    "verse": "Sükût, mârifetin başlangıcıdır.",
+    "original": null,
+    "source": "Sufî Sözü",
+    "moods": ["halvet", "tefekkür"],
+    "format": "A",
+    "caption": "konuşmadan önce dinle 🌿\n\n#tasavvuf #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "118",
+    "verse": "Aşk, evvelinde eziyet,\nâhirinde safâdır.",
+    "original": null,
+    "source": "Sufî Sözü",
+    "moods": ["ask-yangini", "tefekkür"],
+    "format": "A",
+    "caption": "yolun ortasında bekle, sabret 🌙\n\n#tasavvuf #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "119",
+    "verse": "Şeyh Vefâ'nın eşiğine\nyüzümü sürdüm.",
+    "original": null,
+    "source": "Şeyh Vefâ — Vefâ Sultân Türbesi'nden",
+    "moods": ["mihrap", "halvet", "ic-dunya"],
+    "format": "A",
+    "caption": "İstanbul Vefa'nın gönlü 🕊️\n\n#şeyhvefa #askyolculugu",
+    "verified": false
+  },
+  {
+    "id": "120",
+    "verse": "Bekā, fenâdan sonra gelir.",
+    "original": null,
+    "source": "Sufî Sözü",
+    "moods": ["halvet", "ic-dunya", "ask-yangini"],
+    "format": "A",
+    "caption": "ölmeden önce ölmek — ondan sonra varlık 🌙\n\n#tasavvuf #askyolculugu",
+    "verified": false
   }
 ]
