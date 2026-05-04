@@ -30,9 +30,19 @@ export function renderHtml({ verse, original, source, photoUrl }) {
     .replace('{{photoUrl}}', photoUrl);
 }
 
+function calcExplanationFontSize(explanation) {
+  const chars = explanation.length;
+  if (chars > 420) return 27;
+  if (chars > 320) return 30;
+  if (chars > 220) return 33;
+  return 36;
+}
+
 export function renderExplanationHtml({ explanation, photoUrl }) {
   const template = readFileSync(EXPLANATION_TEMPLATE_PATH, 'utf-8');
+  const fontSize = calcExplanationFontSize(explanation);
   return template
     .replace('{{explanation}}', explanation)
+    .replace('{{explanationFontSize}}', `${fontSize}px`)
     .replace('{{photoUrl}}', photoUrl);
 }
