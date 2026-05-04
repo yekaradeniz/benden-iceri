@@ -1,24 +1,36 @@
-name: Delete Both Posts (one-time)
+name: Delete All Recent Posts (one-time)
 
 on:
   workflow_dispatch:
 
 jobs:
-  delete-both:
+  delete-all:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Delete both posts and reset log
+      - name: Delete all recent Instagram posts
         env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
         run: |
           node --input-type=module << 'EOF'
+          const userId = process.env.IG_USER_ID;
           const token = process.env.IG_ACCESS_TOKEN;
           const base = 'https://graph.facebook.com/v21.0';
-          const ids = ['18019849016665117', '17886717771482686'];
-          for (const id of ids) {
-            const res = await fetch(`${base}/${id}?access_token=${token}`, { method: 'DELETE' });
-            const json = await res.json();
-            console.log(`Silindi ${id}:`, JSON.stringify(json));
+
+          const listUrl = `${base}/${userId}/media?fields=id,timestamp&limit=10&access_token=${token}`;
+          const listRes = await fetch(listUrl);
+          const list = await listRes.json();
+
+          if (!list.data || list.data.length === 0) {
+            console.log('Silinecek post yok.');
+            process.exit(0);
+          }
+
+          console.log(`${list.data.length} post bulundu, siliniyor...`);
+          for (const item of list.data) {
+            const delRes = await fetch(`${base}/${item.id}?access_token=${token}`, { method: 'DELETE' });
+            const delJson = await delRes.json();
+            console.log(`Silindi ${item.id} (${item.timestamp}):`, JSON.stringify(delJson));
           }
           EOF

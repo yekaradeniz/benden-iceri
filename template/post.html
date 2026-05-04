@@ -55,7 +55,7 @@
     color: #faf6ec;
     margin-bottom: 60px;
     letter-spacing: 0.6px;
-    white-space: pre-line;
+    white-space: pre;
   }
   .divider {
     width: 108px;
@@ -84,5 +84,16 @@
     <div class="divider"></div>
     <div class="source">{{source}}</div>
   </div>
+<script>
+  (function() {
+    const verse = document.querySelector('.verse');
+    if (!verse) return;
+    let size = parseFloat(window.getComputedStyle(verse).fontSize);
+    while (verse.scrollWidth > verse.clientWidth && size > 24) {
+      size -= 1;
+      verse.style.fontSize = size + 'px';
+    }
+  })();
+</script>
 </body>
 </html>
