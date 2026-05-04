@@ -1,4 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenAI } from '@google/genai';
 
 const SYSTEM_PROMPT = `You are a strict content moderator for @iceribenden, a Sufi/Islamic mystical poetry Instagram account that posts daily verses from Niyazî-i Mısrî, Salih Baba Dîvânı, and Naqshbandi spiritual masters.
 
@@ -33,12 +33,14 @@ When in doubt, REJECT to keep the authentic Sufi voice.
 
 Respond with EXACTLY one word: YES or NO. No explanation, no punctuation, just the word.`;
 
+const SUPPORTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
 /**
  * Validates whether an image is appropriate for the Sufi poetry account.
- * Returns true if appropriate, false otherwise.
+ * Uses Google Gemini Flash (free tier) for vision moderation.
  *
  * @param {string} imageUrl - public URL of the image to validate
- * @param {string} apiKey - Anthropic API key
+ * @param {string} apiKey - Google AI Studio API key (free)
  * @returns {Promise<{approved: boolean, reason?: string}>}
  */
 export async function isPhotoSpiritual(imageUrl, apiKey) {
@@ -46,42 +48,34 @@ export async function isPhotoSpiritual(imageUrl, apiKey) {
     return { approved: true, reason: 'no api key — moderation skipped' };
   }
 
-  const client = new Anthropic({ apiKey });
-
-  // Fetch image and convert to base64 (Claude vision needs base64 input)
+  // Fetch image to base64 (Gemini accepts inline base64 or remote URL — we use inline for reliability)
   const response = await fetch(imageUrl);
   if (!response.ok) {
     return { approved: false, reason: `image fetch failed: ${response.status}` };
   }
   const arrayBuffer = await response.arrayBuffer();
   const base64 = Buffer.from(arrayBuffer).toString('base64');
-  const contentType = response.headers.get('content-type') || 'image/jpeg';
-  // Normalize content type to one of Claude-supported types
-  const mediaType = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
-    .includes(contentType.split(';')[0].trim())
-    ? contentType.split(';')[0].trim()
-    : 'image/jpeg';
+  const rawType = (response.headers.get('content-type') || 'image/jpeg').split(';')[0].trim();
+  const mimeType = SUPPORTED_IMAGE_TYPES.includes(rawType) ? rawType : 'image/jpeg';
 
-  const result = await client.messages.create({
-    model: 'claude-haiku-4-5',
-    max_tokens: 10,
-    system: SYSTEM_PROMPT,
-    messages: [{
+  const ai = new GoogleGenAI({ apiKey });
+  const result = await ai.models.generateContent({
+    model: 'gemini-2.0-flash',
+    contents: [{
       role: 'user',
-      content: [
-        {
-          type: 'image',
-          source: { type: 'base64', media_type: mediaType, data: base64 }
-        },
-        {
-          type: 'text',
-          text: 'Is this image appropriate as the background for a Sufi poetry post?'
-        }
+      parts: [
+        { inlineData: { mimeType, data: base64 } },
+        { text: 'Is this image appropriate as the background for a Sufi poetry post?' }
       ]
-    }]
+    }],
+    config: {
+      systemInstruction: SYSTEM_PROMPT,
+      maxOutputTokens: 10,
+      temperature: 0
+    }
   });
 
-  const answer = (result.content[0]?.text || '').trim().toUpperCase();
+  const answer = (result.text || '').trim().toUpperCase();
   const approved = answer.startsWith('YES');
   return { approved, reason: answer };
 }

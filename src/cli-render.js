@@ -20,8 +20,8 @@ const dayIndex = daysSinceLaunch(launchDate, today);
 
 const verse = pickContent(verses, dayIndex);
 
-// Photo selection: AI moderation if ANTHROPIC_API_KEY is set, else fallback to pure pickPhoto.
-const apiKey = process.env.ANTHROPIC_API_KEY;
+// Photo selection: AI moderation if GEMINI_API_KEY is set, else fallback to pure pickPhoto.
+const apiKey = process.env.GEMINI_API_KEY;
 const photo = apiKey
   ? await pickValidatedPhoto({
       photos,
