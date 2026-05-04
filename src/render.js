@@ -31,6 +31,6 @@ export async function renderToPng(data, outputPath) {
   await renderHtmlToPng(renderHtml(data), outputPath);
 }
 
-export async function renderExplanationToPng({ explanation }, outputPath) {
-  await renderHtmlToPng(renderExplanationHtml({ explanation }), outputPath);
+export async function renderExplanationToPng({ explanation, photoUrl }, outputPath) {
+  await renderHtmlToPng(renderExplanationHtml({ explanation, photoUrl }), outputPath);
 }
