@@ -1,7 +1,7 @@
 [
   {
     "id": "001",
-    "verse": "Bir ben vardır bende\nbenden içeri.",
+    "verse": "Beni bende demen, bende değilim;\nbir ben vardır bende, benden içeri.",
     "original": null,
     "source": "Yûnus Emre",
     "moods": [
@@ -10,7 +10,7 @@
       "tefekkür"
     ],
     "format": "A",
-    "caption": "bir mısra, bir kapı 🌙\n\n#yunusemre #askyolculugu",
+    "caption": "manifesto — bir mısra, bir kapı 🌙\n\n#yunusemre #askyolculugu",
     "verified": true
   },
   {
@@ -363,20 +363,6 @@
     ],
     "format": "A",
     "caption": "fenâ — varlıktan vazgeçmeden vuslat olmaz 🔥\n\n#tasavvuf #askyolculugu",
-    "verified": true
-  },
-  {
-    "id": "031",
-    "verse": "Beni bende demen,\nbende değilim.",
-    "original": null,
-    "source": "Yûnus Emre",
-    "moods": [
-      "halvet",
-      "ic-dunya",
-      "tefekkür"
-    ],
-    "format": "A",
-    "caption": "bir ben vardır bende benden içeri 🌙\n\n#yunusemre #askyolculugu",
     "verified": true
   },
   {
