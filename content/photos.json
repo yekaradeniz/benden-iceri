@@ -22,5 +22,89 @@
     "url": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&q=85",
     "moods": ["yalnizlik", "seyran", "tefekkür", "gece"],
     "credit": "Unsplash"
+  },
+  {
+    "id": "mosque-interior-light-01",
+    "url": "https://images.unsplash.com/photo-1578321271570-7ffef488946d?w=1200&q=85",
+    "moods": ["mihrap", "tefekkür", "halvet"],
+    "credit": "Unsplash"
+  },
+  {
+    "id": "mihrab-mosque-01",
+    "url": "https://images.unsplash.com/photo-1600814832809-579119f47045?w=1200&q=85",
+    "moods": ["mihrap", "tefekkür", "ic-dunya"],
+    "credit": "Unsplash"
+  },
+  {
+    "id": "mosque-dome-interior-01",
+    "url": "https://images.unsplash.com/photo-1521499767779-fbb1e36c7578?w=1200&q=85",
+    "moods": ["mihrap", "seyran", "tefekkür"],
+    "credit": "Unsplash"
+  },
+  {
+    "id": "sheikh-zayed-dome-01",
+    "url": "https://images.unsplash.com/photo-1667803622947-256fa468ae64?w=1200&q=85",
+    "moods": ["mihrap", "seyran", "tefekkür"],
+    "credit": "Unsplash"
+  },
+  {
+    "id": "blue-mosque-stained-glass-01",
+    "url": "https://images.unsplash.com/photo-1729875065673-b46d4eb8d5ae?w=1200&q=85",
+    "moods": ["mihrap", "ic-dunya", "ask-yangini"],
+    "credit": "Unsplash"
+  },
+  {
+    "id": "blue-mosque-interior-02",
+    "url": "https://images.unsplash.com/photo-1729875947764-e53a12354ea1?w=1200&q=85",
+    "moods": ["mihrap", "seyran", "tefekkür"],
+    "credit": "Unsplash"
+  },
+  {
+    "id": "mosque-dome-istanbul-01",
+    "url": "https://images.unsplash.com/photo-1729875065774-11f97380471e?w=1200&q=85",
+    "moods": ["mihrap", "seyran", "ic-dunya"],
+    "credit": "Unsplash"
+  },
+  {
+    "id": "mecca-kaaba-01",
+    "url": "https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?w=1200&q=85",
+    "moods": ["tefekkür", "seyran", "halvet"],
+    "credit": "Unsplash"
+  },
+  {
+    "id": "kaaba-view-01",
+    "url": "https://images.unsplash.com/photo-1627728734379-a5f8c099763e?w=1200&q=85",
+    "moods": ["tefekkür", "ic-dunya", "halvet"],
+    "credit": "Unsplash"
+  },
+  {
+    "id": "sufi-dance-white-01",
+    "url": "https://images.unsplash.com/photo-1611969144282-ae7e281a9ed1?w=1200&q=85",
+    "moods": ["ask-yangini", "seyran", "halvet"],
+    "credit": "Unsplash"
+  },
+  {
+    "id": "whirling-dervish-01",
+    "url": "https://images.unsplash.com/photo-1763044939313-0cb814a4e69e?w=1200&q=85",
+    "moods": ["ask-yangini", "seyran", "tefekkür"],
+    "credit": "Unsplash"
+  },
+  {
+    "id": "islamic-calligraphy-wall-01",
+    "url": "https://images.unsplash.com/photo-1777681911202-4a7f76943d0d?w=1200&q=85",
+    "moods": ["divan", "tefekkür", "ic-dunya"],
+    "credit": "Unsplash"
+  },
+  {
+    "id": "prayer-beads-hands-01",
+    "url": "https://images.unsplash.com/photo-1615397587950-3cbb55f95b77?w=1200&q=85",
+    "moods": ["tefekkür", "halvet", "ic-dunya"],
+    "credit": "Unsplash"
+  },
+  {
+    "id": "desert-fog-dunes-01",
+    "url": "https://images.unsplash.com/photo-1762883074253-4136c99826a5?w=1200&q=85",
+    "moods": ["yalnizlik", "halvet", "seyran"],
+    "credit": "Unsplash"
   }
 ]
