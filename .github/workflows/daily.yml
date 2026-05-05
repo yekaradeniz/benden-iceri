@@ -2,6 +2,7 @@ name: Daily Post
 
 on:
   schedule:
+    - cron: '0 9 * * *'   # 09:00 UTC = 12:00 GMT+3
     - cron: '0 16 * * *'  # 16:00 UTC = 19:00 GMT+3
   workflow_dispatch:      # manual trigger button
 
