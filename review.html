@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>benden içeri — İçerik Planı</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: #f4f1eb; color: #1a1a1a; padding: 48px 40px; }
+h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 500; margin-bottom: 6px; }
+.sub { color: #888; font-size: 14px; margin-bottom: 56px; }
+h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; margin: 56px 0 24px; border-bottom: 1px solid #e0d9ce; padding-bottom: 10px; }
+
+/* Preview */
+.previews { display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start; }
+.preview-wrap { display: flex; flex-direction: column; gap: 8px; }
+.preview-label { font-size: 12px; color: #888; min-height: 18px; }
+.preview-meta { font-size: 12px; color: #aaa; text-align: center; }
+.badge { background: #c47c2b; color: white; padding: 1px 7px; border-radius: 3px; font-size: 11px; font-weight: 500; }
+.preview-outer { overflow: hidden; border-radius: 6px; box-shadow: 0 4px 20px rgba(0,0,0,0.18); flex-shrink: 0; }
+.preview-inner { width: 1080px; height: 1350px; position: relative; font-family: 'Cormorant Garamond', serif; background: #1a1a1a; }
+.post-bg { position: absolute; inset: 0; background-image: url(''); background-size: cover; background-position: center; }
+.post-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.42) 45%, rgba(0,0,0,0.88) 100%); }
+.post-content { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 110px 145px; text-align: center; color: #f5efe1; z-index: 2; }
+.verse { font-style: italic; font-weight: 500; line-height: 1.32; color: #faf6ec; margin-bottom: 60px; letter-spacing: 0.6px; white-space: pre-line; }
+.divider { width: 108px; height: 3px; background: rgba(217,199,154,0.6); margin: 0 auto 30px; }
+.source { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 31px; letter-spacing: 13.5px; text-transform: uppercase; color: #d9c79a; }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+th { background: #1a1a1a; color: #d9c79a; text-align: left; padding: 13px 18px; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500; }
+td { padding: 11px 18px; font-size: 14px; border-bottom: 1px solid #f0ece4; vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+td:first-child { width: 44px; color: #bbb; font-size: 12px; font-weight: 600; padding-top: 13px; }
+td:nth-child(2) { width: 210px; color: #666; font-size: 12px; padding-top: 13px; }
+.vc { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-style: italic; line-height: 1.55; }
+tr.changed { background: #fffbf4; }
+tr.changed td:first-child { color: #c47c2b; }
+.legend { margin-top: 10px; font-size: 12px; color: #999; }
+</style>
+</head>
+<body>
+<h1>benden içeri</h1>
+<div class="sub">123 mısra · 29 kaynak · her haftada isim başı 1 paylaşım</div>
+
+<h2>Yazı Boyutu Önizleme</h2>
+<div class="previews"><div class="preview-wrap">
+    <div class="preview-label">1 satır · 4 kr  </div>
+    <div class="preview-outer" style="width:302px;height:378px">
+      <div class="preview-inner" style="transform:scale(0.28);transform-origin:top left">
+        <div class="post-bg"></div>
+        <div class="post-overlay"></div>
+        <div class="post-content">
+          <div class="verse" style="font-size:84px">Sus.</div>
+          <div class="divider"></div>
+          <div class="source">Mevlânâ</div>
+        </div>
+      </div>
+    </div>
+    <div class="preview-meta">font: 84px</div>
+  </div><div class="preview-wrap">
+    <div class="preview-label">1 satır · 20 kr  </div>
+    <div class="preview-outer" style="width:302px;height:378px">
+      <div class="preview-inner" style="transform:scale(0.28);transform-origin:top left">
+        <div class="post-bg"></div>
+        <div class="post-overlay"></div>
+        <div class="post-content">
+          <div class="verse" style="font-size:84px">İncinsen de incitme.</div>
+          <div class="divider"></div>
+          <div class="source">Hacı Bektâş-ı Velî</div>
+        </div>
+      </div>
+    </div>
+    <div class="preview-meta">font: 84px</div>
+  </div><div class="preview-wrap">
+    <div class="preview-label">2 satır · 49 kr  </div>
+    <div class="preview-outer" style="width:302px;height:378px">
+      <div class="preview-inner" style="transform:scale(0.28);transform-origin:top left">
+        <div class="post-bg"></div>
+        <div class="post-overlay"></div>
+        <div class="post-content">
+          <div class="verse" style="font-size:84px">Derman arardım derdime,<br>derdim bana derman imiş.</div>
+          <div class="divider"></div>
+          <div class="source">Niyazî-i Mısrî</div>
+        </div>
+      </div>
+    </div>
+    <div class="preview-meta">font: 84px</div>
+  </div><div class="preview-wrap">
+    <div class="preview-label">4 satır · 90 kr  </div>
+    <div class="preview-outer" style="width:302px;height:378px">
+      <div class="preview-inner" style="transform:scale(0.28);transform-origin:top left">
+        <div class="post-bg"></div>
+        <div class="post-overlay"></div>
+        <div class="post-content">
+          <div class="verse" style="font-size:58px">Aşkın aldı benden beni,<br>bana seni gerek seni.<br>Ben yanarım dün ü gün,<br>bana seni gerek seni.</div>
+          <div class="divider"></div>
+          <div class="source">Yûnus Emre</div>
+        </div>
+      </div>
+    </div>
+    <div class="preview-meta">font: 58px</div>
+  </div><div class="preview-wrap">
+    <div class="preview-label">6 satır · 190 kr  </div>
+    <div class="preview-outer" style="width:302px;height:378px">
+      <div class="preview-inner" style="transform:scale(0.28);transform-origin:top left">
+        <div class="post-bg"></div>
+        <div class="post-overlay"></div>
+        <div class="post-content">
+          <div class="verse" style="font-size:44px">Yine gel, yine gel,<br>ne olursan ol, yine gel.<br>İster kâfir, ister mecûsi,<br>ister putperest ol, yine gel.<br>Bizim dergâhımız umutsuzluk dergâhı değildir;<br>yüz kere tövbeni bozmuş olsan da yine gel.</div>
+          <div class="divider"></div>
+          <div class="source">Mevlânâ</div>
+        </div>
+      </div>
+    </div>
+    <div class="preview-meta">font: 44px</div>
+  </div></div>
+
+<h2>Gün Gün Program</h2>
+<p class="legend">Turuncu satır numarası = düzeltilen mısralar</p>
+<br>
+<table>
+  <thead><tr><th>#</th><th>Kaynak</th><th>Post Metni</th></tr></thead>
+  <tbody><tr class="">
+    <td>1</td>
+    <td>Yûnus Emre</td>
+    <td class="vc">Beni bende demen, bende değilim;<br>bir ben vardır bende, benden içeri.</td>
+  </tr><tr class="">
+    <td>2</td>
+    <td>Bahâeddin Nakşbend</td>
+    <td class="vc">Gönül Yâr ile,<br>el iş ile olsun.</td>
+  </tr><tr class="">
+    <td>3</td>
+    <td>Mevlânâ Celâleddîn-i Rûmî</td>
+    <td class="vc">Ya olduğun gibi görün,<br>ya göründüğün gibi ol.</td>
+  </tr><tr class="">
+    <td>4</td>
+    <td>Abdülkâdir Geylânî</td>
+    <td class="vc">Ben bilmem yolun nereye varacağını,<br>yalnız yürürüm.</td>
+  </tr><tr class="">
+    <td>5</td>
+    <td>Sufî Sözü</td>
+    <td class="vc">Allah bes, bâki heves.</td>
+  </tr><tr class="">
+    <td>6</td>
+    <td>Hacı Bektâş-ı Velî</td>
+    <td class="vc">İncinsen de incitme.</td>
+  </tr><tr class="">
+    <td>7</td>
+    <td>Salih Baba Dîvânı</td>
+    <td class="vc">Aşkın elinden cânım,<br>seyrânlara düştüm.</td>
+  </tr><tr class="">
+    <td>8</td>
+    <td>Yûnus Emre</td>
+    <td class="vc">Aşkın aldı benden beni,<br>bana seni gerek seni.<br>Ben yanarım dün ü gün,<br>bana seni gerek seni.</td>
+  </tr><tr class="changed">
+    <td>9</td>
+    <td>Bahâeddin Nakşbend</td>
+    <td class="vc">Halkın içindesin;<br>gönlünde halvet kal.</td>
+  </tr><tr class="">
+    <td>10</td>
+    <td>Mevlânâ Celâleddîn-i Rûmî</td>
+    <td class="vc">Yine gel, yine gel,<br>ne olursan ol, yine gel.<br>İster kâfir, ister mecûsi,<br>ister putperest ol, yine gel.<br>Bizim dergâhımız umutsuzluk dergâhı değildir;<br>yüz kere tövbeni bozmuş olsan da yine gel.</td>
+  </tr><tr class="">
+    <td>11</td>
+    <td>Abdülkâdir Geylânî</td>
+    <td class="vc">Kanaat tükenmez bir hazinedir.</td>
+  </tr><tr class="">
+    <td>12</td>
+    <td>Sufî Sözü</td>
+    <td class="vc">Sevdiğini söylemek değil,<br>sevdiğin gibi olmak.</td>
+  </tr><tr class="">
+    <td>13</td>
+    <td>Hacı Bektâş-ı Velî</td>
+    <td class="vc">Eline, beline, diline<br>sahip ol.</td>
+  </tr><tr class="">
+    <td>14</td>
+    <td>Salih Baba Dîvânı</td>
+    <td class="vc">Ezelden aşka düştüm,<br>ezeli bir derd ile.</td>
+  </tr><tr class="">
+    <td>15</td>
+    <td>Yûnus Emre</td>
+    <td class="vc">Yaratılanı sev,<br>Yaratandan ötürü.</td>
+  </tr><tr class="">
+    <td>16</td>
+    <td>Bahâeddin Nakşbend</td>
+    <td class="vc">Her nefeste uyanık ol.</td>
+  </tr><tr class="">
+    <td>17</td>
+    <td>Mevlânâ Celâleddîn-i Rûmî</td>
+    <td class="vc">Hamdım, piştim, yandım.</td>
+  </tr><tr class="">
+    <td>18</td>
+    <td>Abdülkâdir Geylânî</td>
+    <td class="vc">Kalbinden geçen her şeyi söyleme,<br>kalbine her duyduğunu sokma.</td>
+  </tr><tr class="">
+    <td>19</td>
+    <td>Sufî Sözü</td>
+    <td class="vc">Cân vermeden cânânı bulamazsın.</td>
+  </tr><tr class="">
+    <td>20</td>
+    <td>Hacı Bektâş-ı Velî</td>
+    <td class="vc">Hararet nardadır,<br>sacda değildir.</td>
+  </tr><tr class="">
+    <td>21</td>
+    <td>Niyazî-i Mısrî</td>
+    <td class="vc">Derman arardım derdime,<br>derdim bana derman imiş.</td>
+  </tr><tr class="">
+    <td>22</td>
+    <td>Yûnus Emre</td>
+    <td class="vc">İlim ilim bilmektir,<br>ilim kendin bilmektir.<br>Sen kendini bilmezsen,<br>ya nice okumaktır?</td>
+  </tr><tr class="changed">
+    <td>23</td>
+    <td>Bahâeddin Nakşbend</td>
+    <td class="vc">Yolculuğun asıl olanı<br>içe doğrudur.</td>
+  </tr><tr class="">
+    <td>24</td>
+    <td>Mevlânâ Celâleddîn-i Rûmî</td>
+    <td class="vc">Pergel gibi bir ayağım dinde sabit,<br>diğeriyle yetmiş iki milleti dolaşırım.</td>
+  </tr><tr class="">
+    <td>25</td>
+    <td>Abdülkâdir Geylânî</td>
+    <td class="vc">Hakk'ı bul,<br>halk kendiliğinden bulunur.</td>
+  </tr><tr class="">
+    <td>26</td>
+    <td>Sufî Sözü</td>
+    <td class="vc">Aşk, sabırla yoğrulmuş bir hamur gibidir;<br>yandıkça olgunlaşır.</td>
+  </tr><tr class="">
+    <td>27</td>
+    <td>İmâm Rabbânî</td>
+    <td class="vc">Aşkın olmasa,<br>kâinat olmazdı.</td>
+  </tr><tr class="">
+    <td>28</td>
+    <td>Hallâc-ı Mansûr</td>
+    <td class="vc">Ene'l-Hak.</td>
+  </tr><tr class="">
+    <td>29</td>
+    <td>Yûnus Emre</td>
+    <td class="vc">Bir kez gönül yıktın ise,<br>bu kıldığın namaz değil.<br>Yetmiş iki millet dahi,<br>elin yüzün yumaz değil.</td>
+  </tr><tr class="changed">
+    <td>30</td>
+    <td>Bahâeddin Nakşbend</td>
+    <td class="vc">Yolcunun gözü<br>ayaklarının önündedir.</td>
+  </tr><tr class="">
+    <td>31</td>
+    <td>Mevlânâ Celâleddîn-i Rûmî</td>
+    <td class="vc">Sus.</td>
+  </tr><tr class="changed">
+    <td>32</td>
+    <td>Bâyezîd-i Bistâmî</td>
+    <td class="vc">Şânımı tesbîh ederim;<br>ne yücedir benim şânım!</td>
+  </tr><tr class="">
+    <td>33</td>
+    <td>Aziz Mahmud Hüdâyî</td>
+    <td class="vc">Buyurun, kelâm-ı Hakk'ı dinleyin.</td>
+  </tr><tr class="">
+    <td>34</td>
+    <td>Abdülkâdir Geylânî</td>
+    <td class="vc">İlim ve amel,<br>kuşun iki kanadıdır.</td>
+  </tr><tr class="">
+    <td>35</td>
+    <td>Sufî Sözü</td>
+    <td class="vc">Gönülde kibrin yeri yok,<br>tevâzu hânesi geniştir.</td>
+  </tr><tr class="">
+    <td>36</td>
+    <td>Yûnus Emre</td>
+    <td class="vc">Gelin tanış olalım,<br>işi kolay kılalım.<br>Sevelim, sevilelim,<br>dünya kimseye kalmaz.</td>
+  </tr><tr class="">
+    <td>37</td>
+    <td>Bahâeddin Nakşbend</td>
+    <td class="vc">Daima zikret.</td>
+  </tr><tr class="">
+    <td>38</td>
+    <td>Mevlânâ Celâleddîn-i Rûmî</td>
+    <td class="vc">Şefkat ve merhamette<br>güneş gibi ol.</td>
+  </tr><tr class="">
+    <td>39</td>
+    <td>Hacı Bektâş-ı Velî</td>
+    <td class="vc">Edep bir tâcdır nûr-i Hudâ'dan,<br>giy ol tâcı emin ol her belâdan.</td>
+  </tr><tr class="">
+    <td>40</td>
+    <td>Salih Baba Dîvânı</td>
+    <td class="vc">Aşk derdiyle yandı bu ten,<br>Yâr'in elinden cânımı aldı ben.</td>
+  </tr><tr class="">
+    <td>41</td>
+    <td>Niyazî-i Mısrî</td>
+    <td class="vc">Cânımın cânânı sensin,<br>gerçi cânımdan azîz.</td>
+  </tr><tr class="">
+    <td>42</td>
+    <td>İmâm Rabbânî</td>
+    <td class="vc">Tarîk-i Nakşbendiyye,<br>miftâh-ı kenz-i ihfâdır.</td>
+  </tr><tr class="">
+    <td>43</td>
+    <td>Yûnus Emre</td>
+    <td class="vc">Söyleyene değil,<br>söyletene bak.<br>Süsleyene değil,<br>süsletene bak.</td>
+  </tr><tr class="">
+    <td>44</td>
+    <td>Bahâeddin Nakşbend</td>
+    <td class="vc">Her hâlde Hakk'a dön.</td>
+  </tr><tr class="">
+    <td>45</td>
+    <td>Hallâc-ı Mansûr</td>
+    <td class="vc">Ben Hakk'ım.</td>
+  </tr><tr class="">
+    <td>46</td>
+    <td>Bâyezîd-i Bistâmî</td>
+    <td class="vc">Ben dervişlik elbisesini<br>otuz yıl giydim.</td>
+  </tr><tr class="">
+    <td>47</td>
+    <td>Aziz Mahmud Hüdâyî</td>
+    <td class="vc">Yâ Rab, gönlüm dağdağasını dindir;<br>bu fâni gam yolundan kurtar beni.</td>
+  </tr><tr class="">
+    <td>48</td>
+    <td>İbn Arabî</td>
+    <td class="vc">Hakk'ı arayan,<br>kendinde bulur.</td>
+  </tr><tr class="">
+    <td>49</td>
+    <td>Şems-i Tebrîzî</td>
+    <td class="vc">Aşk öyle bir kavuşmadır ki,<br>ikiliği kaldırır.</td>
+  </tr><tr class="">
+    <td>50</td>
+    <td>Yûnus Emre</td>
+    <td class="vc">Cennet cennet dedikleri<br>birkaç köşkle birkaç hûri.<br>İsteyene ver sen anı,<br>bana seni gerek seni.</td>
+  </tr><tr class="">
+    <td>51</td>
+    <td>Ahmed Yesevî</td>
+    <td class="vc">Akıllı isen Hakk'ı bil,<br>gönül kâbesidir bil.</td>
+  </tr><tr class="">
+    <td>52</td>
+    <td>Bahâeddin Nakşbend</td>
+    <td class="vc">Gönlünü gözet.</td>
+  </tr><tr class="">
+    <td>53</td>
+    <td>Mevlânâ Celâleddîn-i Rûmî</td>
+    <td class="vc">Tevâzu ve alçakgönüllülükte<br>toprak gibi ol.</td>
+  </tr><tr class="">
+    <td>54</td>
+    <td>Abdülkâdir Geylânî</td>
+    <td class="vc">Sabır, sırra giden yoldur.</td>
+  </tr><tr class="">
+    <td>55</td>
+    <td>Sufî Sözü</td>
+    <td class="vc">Sükût, mârifetin başlangıcıdır.</td>
+  </tr><tr class="">
+    <td>56</td>
+    <td>Hacı Bektâş-ı Velî</td>
+    <td class="vc">Aramızda yetmiş iki millet farkı yoktur,<br>hepsinin başı insandır.</td>
+  </tr><tr class="">
+    <td>57</td>
+    <td>Yûnus Emre</td>
+    <td class="vc">Söz ola kese savaşı,<br>söz ola kestire başı.<br>Söz ola ağulu aşı,<br>bal ile yağ ede bir söz.</td>
+  </tr><tr class="">
+    <td>58</td>
+    <td>Salih Baba Dîvânı</td>
+    <td class="vc">Bir bakışı bin can değer,<br>kim bilir kıymetini.</td>
+  </tr><tr class="">
+    <td>59</td>
+    <td>Niyazî-i Mısrî</td>
+    <td class="vc">Kandedir Yâr, kandedir?<br>Gel, ko bu sevdâyı.</td>
+  </tr><tr class="">
+    <td>60</td>
+    <td>İmâm Rabbânî</td>
+    <td class="vc">Sohbet, suhbettir;<br>bal arısının çiçekten beslenmesi gibi.</td>
+  </tr><tr class="">
+    <td>61</td>
+    <td>Hallâc-ı Mansûr</td>
+    <td class="vc">Beni öldürün ki,<br>Allah'ın gerçekten yaşadığını göresiniz.</td>
+  </tr><tr class="">
+    <td>62</td>
+    <td>Bâyezîd-i Bistâmî</td>
+    <td class="vc">Otuz yıl Hakk'ı aradım;<br>anladım ki O beni arıyormuş.</td>
+  </tr><tr class="">
+    <td>63</td>
+    <td>Aziz Mahmud Hüdâyî</td>
+    <td class="vc">Hakk'a doğru yürüyen,<br>yolda yârini bulur.</td>
+  </tr><tr class="">
+    <td>64</td>
+    <td>Yûnus Emre</td>
+    <td class="vc">Ne varlığa sevinirim,<br>ne yokluğa yerinirim.</td>
+  </tr><tr class="">
+    <td>65</td>
+    <td>İbn Arabî</td>
+    <td class="vc">Aşk dînim, aşk îmânım;<br>kâlbim her sûrete açıktır.</td>
+  </tr><tr class="">
+    <td>66</td>
+    <td>Şems-i Tebrîzî</td>
+    <td class="vc">Kalabalıkta yalnız,<br>yalnızken kalabalık ol.</td>
+  </tr><tr class="">
+    <td>67</td>
+    <td>Ahmed Yesevî</td>
+    <td class="vc">Sünnet imiş kâfir bile olsa,<br>incitme!</td>
+  </tr><tr class="changed">
+    <td>68</td>
+    <td>Mevlânâ — Mesnevî</td>
+    <td class="vc">Aşk âşığı öldürür,<br>ama ölümsüz kılar.</td>
+  </tr><tr class="">
+    <td>69</td>
+    <td>Cüneyd-i Bağdâdî</td>
+    <td class="vc">Tasavvuf, kalpten her ne varsa<br>Gayri'yi çıkarmaktır.</td>
+  </tr><tr class="">
+    <td>70</td>
+    <td>Bahâeddin Nakşbend</td>
+    <td class="vc">Gönlü Hakk ile tut.</td>
+  </tr><tr class="">
+    <td>71</td>
+    <td>Yûnus Emre</td>
+    <td class="vc">Bu yol uzaktır,<br>menzili çoktur.</td>
+  </tr><tr class="">
+    <td>72</td>
+    <td>Mevlânâ Celâleddîn-i Rûmî</td>
+    <td class="vc">Aşk geldi,<br>damarda kan oldu.</td>
+  </tr><tr class="">
+    <td>73</td>
+    <td>Abdülkâdir Geylânî</td>
+    <td class="vc">Yâ Rab, kapına gelmişiz;<br>boş geri çevirme.</td>
+  </tr><tr class="">
+    <td>74</td>
+    <td>Sufî Sözü</td>
+    <td class="vc">Aşk, evvelinde eziyet,<br>âhirinde safâdır.</td>
+  </tr><tr class="">
+    <td>75</td>
+    <td>Hacı Bektâş-ı Velî</td>
+    <td class="vc">Bilimden gidilmeyen yolun<br>sonu karanlıktır.</td>
+  </tr><tr class="">
+    <td>76</td>
+    <td>Salih Baba Dîvânı</td>
+    <td class="vc">Pîr-i Sâmî'nin elinden<br>bâde-i aşk içtim.</td>
+  </tr><tr class="">
+    <td>77</td>
+    <td>Niyazî-i Mısrî</td>
+    <td class="vc">Mâl ü mülkün gitti deyu,<br>sen niye ağlarsın?</td>
+  </tr><tr class="">
+    <td>78</td>
+    <td>Yûnus Emre</td>
+    <td class="vc">Kişi bilmez kendözünü,<br>n'ola bile yarın günü.</td>
+  </tr><tr class="changed">
+    <td>79</td>
+    <td>İmâm Rabbânî</td>
+    <td class="vc">Bu fânî dünyaya aldanma;<br>asıl bekâ O'nun katındadır.</td>
+  </tr><tr class="">
+    <td>80</td>
+    <td>Hallâc-ı Mansûr</td>
+    <td class="vc">Yârim diken oldu,<br>ben gül oldum O'nun bahçesinde.</td>
+  </tr><tr class="">
+    <td>81</td>
+    <td>Bâyezîd-i Bistâmî</td>
+    <td class="vc">Kim kendini bilirse,<br>Rabbini bilir.</td>
+  </tr><tr class="">
+    <td>82</td>
+    <td>Aziz Mahmud Hüdâyî</td>
+    <td class="vc">Sabret ey gönül, sabret;<br>bu yol acıdan geçer.</td>
+  </tr><tr class="">
+    <td>83</td>
+    <td>İbn Arabî</td>
+    <td class="vc">Kalbim her sûreti kabul edebilir hâle geldi:<br>ceylânlara mer'a, rahiplere manastır olur.</td>
+  </tr><tr class="">
+    <td>84</td>
+    <td>Şems-i Tebrîzî</td>
+    <td class="vc">Yarın bizim olmayan bir gündür.</td>
+  </tr><tr class="">
+    <td>85</td>
+    <td>Ahmed Yesevî</td>
+    <td class="vc">Allah'ı sevenler,<br>âlemden sevdâlandılar.</td>
+  </tr><tr class="">
+    <td>86</td>
+    <td>Mevlânâ — Mesnevî</td>
+    <td class="vc">Dinle neyden,<br>nasıl şikâyet ediyor.</td>
+  </tr><tr class="">
+    <td>87</td>
+    <td>Cüneyd-i Bağdâdî</td>
+    <td class="vc">Tasavvuf vakti tutmaktır.</td>
+  </tr><tr class="">
+    <td>88</td>
+    <td>Râbiatü'l-Adeviyye</td>
+    <td class="vc">Allah'ım, sana cehennem korkusundan ibâdet ediyorsam beni cehenneme at;<br>cennet ümidiyle ediyorsam beni cennetinden mahrum bırak.</td>
+  </tr><tr class="">
+    <td>89</td>
+    <td>Hadîs-i Kudsî</td>
+    <td class="vc">Yer ve gök beni almadı,<br>yalnız mü'min kulumun kalbine sığdım.</td>
+  </tr><tr class="">
+    <td>90</td>
+    <td>Tarîkat Edebi</td>
+    <td class="vc">Edep yâ Hû.</td>
+  </tr><tr class="">
+    <td>91</td>
+    <td>Mevlânâ Hâlid-i Bağdâdî</td>
+    <td class="vc">Yolu uzun olan,<br>azığı çok hazırlasın.</td>
+  </tr><tr class="">
+    <td>92</td>
+    <td>Sultan Veled</td>
+    <td class="vc">Aşk, gönlü çiçek bahçesi,<br>âkıl onun bahçıvanıdır.</td>
+  </tr><tr class="">
+    <td>93</td>
+    <td>Süleyman Çelebi — Mevlid-i Şerîf</td>
+    <td class="vc">Allâhümme salli alâ Muhammed.</td>
+  </tr><tr class="">
+    <td>94</td>
+    <td>Eşrefoğlu Rûmî</td>
+    <td class="vc">Kıl benim için,<br>benim için kıl.</td>
+  </tr><tr class="">
+    <td>95</td>
+    <td>Bahâeddin Nakşbend</td>
+    <td class="vc">Tarîkatımız sohbettir.</td>
+  </tr><tr class="">
+    <td>96</td>
+    <td>Yûnus Emre</td>
+    <td class="vc">Çıktım erik dalına,<br>anda yedim üzümü.</td>
+  </tr><tr class="">
+    <td>97</td>
+    <td>Mevlânâ Celâleddîn-i Rûmî</td>
+    <td class="vc">Ne kadar bilirsen bil,<br>söylediklerin karşındakinin anladığı kadardır.</td>
+  </tr><tr class="">
+    <td>98</td>
+    <td>Abdülkâdir Geylânî</td>
+    <td class="vc">Halkı Hakk için terk etmek vahdâniyettir;<br>Hakk'ı halk için terk etmek nifâktır.</td>
+  </tr><tr class="">
+    <td>99</td>
+    <td>Sufî Sözü</td>
+    <td class="vc">Bekā, fenâdan sonra gelir.</td>
+  </tr><tr class="">
+    <td>100</td>
+    <td>Hacı Bektâş-ı Velî</td>
+    <td class="vc">Düşünce karanlığına ışık tutanlara<br>ne mutlu.</td>
+  </tr><tr class="">
+    <td>101</td>
+    <td>Salih Baba Dîvânı</td>
+    <td class="vc">Bende-i Hakk olmuşum,<br>gayrıdan vazgeçmişim.</td>
+  </tr><tr class="">
+    <td>102</td>
+    <td>Niyazî-i Mısrî</td>
+    <td class="vc">Bu fenâ mülküne ben<br>azm ile zindânım.</td>
+  </tr><tr class="">
+    <td>103</td>
+    <td>İmâm Rabbânî</td>
+    <td class="vc">Maksat Hak'tır,<br>geri kalan vesîle.</td>
+  </tr><tr class="">
+    <td>104</td>
+    <td>Hallâc-ı Mansûr</td>
+    <td class="vc">Sevgili öyle yakındır ki,<br>ben O'na hayretim.</td>
+  </tr><tr class="">
+    <td>105</td>
+    <td>Bâyezîd-i Bistâmî</td>
+    <td class="vc">Yokluğum,<br>O'nun varlığı oldu.</td>
+  </tr><tr class="">
+    <td>106</td>
+    <td>Aziz Mahmud Hüdâyî</td>
+    <td class="vc">Cân kuşum kafesten uçtu,<br>Yâr'in koynuna düştü.</td>
+  </tr><tr class="">
+    <td>107</td>
+    <td>İbn Arabî</td>
+    <td class="vc">Şu görünen âlem,<br>bir hayalden ibârettir.</td>
+  </tr><tr class="">
+    <td>108</td>
+    <td>Şems-i Tebrîzî</td>
+    <td class="vc">Ne zaman güleceğini bilen,<br>ne zaman ağlayacağını da bilir.</td>
+  </tr><tr class="">
+    <td>109</td>
+    <td>Ahmed Yesevî</td>
+    <td class="vc">Yetmiş iki dilden bilirim,<br>âşıkın dilini.</td>
+  </tr><tr class="">
+    <td>110</td>
+    <td>Mevlânâ — Mesnevî</td>
+    <td class="vc">Aşk olmasa,<br>varlık var olmazdı.</td>
+  </tr><tr class="">
+    <td>111</td>
+    <td>Cüneyd-i Bağdâdî</td>
+    <td class="vc">Yola çıkanlar değil,<br>yolda kalanlar varır.</td>
+  </tr><tr class="">
+    <td>112</td>
+    <td>Râbiatü'l-Adeviyye</td>
+    <td class="vc">Sevgilinin yüzünü görmek için,<br>dünyayı terk ettim.</td>
+  </tr><tr class="">
+    <td>113</td>
+    <td>Hadîs-i Kudsî</td>
+    <td class="vc">Ben gizli bir hazine idim,<br>bilinmeyi sevdim, mahlûkatı yarattım.</td>
+  </tr><tr class="">
+    <td>114</td>
+    <td>Tarîkat Edebi</td>
+    <td class="vc">Hû demek,<br>O'ndan başkasını unutmaktır.</td>
+  </tr><tr class="">
+    <td>115</td>
+    <td>Mevlânâ Hâlid-i Bağdâdî</td>
+    <td class="vc">Cânına bir ölçü koy,<br>gönlüne bir göz koy.</td>
+  </tr><tr class="">
+    <td>116</td>
+    <td>Sultan Veled</td>
+    <td class="vc">Sevgilim, gel artık susayım;<br>dilim seni anlatmaya yetmez.</td>
+  </tr><tr class="">
+    <td>117</td>
+    <td>Süleyman Çelebi — Mevlid-i Şerîf</td>
+    <td class="vc">Ger dilersin bulasın oddan necât,<br>aşk ile dervîş olup<br>bul Mustafa'ya salavât.</td>
+  </tr><tr class="">
+    <td>118</td>
+    <td>Eşrefoğlu Rûmî</td>
+    <td class="vc">Cihânda âşık-ı sâdık,<br>yolundan dönmez.</td>
+  </tr><tr class="">
+    <td>119</td>
+    <td>İbrâhim Hakkı Erzurûmî</td>
+    <td class="vc">Mevlâ görelim neyler,<br>neylerse güzel eyler.</td>
+  </tr><tr class="">
+    <td>120</td>
+    <td>Şeyh Gâlib</td>
+    <td class="vc">Hoşça bak zâtına kim<br>zübde-i âlemsin sen.</td>
+  </tr><tr class="">
+    <td>121</td>
+    <td>Hadis-i Şerif</td>
+    <td class="vc">Ölmeden önce ölünüz.</td>
+  </tr><tr class="">
+    <td>122</td>
+    <td>Bâkî</td>
+    <td class="vc">Bâkî kalan bu kubbede<br>bir hoş sadâ imiş.</td>
+  </tr><tr class="">
+    <td>123</td>
+    <td>Şeyh Vefâ — Vefâ Sultân Türbesi'nden</td>
+    <td class="vc">Şeyh Vefâ'nın eşiğine<br>yüzümü sürdüm.</td>
+  </tr></tbody>
+</table>
+</body>
+</html>
