@@ -2,7 +2,8 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { pickPhoto } from './pickPhoto.js';
-import { pickValidatedPhoto } from './checkPhoto.js';
+import { pickValidatedPhoto, isPhotoSpiritual } from './checkPhoto.js';
+import { fetchUnsplashPhoto } from './fetchUnsplashPhoto.js';
 import { renderToPng, renderExplanationToPng } from './render.js';
 import { readState, writeState } from './state.js';
 
@@ -16,33 +17,67 @@ const state = readState(statePath);
 const today = new Date().toISOString().slice(0, 10);
 const launchDate = state.launchDate ?? today;
 
-// Onceki post basarisiz olduysa (postId null) ayni girisi tekrar kullan
+// Önceki post başarısız olduysa (postId null) aynı girişi tekrar kullan
 const pendingRetry = state.lastPost && !state.lastPost.postId && state.lastPost.verseId;
 let entry;
 if (pendingRetry) {
   entry = content.find(e => e.id === state.lastPost.verseId);
   if (!entry) throw new Error(`Retry: entry ${state.lastPost.verseId} bulunamadi`);
-  console.log(`Yeniden deneniyor: ${entry.id} (onceki post basarisiz)`);
+  console.log(`Yeniden deneniyor: ${entry.id} (önceki post başarısız)`);
 } else {
   const postedSet = new Set(state.postedVerseIds);
   const unposted = content.filter(e => !postedSet.has(e.id));
   if (unposted.length === 0) {
-    throw new Error(`Tum gunler paylasildi (${state.postedVerseIds.length} gun). salih-baba.json bitti.`);
+    throw new Error(`Tüm günler paylaşıldı (${state.postedVerseIds.length} gün). salih-baba.json bitti.`);
   }
   entry = unposted[0];
 }
 
-// Fotoğraf seçimi: Gemini API varsa AI kontrolü, yoksa mood bazlı
-const apiKey = process.env.GEMINI_API_KEY;
-const photo = apiKey
-  ? await pickValidatedPhoto({
-      photos,
-      verseMoods: entry.moods,
-      recentlyUsed: new Set(state.recentPhotos),
-      apiKey,
-      maxAttempts: photos.length
-    })
-  : pickPhoto(photos, entry.moods, new Set(state.recentPhotos));
+// Fotoğraf seçimi
+const geminiKey = process.env.GEMINI_API_KEY;
+const unsplashKey = process.env.UNSPLASH_ACCESS_KEY;
+const recentlyUsed = new Set(state.recentPhotos);
+
+let photo;
+
+if (unsplashKey) {
+  // Unsplash API: sonsuz taze fotoğraf havuzu
+  console.log('Unsplash API ile dinamik fotoğraf çekiliyor...');
+  let approved = false;
+  for (let attempt = 0; attempt < 5; attempt++) {
+    photo = await fetchUnsplashPhoto(entry.moods, unsplashKey, recentlyUsed);
+    if (geminiKey) {
+      const result = await isPhotoSpiritual(photo.url, geminiKey);
+      if (result.approved) {
+        console.log(`✓ Unsplash foto onaylandı: ${photo.id}`);
+        approved = true;
+        break;
+      } else {
+        console.log(`✗ Reddedildi (${result.reason}), tekrar deneniyor...`);
+        recentlyUsed.add(photo.id); // reddedileni de blacklist'e ekle
+      }
+    } else {
+      approved = true;
+      break;
+    }
+  }
+  if (!approved) {
+    // Gemini hep reddettiyse son çekileni yine de kullan
+    console.warn('5 denemede onay alınamadı, son fotoğraf kullanılıyor.');
+  }
+} else if (geminiKey) {
+  // Statik havuz + Gemini moderasyonu
+  photo = await pickValidatedPhoto({
+    photos,
+    verseMoods: entry.moods,
+    recentlyUsed,
+    apiKey: geminiKey,
+    maxAttempts: photos.length
+  });
+} else {
+  // Sadece mood eşleşmesi
+  photo = pickPhoto(photos, entry.moods, recentlyUsed);
+}
 
 const slide1 = join(ROOT, 'output', `${today}-1.png`);
 await renderToPng({
