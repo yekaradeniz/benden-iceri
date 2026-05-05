@@ -87,17 +87,3 @@ export async function postCarouselToInstagram({ igUserId, accessToken, imageUrls
 
   return { postId, containerId };
 }
-
-export async function postStoryToInstagram({ igUserId, accessToken, imageUrl }) {
-  const { id: containerId } = await apiPost(`${API_BASE}/${igUserId}/media`, {
-    media_type: 'STORIES',
-    image_url: imageUrl,
-    access_token: accessToken
-  });
-  await waitUntilReady(containerId, accessToken);
-  const { id: storyId } = await apiPost(`${API_BASE}/${igUserId}/media_publish`, {
-    creation_id: containerId,
-    access_token: accessToken
-  });
-  return { storyId, containerId };
-}
