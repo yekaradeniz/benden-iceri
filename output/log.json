@@ -4,7 +4,7 @@
     "date": "2026-05-05",
     "verseId": "sb-0004",
     "photoId": "rose-vase-01",
-    "postId": "17998196324765463",
+    "postId": null,
     "carousel": true
   },
   "recentPhotos": [
@@ -16,7 +16,6 @@
   "postedVerseIds": [
     "sb-0001",
     "sb-0002",
-    "sb-0003",
-    "sb-0004"
+    "sb-0003"
   ]
 }
