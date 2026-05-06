@@ -8,11 +8,12 @@ const MOOD_QUERIES = {
 const FALLBACK_QUERIES = ['mosque', 'sufi', 'islamic architecture'];
 
 // Süre aralıkları sıralı olarak denenecek - sıkıdan gevşeğe.
+// Video render'ımız 25 saniye, en az 26 saniyelik kaynak ideal (loop atlama olmasın).
 const DURATION_RANGES = [
-  { min: 22, max: 45 },
-  { min: 22, max: 60 },
-  { min: 18, max: 60 },
-  { min: 15, max: 90 }
+  { min: 26, max: 50 },
+  { min: 26, max: 75 },
+  { min: 22, max: 75 },
+  { min: 18, max: 90 }
 ];
 
 async function searchPage(apiKey, query) {
