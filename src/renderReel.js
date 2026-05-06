@@ -14,11 +14,12 @@ function calcVerseFontSize(verse) {
 }
 
 function calcExplanationFontSize(explanation) {
+  // Mana'da yazı verse boyutuna yakın olsun (ekrandan taşması serbest).
   const chars = explanation.length;
-  if (chars > 480) return 32;
-  if (chars > 360) return 36;
-  if (chars > 240) return 40;
-  return 44;
+  if (chars > 600) return 42;
+  if (chars > 480) return 46;
+  if (chars > 360) return 49;
+  return 51;
 }
 
 function fillTemplate(name, vars) {
@@ -108,7 +109,7 @@ export async function renderReel({ verse, explanation, videoUrl, outPath }) {
       '-filter_complex',
       `[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1[bg];` +
       `[1:v]setpts=PTS-STARTPTS[grad];` +
-      `[2:v]format=rgba,fade=t=in:st=0:d=0.7:alpha=1,fade=t=out:st=7.5:d=1:alpha=1,setpts=PTS-STARTPTS[vtxt];` +
+      `[2:v]format=rgba,fade=t=out:st=7.5:d=1:alpha=1,setpts=PTS-STARTPTS[vtxt];` +
       `[3:v]format=rgba,fade=t=in:st=0:d=0.7:alpha=1,fade=t=out:st=7.5:d=1:alpha=1,setpts=PTS+10/TB[mtxt];` +
       `[bg][grad]overlay=0:0[bg2];` +
       `[bg2][vtxt]overlay=0:0[tmp];` +
