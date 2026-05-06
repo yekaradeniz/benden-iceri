@@ -58,8 +58,9 @@ if (nextType === 'reel') {
   const pexelsKey = process.env.PEXELS_API_KEY;
   if (!pexelsKey) throw new Error('PEXELS_API_KEY tanımlı değil; reel oluşturulamaz');
 
-  const recentlyUsedVideos = new Set(recentPhotos.filter(id => id.startsWith('pexels-')));
-  const video = await fetchPexelsVideo(entry.moods, pexelsKey, recentlyUsedVideos);
+  // Kalıcı kullanılmış Pexels video listesi (asla tekrarlama)
+  const usedVideoIds = new Set(state.usedVideoIds ?? []);
+  const video = await fetchPexelsVideo(entry.moods, pexelsKey, usedVideoIds);
 
   const outVideo = join(ROOT, 'output', `${today}.mp4`);
   await renderReel({
@@ -82,6 +83,7 @@ if (nextType === 'reel') {
       carousel: false
     },
     recentPhotos: [...recentPhotos.filter(id => id !== video.id), video.id].slice(-14),
+    usedVideoIds: [...(state.usedVideoIds ?? []).filter(id => id !== video.id), video.id],
     postedVerseIds: [...state.postedVerseIds.filter(id => id !== entry.id), entry.id]
   });
 } else {
@@ -152,6 +154,7 @@ if (nextType === 'reel') {
       carousel: hasExplanation
     },
     recentPhotos: [...recentPhotos.filter(id => id !== photo.id), photo.id].slice(-14),
+    usedVideoIds: state.usedVideoIds ?? [],
     postedVerseIds: [...state.postedVerseIds.filter(id => id !== entry.id), entry.id]
   });
 }
