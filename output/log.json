@@ -3,13 +3,12 @@
   "lastPost": {
     "date": "2026-05-06",
     "verseId": "sb-0005",
-    "photoId": "pexels-36314084",
+    "photoId": "pexels-20347202",
     "postId": "18106576987934371",
     "type": "reel",
     "carousel": false
   },
   "recentPhotos": [
-    "mountain-light-01",
     "mushaf-tezhip-01",
     "rose-vase-01",
     "unsplash-jtOm3pGlXgo",
@@ -22,7 +21,8 @@
     "pexels-20450431",
     "pexels-36012780",
     "pexels-36114346",
-    "pexels-36314084"
+    "pexels-36314084",
+    "pexels-20347202"
   ],
   "postedVerseIds": [
     "sb-0001",
@@ -42,7 +42,8 @@
     "pexels-20450431",
     "pexels-36012780",
     "pexels-36114346",
-    "pexels-36314084"
+    "pexels-36314084",
+    "pexels-20347202"
   ],
-  "audioIndex": 2
+  "audioIndex": 3
 }
