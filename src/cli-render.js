@@ -7,7 +7,7 @@ import { fetchUnsplashPhoto } from './fetchUnsplashPhoto.js';
 import { fetchPexelsCandidates } from './fetchPexelsVideo.js';
 import { validateVideoFrames } from './checkVideoFrames.js';
 import { renderToPng, renderExplanationToPng } from './render.js';
-import { renderReel, downloadVideo } from './renderReel.js';
+import { renderReel, downloadVideo, pickAudioByIndex, listAudioTracks } from './renderReel.js';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { readState, writeState } from './state.js';
@@ -108,11 +108,18 @@ if (nextType === 'reel') {
       throw new Error(`${candidates.length} adayın hiçbiri moderasyondan geçemedi`);
     }
 
+    // Müzik rotation: state.audioIndex'i kullan, audio/ klasörü doluysa sırayla seç
+    const tracks = listAudioTracks();
+    const audioIdx = state.audioIndex ?? 0;
+    const audioPath = tracks.length > 0 ? pickAudioByIndex(audioIdx) : null;
+    if (audioPath) console.log(`Müzik #${(audioIdx % tracks.length) + 1}/${tracks.length}: ${audioPath.split('/').pop()}`);
+
     const outVideo = join(ROOT, 'output', `${today}.mp4`);
     await renderReel({
       verse: entry.verse,
       explanation: entry.explanation || '',
       videoPath: chosenPath,
+      audioPath,
       outPath: outVideo
     });
     console.log(`Reel hazir: ${outVideo}`);
@@ -137,6 +144,7 @@ if (nextType === 'reel') {
       },
       recentPhotos: [...recentPhotos.filter(id => id !== chosen.id), chosen.id].slice(-14),
       usedVideoIds: newUsedIds,
+      audioIndex: tracks.length > 0 ? (audioIdx + 1) % tracks.length : (state.audioIndex ?? 0),
       postedVerseIds: [...state.postedVerseIds.filter(id => id !== entry.id), entry.id]
     });
   } finally {
