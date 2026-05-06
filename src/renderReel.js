@@ -121,33 +121,32 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
 
     // 3) FFmpeg ile compose et
     // Süre planı:
-    //  0-9   verse (fade in 0-0.7, fade out 7.5-8.5)
-    //  9-10  geçiş (sade arka plan)
-    //  10-23 mana (fade in 10-10.7, fade out 21.5-22.5) - 13 saniye toplam
-    //  23-25 kapanış (final fade 24-25)
+    //  0-12   verse (fade in 0-0.7, fade out 10.5-11.5) - 12 sn toplam
+    //  12-13  geçiş (sade arka plan)
+    //  13-31  mana (fade in 13-13.7, fade out 29.5-30.5) - 18 sn toplam
+    //  32-33  kapanış (final fade)
     const filterComplex =
       `[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1[bg];` +
       `[1:v]setpts=PTS-STARTPTS[grad];` +
-      `[2:v]format=rgba,fade=t=out:st=7.5:d=1:alpha=1,setpts=PTS-STARTPTS[vtxt];` +
-      `[3:v]format=rgba,fade=t=in:st=0:d=0.7:alpha=1,fade=t=out:st=11.5:d=1:alpha=1,setpts=PTS+10/TB[mtxt];` +
+      `[2:v]format=rgba,fade=t=out:st=10.5:d=1:alpha=1,setpts=PTS-STARTPTS[vtxt];` +
+      `[3:v]format=rgba,fade=t=in:st=0:d=0.7:alpha=1,fade=t=out:st=16.5:d=1:alpha=1,setpts=PTS+13/TB[mtxt];` +
       `[bg][grad]overlay=0:0[bg2];` +
       `[bg2][vtxt]overlay=0:0[tmp];` +
-      `[tmp][mtxt]overlay=0:0,fade=t=out:st=24:d=1[outv]`;
+      `[tmp][mtxt]overlay=0:0,fade=t=out:st=32:d=1[outv]`;
 
     const args = [
       '-y',
       '-stream_loop', '-1', '-i', actualVideoPath,
-      '-loop', '1', '-t', '25', '-i', gradientPng,
-      '-loop', '1', '-t', '9',  '-i', versePng,
-      '-loop', '1', '-t', '13', '-i', manaPng
+      '-loop', '1', '-t', '33', '-i', gradientPng,
+      '-loop', '1', '-t', '12', '-i', versePng,
+      '-loop', '1', '-t', '18', '-i', manaPng
     ];
 
     if (audioPath && existsSync(audioPath)) {
-      // Müzik var: video stream'i ile birlikte ses de eklenir
       console.log(`Müzik ekleniyor: ${audioPath}`);
       args.push(
         '-stream_loop', '-1', '-i', audioPath,
-        '-filter_complex', filterComplex + `;[4:a]afade=t=in:st=0:d=1,afade=t=out:st=24:d=1,volume=0.85[outa]`,
+        '-filter_complex', filterComplex + `;[4:a]afade=t=in:st=0:d=1,afade=t=out:st=32:d=1,volume=0.85[outa]`,
         '-map', '[outv]',
         '-map', '[outa]',
         '-c:a', 'aac', '-b:a', '192k', '-ar', '48000'
@@ -169,7 +168,7 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
       '-r', '30',
       '-maxrate', '20M', '-bufsize', '40M',
       '-movflags', '+faststart',
-      '-t', '25',
+      '-t', '33',
       outPath
     );
 
