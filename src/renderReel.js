@@ -36,7 +36,7 @@ async function renderHtmlToPng(html, outPath, browser) {
   await page.close();
 }
 
-async function downloadVideo(url, outPath) {
+export async function downloadVideo(url, outPath) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Video indirilemedi: ${res.status}`);
   const buf = Buffer.from(await res.arrayBuffer());
@@ -64,10 +64,11 @@ function ffmpeg(args) {
  * @param {object} opts
  * @param {string} opts.verse
  * @param {string} opts.explanation
- * @param {string} opts.videoUrl - Pexels video URL
+ * @param {string} [opts.videoUrl] - Pexels video URL (videoPath verilmediyse indirilir)
+ * @param {string} [opts.videoPath] - lokal MP4 yolu (zaten indirilmiş)
  * @param {string} opts.outPath - çıkış MP4 yolu
  */
-export async function renderReel({ verse, explanation, videoUrl, outPath }) {
+export async function renderReel({ verse, explanation, videoUrl, videoPath, outPath }) {
   const tmp = mkdtempSync(join(tmpdir(), 'reel-'));
   const browser = await chromium.launch();
   try {
@@ -90,15 +91,18 @@ export async function renderReel({ verse, explanation, videoUrl, outPath }) {
     await renderHtmlToPng(manaHtml, manaPng, browser);
     console.log('Overlay PNGleri hazir');
 
-    // 2) Pexels videosunu indir
-    const videoPath = join(tmp, 'bg.mp4');
-    await downloadVideo(videoUrl, videoPath);
-    console.log('Pexels video indirildi');
+    // 2) Pexels videosunu indir (gerekirse)
+    let actualVideoPath = videoPath;
+    if (!actualVideoPath) {
+      actualVideoPath = join(tmp, 'bg.mp4');
+      await downloadVideo(videoUrl, actualVideoPath);
+      console.log('Pexels video indirildi');
+    }
 
     // 3) FFmpeg ile compose et
     await ffmpeg([
       '-y',
-      '-stream_loop', '-1', '-i', videoPath,        // bg video (kısa olsa da loop)
+      '-stream_loop', '-1', '-i', actualVideoPath,  // bg video (kısa olsa da loop)
       '-loop', '1', '-t', '21', '-i', gradientPng,
       '-loop', '1', '-t', '9',  '-i', versePng,
       '-loop', '1', '-t', '9',  '-i', manaPng,
@@ -111,8 +115,13 @@ export async function renderReel({ verse, explanation, videoUrl, outPath }) {
       `[bg2][vtxt]overlay=0:0[tmp];` +
       `[tmp][mtxt]overlay=0:0,fade=t=out:st=20:d=1[outv]`,
       '-map', '[outv]',
-      '-c:v', 'libx264', '-preset', 'fast', '-crf', '20',
+      '-c:v', 'libx264',
+      '-preset', 'slow',           // daha iyi sıkıştırma verimi
+      '-crf', '17',                 // yüksek kalite (Instagram re-encode'una dayanır)
+      '-profile:v', 'high', '-level', '4.0',
       '-pix_fmt', 'yuv420p',
+      '-r', '30',                   // Instagram standardı 30fps
+      '-maxrate', '12M', '-bufsize', '24M',
       '-movflags', '+faststart',
       '-t', '21',
       outPath

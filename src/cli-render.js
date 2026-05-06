@@ -4,9 +4,12 @@ import { dirname, join } from 'node:path';
 import { pickPhoto } from './pickPhoto.js';
 import { pickValidatedPhoto, isPhotoSpiritual } from './checkPhoto.js';
 import { fetchUnsplashPhoto } from './fetchUnsplashPhoto.js';
-import { fetchPexelsVideo } from './fetchPexelsVideo.js';
+import { fetchPexelsCandidates } from './fetchPexelsVideo.js';
+import { validateVideoFrames } from './checkVideoFrames.js';
 import { renderToPng, renderExplanationToPng } from './render.js';
-import { renderReel } from './renderReel.js';
+import { renderReel, downloadVideo } from './renderReel.js';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { readState, writeState } from './state.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -66,36 +69,75 @@ const recentPhotos = state.recentPhotos ?? [];
 if (nextType === 'reel') {
   // ---------- REEL ----------
   const pexelsKey = process.env.PEXELS_API_KEY;
+  const geminiKey = process.env.GEMINI_API_KEY;
   if (!pexelsKey) throw new Error('PEXELS_API_KEY tanımlı değil; reel oluşturulamaz');
 
-  // Kalıcı kullanılmış Pexels video listesi (asla tekrarlama)
   const usedVideoIds = new Set(state.usedVideoIds ?? []);
-  const video = await fetchPexelsVideo(entry.moods, pexelsKey, usedVideoIds);
+  const candidates = await fetchPexelsCandidates(entry.moods, pexelsKey, usedVideoIds);
+  console.log(`${candidates.length} Pexels aday bulundu, moderasyondan geçecek...`);
 
-  const outVideo = join(ROOT, 'output', `${today}.mp4`);
-  await renderReel({
-    verse: entry.verse,
-    explanation: entry.explanation || '',
-    videoUrl: video.url,
-    outPath: outVideo
-  });
-  console.log(`Reel hazir: ${outVideo}`);
+  // Adayları sırayla dene: indir, 5 kareyi Gemini'den geçir, ilk onaylananı kullan
+  const tmpDir = mkdtempSync(join(tmpdir(), 'pexels-'));
+  let chosen = null;
+  let chosenPath = null;
+  const rejectedIds = [];
 
-  writeState(statePath, {
-    ...state,
-    launchDate,
-    lastPost: {
-      date: today,
-      verseId: entry.id,
-      photoId: video.id,
-      postId: null,
-      type: 'reel',
-      carousel: false
-    },
-    recentPhotos: [...recentPhotos.filter(id => id !== video.id), video.id].slice(-14),
-    usedVideoIds: [...(state.usedVideoIds ?? []).filter(id => id !== video.id), video.id],
-    postedVerseIds: [...state.postedVerseIds.filter(id => id !== entry.id), entry.id]
-  });
+  try {
+    for (let i = 0; i < candidates.length; i++) {
+      const c = candidates[i];
+      const localPath = join(tmpDir, `cand-${i}.mp4`);
+      console.log(`[${i + 1}/${candidates.length}] ${c.id} indiriliyor...`);
+      await downloadVideo(c.url, localPath);
+
+      const result = await validateVideoFrames(localPath, c.duration, geminiKey);
+      if (result.approved) {
+        console.log(`✓ ${c.id} onaylandi`);
+        chosen = c;
+        chosenPath = localPath;
+        break;
+      }
+      console.log(`✗ ${c.id} reddedildi: ${result.reason}`);
+      rejectedIds.push(c.id);
+    }
+
+    if (!chosen) {
+      throw new Error(`${candidates.length} adayın hiçbiri moderasyondan geçemedi`);
+    }
+
+    const outVideo = join(ROOT, 'output', `${today}.mp4`);
+    await renderReel({
+      verse: entry.verse,
+      explanation: entry.explanation || '',
+      videoPath: chosenPath,
+      outPath: outVideo
+    });
+    console.log(`Reel hazir: ${outVideo}`);
+
+    // Reddedilen adaylar da kalıcı blacklist'e gidiyor (tekrar denenmesin)
+    const newUsedIds = [
+      ...(state.usedVideoIds ?? []).filter(id => id !== chosen.id),
+      ...rejectedIds.filter(id => !(state.usedVideoIds ?? []).includes(id)),
+      chosen.id
+    ];
+
+    writeState(statePath, {
+      ...state,
+      launchDate,
+      lastPost: {
+        date: today,
+        verseId: entry.id,
+        photoId: chosen.id,
+        postId: null,
+        type: 'reel',
+        carousel: false
+      },
+      recentPhotos: [...recentPhotos.filter(id => id !== chosen.id), chosen.id].slice(-14),
+      usedVideoIds: newUsedIds,
+      postedVerseIds: [...state.postedVerseIds.filter(id => id !== entry.id), entry.id]
+    });
+  } finally {
+    try { rmSync(tmpDir, { recursive: true, force: true }); } catch {}
+  }
 } else {
   // ---------- CAROUSEL (mevcut akış) ----------
   const geminiKey = process.env.GEMINI_API_KEY;

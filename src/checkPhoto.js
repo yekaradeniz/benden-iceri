@@ -16,6 +16,8 @@ APPROPRIATE (YES):
 
 INAPPROPRIATE (NO):
 - People in modern Western attire (women in tank tops, men in jeans, sportswear)
+- Manicured/painted nails, female hands with nail polish, modern cosmetic imagery
+- Visible bare skin (legs, arms, shoulders), bikini, swimwear
 - Commercial brands, logos, store signs, neon advertising
 - Neon lights, club, party imagery, nightlife
 - Christian/Buddhist/Hindu/other non-Islamic religious imagery (crosses, Buddha statues, etc.)
@@ -43,20 +45,13 @@ const SUPPORTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/we
  * @param {string} apiKey - Google AI Studio API key (free)
  * @returns {Promise<{approved: boolean, reason?: string}>}
  */
-export async function isPhotoSpiritual(imageUrl, apiKey) {
-  if (!apiKey) {
-    return { approved: true, reason: 'no api key - moderation skipped' };
-  }
-
-  // Fetch image to base64 (Gemini accepts inline base64 or remote URL - we use inline for reliability)
-  const response = await fetch(imageUrl);
-  if (!response.ok) {
-    return { approved: false, reason: `image fetch failed: ${response.status}` };
-  }
-  const arrayBuffer = await response.arrayBuffer();
-  const base64 = Buffer.from(arrayBuffer).toString('base64');
-  const rawType = (response.headers.get('content-type') || 'image/jpeg').split(';')[0].trim();
-  const mimeType = SUPPORTED_IMAGE_TYPES.includes(rawType) ? rawType : 'image/jpeg';
+/**
+ * Buffer'dan (lokal dosya, indirme vs.) Sufi uygunluğunu kontrol eder.
+ */
+export async function isImageBufferSpiritual(buffer, mimeType, apiKey) {
+  if (!apiKey) return { approved: true, reason: 'no api key - moderation skipped' };
+  const validMime = SUPPORTED_IMAGE_TYPES.includes(mimeType) ? mimeType : 'image/jpeg';
+  const base64 = Buffer.from(buffer).toString('base64');
 
   const ai = new GoogleGenAI({ apiKey });
   try {
@@ -65,7 +60,7 @@ export async function isPhotoSpiritual(imageUrl, apiKey) {
       contents: [{
         role: 'user',
         parts: [
-          { inlineData: { mimeType, data: base64 } },
+          { inlineData: { mimeType: validMime, data: base64 } },
           { text: 'Is this image appropriate as the background for a Sufi poetry post?' }
         ]
       }],
@@ -75,18 +70,24 @@ export async function isPhotoSpiritual(imageUrl, apiKey) {
         temperature: 0
       }
     });
-
     const answer = (result.text || '').trim().toUpperCase();
-    const approved = answer.startsWith('YES');
-    return { approved, reason: answer };
+    return { approved: answer.startsWith('YES'), reason: answer };
   } catch (err) {
-    // Rate limit or quota exceeded - skip moderation and approve
     if (err.status === 429 || (err.message && err.message.includes('quota'))) {
-      console.warn('Gemini quota exceeded, skipping moderation for this photo.');
+      console.warn('Gemini quota exceeded, skipping moderation.');
       return { approved: true, reason: 'quota-exceeded-skipped' };
     }
     throw err;
   }
+}
+
+export async function isPhotoSpiritual(imageUrl, apiKey) {
+  if (!apiKey) return { approved: true, reason: 'no api key - moderation skipped' };
+  const response = await fetch(imageUrl);
+  if (!response.ok) return { approved: false, reason: `image fetch failed: ${response.status}` };
+  const arrayBuffer = await response.arrayBuffer();
+  const rawType = (response.headers.get('content-type') || 'image/jpeg').split(';')[0].trim();
+  return await isImageBufferSpiritual(Buffer.from(arrayBuffer), rawType, apiKey);
 }
 
 /**

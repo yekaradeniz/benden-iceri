@@ -38,23 +38,23 @@ function pickBestFile(video) {
 }
 
 /**
- * Pexels API'den şiirin mood'larına göre uygun bir portrait video bulur.
- * Hiç kullanılmamış videoları tercih eder. Süre filtresi boş sonuç verirse
- * genişleterek tekrar dener.
+ * Pexels API'den mood'a uygun aday video listesi getirir (sıkı süreden gevşeğe).
+ * Caller bu adayları sırayla deneyip hangisi moderasyondan geçerse onu kullanır.
  *
  * @param {string[]} moods
  * @param {string} apiKey
- * @param {Set<string>} usedVideoIds - daha önce paylaşılmış TÜM video ID'leri (kalıcı)
- * @returns {Promise<{id: string, url: string, duration: number, query: string}>}
+ * @param {Set<string>} usedVideoIds
+ * @returns {Promise<Array<{id, url, duration, query}>>}
  */
-export async function fetchPexelsVideo(moods, apiKey, usedVideoIds = new Set()) {
+export async function fetchPexelsCandidates(moods, apiKey, usedVideoIds = new Set()) {
   if (!apiKey) throw new Error('PEXELS_API_KEY tanımlı değil');
 
   const moodQueries = moods.flatMap(m => MOOD_QUERIES[m] ?? []);
   const queries = [...new Set([...moodQueries, ...FALLBACK_QUERIES])];
 
-  // Tüm sorgu sonuçlarını cache'le ki süre aralığını gevşetince yeniden istemeye gerek kalmasın.
-  const cache = new Map(); // query -> videos[]
+  const cache = new Map();
+  const candidates = [];
+  const seenIds = new Set();
 
   for (const range of DURATION_RANGES) {
     for (const query of queries) {
@@ -64,24 +64,39 @@ export async function fetchPexelsVideo(moods, apiKey, usedVideoIds = new Set()) 
         cache.set(query, videos);
       }
 
-      const candidates = videos
-        .filter(v => v.duration >= range.min && v.duration <= range.max)
-        .filter(v => !usedVideoIds.has(`pexels-${v.id}`));
-
-      for (const video of candidates) {
+      for (const video of videos) {
+        if (video.duration < range.min || video.duration > range.max) continue;
+        const fullId = `pexels-${video.id}`;
+        if (usedVideoIds.has(fullId)) continue;
+        if (seenIds.has(fullId)) continue;
         const best = pickBestFile(video);
         if (!best) continue;
-        console.log(`Pexels foto bulundu: ${video.id} "${query}" ${best.width}x${best.height} ${video.duration}sn (range ${range.min}-${range.max})`);
-        return {
-          id: `pexels-${video.id}`,
+        seenIds.add(fullId);
+        candidates.push({
+          id: fullId,
           url: best.link,
           duration: video.duration,
-          query
-        };
+          query,
+          width: best.width,
+          height: best.height,
+          range: `${range.min}-${range.max}`
+        });
       }
     }
-    console.log(`Süre aralığı ${range.min}-${range.max}sn ile uygun yeni video yok, genişletiliyor...`);
+    if (candidates.length >= 10) break; // yeterince aday topladık
+    console.log(`Süre aralığı ${range.min}-${range.max}sn ile ${candidates.length} aday, gerekirse genişletiliyor...`);
   }
 
-  throw new Error(`Pexels'te uygun yeni video bulunamadı (mood: ${moods.join(', ')}, kullanılmış: ${usedVideoIds.size})`);
+  if (candidates.length === 0) {
+    throw new Error(`Pexels'te uygun yeni video bulunamadı (mood: ${moods.join(', ')}, kullanılmış: ${usedVideoIds.size})`);
+  }
+  return candidates;
+}
+
+/**
+ * Geri uyumluluk için: ilk adayı dön (eski kullanım).
+ */
+export async function fetchPexelsVideo(moods, apiKey, usedVideoIds = new Set()) {
+  const list = await fetchPexelsCandidates(moods, apiKey, usedVideoIds);
+  return list[0];
 }
