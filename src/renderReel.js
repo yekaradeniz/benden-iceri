@@ -115,6 +115,7 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, outP
       `[bg2][vtxt]overlay=0:0[tmp];` +
       `[tmp][mtxt]overlay=0:0,fade=t=out:st=20:d=1[outv]`,
       '-map', '[outv]',
+      '-an',                        // ses kanalı yok (Instagram'da müzik eklenebilsin)
       '-c:v', 'libx264',
       '-preset', 'slow',           // daha iyi sıkıştırma verimi
       '-crf', '17',                 // yüksek kalite (Instagram re-encode'una dayanır)
