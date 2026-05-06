@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { pickPhoto } from './pickPhoto.js';
@@ -25,6 +25,16 @@ let entry;
 if (pendingRetry) {
   entry = content.find(e => e.id === state.lastPost.verseId);
   if (!entry) throw new Error(`Retry: entry ${state.lastPost.verseId} bulunamadi`);
+
+  // Mevcut media dosyası varsa render atlansın - önceden hazırlanmış dosya korunur.
+  const lastDate = state.lastPost.date;
+  const existingFile = state.lastPost.type === 'reel'
+    ? join(ROOT, 'output', `${lastDate}.mp4`)
+    : join(ROOT, 'output', `${lastDate}-1.png`);
+  if (existsSync(existingFile)) {
+    console.log(`Mevcut media bulundu (${existingFile}), render atlanıyor.`);
+    process.exit(0);
+  }
   console.log(`Yeniden deneniyor: ${entry.id} (önceki post başarısız)`);
 } else {
   const postedSet = new Set(state.postedVerseIds);

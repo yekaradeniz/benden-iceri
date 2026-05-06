@@ -68,5 +68,18 @@
     <div class="footer-divider"></div>
     <div class="footer">Salih Baba</div>
   </div>
+<script>
+  (function() {
+    const content = document.querySelector('.content');
+    const explanation = document.querySelector('.explanation');
+    let size = parseFloat(window.getComputedStyle(explanation).fontSize);
+    // Ekran 1920px - üstte ~150px görünür video alanı bırak.
+    const maxHeight = 1770;
+    while (content.offsetHeight > maxHeight && size > 24) {
+      size -= 1;
+      explanation.style.fontSize = size + 'px';
+    }
+  })();
+</script>
 </body>
 </html>
