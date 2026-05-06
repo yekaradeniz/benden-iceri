@@ -19,7 +19,7 @@ async function searchPage(apiKey, query) {
   const url = new URL('https://api.pexels.com/videos/search');
   url.searchParams.set('query', query);
   url.searchParams.set('orientation', 'portrait');
-  url.searchParams.set('per_page', '40');
+  url.searchParams.set('per_page', '15');
 
   const res = await fetch(url.toString(), { headers: { Authorization: apiKey } });
   if (!res.ok) {
@@ -83,7 +83,7 @@ export async function fetchPexelsCandidates(moods, apiKey, usedVideoIds = new Se
         });
       }
     }
-    if (candidates.length >= 10) break; // yeterince aday topladık
+    if (candidates.length >= 5) break; // 5 aday yeterli; reddedilirse bir sonraki çekime geçer
     console.log(`Süre aralığı ${range.min}-${range.max}sn ile ${candidates.length} aday, gerekirse genişletiliyor...`);
   }
 
