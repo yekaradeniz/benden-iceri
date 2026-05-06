@@ -1,7 +1,11 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { postToInstagram, postCarouselToInstagram } from './postToInstagram.js';
+import {
+  postToInstagram,
+  postCarouselToInstagram,
+  postReelToInstagram
+} from './postToInstagram.js';
 import { readState, writeState } from './state.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -15,9 +19,8 @@ if (!state.lastPost?.date) {
   throw new Error('Bekleyen post yok. Önce npm run render çalıştırın.');
 }
 
-// Zaten başarıyla paylaşıldıysa tekrar atma
 if (state.lastPost.postId) {
-  console.log(`Bu gün zaten paylaşıldı (postId: ${state.lastPost.postId}). Atlanıyor.`);
+  console.log(`Bu post zaten paylaşıldı (postId: ${state.lastPost.postId}). Atlanıyor.`);
   process.exit(0);
 }
 
@@ -34,15 +37,29 @@ const date = state.lastPost.date;
 const igUserId = process.env.IG_USER_ID;
 const accessToken = process.env.IG_ACCESS_TOKEN;
 
+// Tip belirleme: yeni alan, geri uyumlu
+const type = state.lastPost.type
+  ?? (state.lastPost.carousel === true ? 'carousel' : 'carousel'); // legacy default
+
 let result;
-if (state.lastPost.carousel) {
+if (type === 'reel') {
+  const videoUrl = `${base}/${date}.mp4`;
+  console.log(`Reel paylaşılıyor: ${videoUrl}`);
+  result = await postReelToInstagram({
+    igUserId,
+    accessToken,
+    videoUrl,
+    caption: entry.caption
+  });
+  console.log(`Reel paylasildi: ${result.postId}`);
+} else if (state.lastPost.carousel) {
   result = await postCarouselToInstagram({
     igUserId,
     accessToken,
     imageUrls: [`${base}/${date}-1.png`, `${base}/${date}-2.png`],
     caption: entry.caption
   });
-  console.log(`✓ Carousel paylaşıldı: ${result.postId}`);
+  console.log(`Carousel paylasildi: ${result.postId}`);
 } else {
   result = await postToInstagram({
     igUserId,
@@ -50,7 +67,7 @@ if (state.lastPost.carousel) {
     imageUrl: `${base}/${date}-1.png`,
     caption: entry.caption
   });
-  console.log(`✓ Tekli gönderi paylaşıldı: ${result.postId}`);
+  console.log(`Tekli gonderi paylasildi: ${result.postId}`);
 }
 
 writeState(statePath, {
