@@ -100,31 +100,36 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, outP
     }
 
     // 3) FFmpeg ile compose et
+    // Süre planı:
+    //  0-9   verse (fade in 0-0.7, fade out 7.5-8.5)
+    //  9-10  geçiş (sade arka plan)
+    //  10-23 mana (fade in 10-10.7, fade out 21.5-22.5) - 13 saniye toplam
+    //  23-25 kapanış (final fade 24-25)
     await ffmpeg([
       '-y',
-      '-stream_loop', '-1', '-i', actualVideoPath,  // bg video (kısa olsa da loop)
-      '-loop', '1', '-t', '21', '-i', gradientPng,
+      '-stream_loop', '-1', '-i', actualVideoPath,
+      '-loop', '1', '-t', '25', '-i', gradientPng,
       '-loop', '1', '-t', '9',  '-i', versePng,
-      '-loop', '1', '-t', '9',  '-i', manaPng,
+      '-loop', '1', '-t', '13', '-i', manaPng,
       '-filter_complex',
       `[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1[bg];` +
       `[1:v]setpts=PTS-STARTPTS[grad];` +
       `[2:v]format=rgba,fade=t=out:st=7.5:d=1:alpha=1,setpts=PTS-STARTPTS[vtxt];` +
-      `[3:v]format=rgba,fade=t=in:st=0:d=0.7:alpha=1,fade=t=out:st=7.5:d=1:alpha=1,setpts=PTS+10/TB[mtxt];` +
+      `[3:v]format=rgba,fade=t=in:st=0:d=0.7:alpha=1,fade=t=out:st=11.5:d=1:alpha=1,setpts=PTS+10/TB[mtxt];` +
       `[bg][grad]overlay=0:0[bg2];` +
       `[bg2][vtxt]overlay=0:0[tmp];` +
-      `[tmp][mtxt]overlay=0:0,fade=t=out:st=20:d=1[outv]`,
+      `[tmp][mtxt]overlay=0:0,fade=t=out:st=24:d=1[outv]`,
       '-map', '[outv]',
       '-an',                        // ses kanalı yok (Instagram'da müzik eklenebilsin)
       '-c:v', 'libx264',
-      '-preset', 'slow',           // daha iyi sıkıştırma verimi
-      '-crf', '17',                 // yüksek kalite (Instagram re-encode'una dayanır)
+      '-preset', 'slow',
+      '-crf', '17',
       '-profile:v', 'high', '-level', '4.0',
       '-pix_fmt', 'yuv420p',
-      '-r', '30',                   // Instagram standardı 30fps
+      '-r', '30',
       '-maxrate', '12M', '-bufsize', '24M',
       '-movflags', '+faststart',
-      '-t', '21',
+      '-t', '25',
       outPath
     ]);
     console.log(`Reel video hazir: ${outPath}`);
