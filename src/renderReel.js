@@ -13,12 +13,8 @@ function calcVerseFontSize(verse) {
   return 51;
 }
 
-function calcExplanationFontSize(explanation) {
-  // Mana'da yazı verse boyutuna yakın olsun (ekrandan taşması serbest).
-  const chars = explanation.length;
-  if (chars > 600) return 42;
-  if (chars > 480) return 46;
-  if (chars > 360) return 49;
+function calcExplanationFontSize(_explanation) {
+  // Sabit 51 başlat, HTML icindeki JS sigmazsa kuculur.
   return 51;
 }
 
