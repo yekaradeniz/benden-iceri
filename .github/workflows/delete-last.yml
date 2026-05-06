@@ -1,0 +1,73 @@
+name: Delete Last Post (one-time)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  delete-last:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Delete last Instagram post + reset log.json
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: |
+          node --input-type=module << 'EOF'
+          import { readFileSync, writeFileSync } from 'node:fs';
+
+          const userId = process.env.IG_USER_ID;
+          const token = process.env.IG_ACCESS_TOKEN;
+          const base = 'https://graph.facebook.com/v21.0';
+
+          // log.json oku
+          const logPath = 'output/log.json';
+          const log = JSON.parse(readFileSync(logPath, 'utf-8'));
+          const targetPostId = log.lastPost?.postId;
+          const targetVerseId = log.lastPost?.verseId;
+
+          if (!targetPostId) {
+            console.log('Silinecek postId yok.');
+            process.exit(0);
+          }
+
+          console.log(`Siliniyor: ${targetPostId} (${targetVerseId})`);
+          const delRes = await fetch(`${base}/${targetPostId}?access_token=${token}`, { method: 'DELETE' });
+          const delJson = await delRes.json();
+          console.log('Silme sonucu:', JSON.stringify(delJson));
+
+          // log.json'dan bu verse'i çıkar, lastPost'u önceki state'e dön
+          log.postedVerseIds = log.postedVerseIds.filter(id => id !== targetVerseId);
+          log.recentPhotos = log.recentPhotos.filter(id => id !== log.lastPost.photoId);
+
+          // lastPost'u önceki başarılı carousel'a (sb-0004) geri al ki tip alternasyonu doğru çalışsın
+          log.lastPost = {
+            date: '2026-05-05',
+            verseId: 'sb-0004',
+            photoId: 'unsplash-jtOm3pGlXgo',
+            postId: '18159811183446194',
+            type: 'carousel',
+            carousel: true
+          };
+
+          writeFileSync(logPath, JSON.stringify(log, null, 2) + '\n');
+          console.log('log.json sifirlandi - siradaki post yine reel olacak.');
+          EOF
+
+      - name: Commit log.json
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add output/log.json
+          if git diff --staged --quiet; then
+            echo "Değişiklik yok"
+          else
+            git commit -m "chore: son reel silindi, log sifirlandi"
+            git push
+          fi
