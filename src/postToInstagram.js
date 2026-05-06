@@ -51,6 +51,27 @@ export async function postToInstagram({ igUserId, accessToken, imageUrl, caption
   return { postId, containerId };
 }
 
+export async function postReelToInstagram({ igUserId, accessToken, videoUrl, caption }) {
+  // 1) Reel container oluştur
+  const { id: containerId } = await apiPost(`${API_BASE}/${igUserId}/media`, {
+    media_type: 'REELS',
+    video_url: videoUrl,
+    caption,
+    share_to_feed: 'true',
+    access_token: accessToken
+  });
+
+  // 2) Container'ın FINISHED olmasını bekle (videolarda 30-90 sn sürebilir)
+  await waitUntilReady(containerId, accessToken, 300000);
+
+  // 3) Yayınla
+  const { id: postId } = await apiPost(`${API_BASE}/${igUserId}/media_publish`, {
+    creation_id: containerId,
+    access_token: accessToken
+  });
+  return { postId, containerId };
+}
+
 export async function postCarouselToInstagram({ igUserId, accessToken, imageUrls, caption }) {
   // Step 1: create a child media item for each image
   const childIds = [];

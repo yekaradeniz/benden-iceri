@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 1080px; height: 1920px; overflow: hidden; background: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: geometricPrecision;
+  }
+  .content {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 0 60px 160px;
+    text-align: center;
+    color: #faf6ec;
+  }
+  .header {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    letter-spacing: 11px;
+    text-transform: uppercase;
+    color: #d9c79a;
+    margin-bottom: 28px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+  }
+  .divider {
+    width: 90px; height: 2px;
+    background: rgba(217,199,154,0.6);
+    margin: 0 auto 44px;
+  }
+  .explanation {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: {{explanationFontSize}};
+    line-height: 1.38;
+    color: #faf6ec;
+    text-align: left;
+    white-space: pre-line;
+    letter-spacing: 0.6px;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.85);
+    margin-bottom: 56px;
+  }
+  .footer-divider {
+    width: 108px; height: 3px;
+    background: rgba(217,199,154,0.6);
+    margin: 0 auto 30px;
+  }
+  .footer {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 31px;
+    letter-spacing: 13.5px;
+    text-transform: uppercase;
+    color: #d9c79a;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+  }
+</style>
+</head>
+<body>
+  <div class="content">
+    <div class="header">Mânâ</div>
+    <div class="divider"></div>
+    <div class="explanation">{{explanation}}</div>
+    <div class="footer-divider"></div>
+    <div class="footer">Salih Baba</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 1080px; height: 1920px; overflow: hidden; background: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: geometricPrecision;
+  }
+  .content {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 0 60px 160px;
+    text-align: center;
+    color: #faf6ec;
+  }
+  .verse {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: {{verseFontSize}};
+    line-height: 1.38;
+    color: #faf6ec;
+    margin-bottom: 56px;
+    white-space: pre;
+    letter-spacing: 0.6px;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.85);
+  }
+  .divider {
+    width: 108px; height: 3px;
+    background: rgba(217,199,154,0.6);
+    margin: 0 auto 30px;
+  }
+  .source {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 31px;
+    letter-spacing: 13.5px;
+    text-transform: uppercase;
+    color: #d9c79a;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+  }
+</style>
+</head>
+<body>
+  <div class="content">
+    <div class="verse" id="verse">{{verse}}</div>
+    <div class="divider"></div>
+    <div class="source">Salih Baba</div>
+  </div>
+<script>
+  (function() {
+    const verse = document.querySelector('#verse');
+    let size = parseFloat(window.getComputedStyle(verse).fontSize);
+    while (verse.scrollWidth > verse.clientWidth && size > 20) {
+      size -= 1;
+      verse.style.fontSize = size + 'px';
+    }
+    verse.style.whiteSpace = 'pre-line';
+  })();
+</script>
+</body>
+</html>
