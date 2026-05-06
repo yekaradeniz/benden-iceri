@@ -42,22 +42,11 @@ jobs:
           const delJson = await delRes.json();
           console.log('Silme sonucu:', JSON.stringify(delJson));
 
-          // log.json'dan bu verse'i çıkar, lastPost'u önceki state'e dön
-          log.postedVerseIds = log.postedVerseIds.filter(id => id !== targetVerseId);
-          log.recentPhotos = log.recentPhotos.filter(id => id !== log.lastPost.photoId);
-
-          // lastPost'u önceki başarılı carousel'a (sb-0004) geri al ki tip alternasyonu doğru çalışsın
-          log.lastPost = {
-            date: '2026-05-05',
-            verseId: 'sb-0004',
-            photoId: 'unsplash-jtOm3pGlXgo',
-            postId: '18159811183446194',
-            type: 'carousel',
-            carousel: true
-          };
+          // postId null'a çek ki retry mantığı devreye girsin ve mevcut media tekrar kullanılabilsin
+          log.lastPost = { ...log.lastPost, postId: null };
 
           writeFileSync(logPath, JSON.stringify(log, null, 2) + '\n');
-          console.log('log.json sifirlandi - siradaki post yine reel olacak.');
+          console.log('log.json - postId null, mevcut media tekrar paylaşılabilir.');
           EOF
 
       - name: Commit log.json
