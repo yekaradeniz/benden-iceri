@@ -3,7 +3,7 @@
   "lastPost": {
     "date": "2026-05-06",
     "verseId": "sb-0005",
-    "photoId": "pexels-20450431",
+    "photoId": "pexels-36114346",
     "postId": "18099908375075746",
     "type": "reel",
     "carousel": false
@@ -21,7 +21,8 @@
     "pexels-35202010",
     "pexels-34680752",
     "pexels-20450431",
-    "pexels-36012780"
+    "pexels-36012780",
+    "pexels-36114346"
   ],
   "postedVerseIds": [
     "sb-0001",
@@ -39,6 +40,8 @@
     "pexels-35202010",
     "pexels-34680752",
     "pexels-20450431",
-    "pexels-36012780"
-  ]
+    "pexels-36012780",
+    "pexels-36114346"
+  ],
+  "audioIndex": 1
 }
