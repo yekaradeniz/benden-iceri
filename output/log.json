@@ -1,12 +1,12 @@
 {
   "launchDate": "2026-05-04",
   "lastPost": {
-    "date": "2026-05-06",
-    "verseId": "sb-0005",
-    "photoId": "pexels-34680752",
-    "postId": null,
-    "type": "reel",
-    "carousel": false
+    "date": "2026-05-05",
+    "verseId": "sb-0004",
+    "photoId": "unsplash-jtOm3pGlXgo",
+    "postId": "18159811183446194",
+    "type": "carousel",
+    "carousel": true
   },
   "recentPhotos": [
     "mecca-silhouette-01",
@@ -25,8 +25,7 @@
     "sb-0001",
     "sb-0002",
     "sb-0003",
-    "sb-0004",
-    "sb-0005"
+    "sb-0004"
   ],
   "usedVideoIds": [
     "pexels-36114345",
