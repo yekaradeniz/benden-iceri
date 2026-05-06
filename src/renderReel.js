@@ -122,12 +122,12 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, outP
       '-map', '[outv]',
       '-an',                        // ses kanalı yok (Instagram'da müzik eklenebilsin)
       '-c:v', 'libx264',
-      '-preset', 'slow',
-      '-crf', '17',
-      '-profile:v', 'high', '-level', '4.0',
+      '-preset', 'slower',          // daha verimli sıkıştırma (encode süresi artar)
+      '-crf', '14',                  // çok yüksek kalite (Instagram re-encode'una daha fazla margin)
+      '-profile:v', 'high', '-level', '4.2',
       '-pix_fmt', 'yuv420p',
       '-r', '30',
-      '-maxrate', '12M', '-bufsize', '24M',
+      '-maxrate', '20M', '-bufsize', '40M',
       '-movflags', '+faststart',
       '-t', '25',
       outPath
