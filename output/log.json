@@ -1,15 +1,14 @@
 {
   "launchDate": "2026-05-04",
   "lastPost": {
-    "date": "2026-05-06",
-    "verseId": "sb-0006",
-    "photoId": "unsplash-nWze2WO2ouk",
-    "postId": "17888851050499564",
-    "type": "carousel",
-    "carousel": true
+    "date": "2026-05-07",
+    "verseId": "sb-0007",
+    "photoId": "pexels-20347206",
+    "postId": null,
+    "type": "reel",
+    "carousel": false
   },
   "recentPhotos": [
-    "rose-vase-01",
     "unsplash-jtOm3pGlXgo",
     "pexels-36114345",
     "pexels-36109639",
@@ -22,7 +21,8 @@
     "pexels-36114346",
     "pexels-36314084",
     "pexels-20347202",
-    "unsplash-nWze2WO2ouk"
+    "unsplash-nWze2WO2ouk",
+    "pexels-20347206"
   ],
   "postedVerseIds": [
     "sb-0001",
@@ -30,7 +30,8 @@
     "sb-0003",
     "sb-0004",
     "sb-0005",
-    "sb-0006"
+    "sb-0006",
+    "sb-0007"
   ],
   "usedVideoIds": [
     "pexels-36114345",
@@ -44,7 +45,8 @@
     "pexels-36012780",
     "pexels-36114346",
     "pexels-36314084",
-    "pexels-20347202"
+    "pexels-20347202",
+    "pexels-20347206"
   ],
-  "audioIndex": 3
+  "audioIndex": 4
 }
