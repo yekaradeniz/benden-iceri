@@ -6,7 +6,8 @@
     "photoId": "unsplash-zsEq9KAFM18",
     "postId": null,
     "type": "carousel",
-    "carousel": true
+    "carousel": true,
+    "postAttempted": true
   },
   "recentPhotos": [
     "pexels-34680752",
