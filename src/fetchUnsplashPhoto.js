@@ -11,10 +11,10 @@ const MOOD_KEYWORDS = {
   ],
   'ic-dunya': [
     'islamic architecture', 'mosque dome', 'mosque interior',
-    'samarkand registan', 'bukhara mosque', 'khiva mosque',
+    'samarkand registan', 'bukhara mosque',
     'blue mosque istanbul', 'hagia sophia', 'suleymaniye',
     'sheikh zayed mosque', 'iznik tile', 'persian mosque',
-    'turkish mosque interior', 'cordoba mosque', 'alhambra'
+    'turkish mosque interior', 'cordoba mosque'
   ],
   'halvet': [
     'mosque empty quiet', 'mosque solitude', 'islamic monastery',
