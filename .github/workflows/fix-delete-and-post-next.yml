@@ -1,0 +1,115 @@
+name: Fix - Delete Duplicate & Post Next (sb-0013 reel)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Delete most recent Instagram post (duplicate sb-0012)
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: |
+          node --input-type=module << 'EOF'
+          const userId = process.env.IG_USER_ID;
+          const token = process.env.IG_ACCESS_TOKEN;
+          const base = 'https://graph.facebook.com/v21.0';
+
+          const listRes = await fetch(`${base}/${userId}/media?fields=id,caption,timestamp&limit=1&access_token=${token}`);
+          const list = await listRes.json();
+
+          if (!list.data || list.data.length === 0) {
+            console.log('Silinecek post bulunamadi.');
+            process.exit(0);
+          }
+
+          const mediaId = list.data[0].id;
+          console.log(`Siliniyor: ${mediaId} (${list.data[0].timestamp})`);
+          console.log(`Caption: ${list.data[0].caption?.slice(0, 80)}`);
+
+          const delRes = await fetch(`${base}/${mediaId}?access_token=${token}`, { method: 'DELETE' });
+          const delJson = await delRes.json();
+          console.log('Silme sonucu:', JSON.stringify(delJson));
+          EOF
+
+      - name: Render sb-0013 (reel - bir onceki carousel oldugu icin otomatik reel secilir)
+        run: npm run render
+        timeout-minutes: 8
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+
+      - name: Commit rendered media
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git config pull.rebase true
+          git add output/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: fix render sb-0013 $(date -u +%Y-%m-%d)"
+            for i in 1 2 3; do
+              git pull --rebase origin "${GITHUB_REF_NAME}" 2>/dev/null || true
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+                echo "Push basarili ($i)"
+                break
+              fi
+              sleep 3
+            done
+          fi
+
+      - name: Wait for raw URL availability
+        run: sleep 10
+
+      - name: Post sb-0013 to Instagram
+        run: npm run post
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+
+      - name: Commit post result
+        run: |
+          git add output/log.json
+          if git diff --staged --quiet; then
+            echo "log.json degismedi"
+          else
+            git commit -m "chore: fix post sonucu sb-0013 $(date -u +%Y-%m-%d)"
+            for i in 1 2 3; do
+              git pull --rebase origin "${GITHUB_REF_NAME}" 2>/dev/null || true
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+                echo "Push basarili ($i)"
+                break
+              fi
+              sleep 3
+            done
+          fi
