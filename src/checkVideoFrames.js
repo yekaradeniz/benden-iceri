@@ -19,7 +19,7 @@ function ffmpeg(args) {
  * Videodan eşit aralıklarla 5 kare çıkarır.
  * @returns {Promise<string[]>} - PNG kare dosyalarının yolları
  */
-async function extractFrames(videoPath, durationSec, count = 3) {
+async function extractFrames(videoPath, durationSec, count = 4) {
   const tmp = mkdtempSync(join(tmpdir(), 'frames-'));
   // Eşit aralıklarla böl: 3 frame için %25, %50, %75
   const positions = Array.from({ length: count }, (_, i) => durationSec * ((i + 1) / (count + 1)));
@@ -50,7 +50,7 @@ async function checkFrame(framePath, geminiKey) {
  * @param {string} geminiKey
  * @returns {Promise<{approved: boolean, reason?: string}>}
  */
-export async function validateVideoFrames(videoPath, durationSec, geminiKey, frameCount = 3) {
+export async function validateVideoFrames(videoPath, durationSec, geminiKey, frameCount = 4) {
   if (!geminiKey) return { approved: true, reason: 'no-gemini-key-skipped' };
 
   const { tmpDir, framePaths } = await extractFrames(videoPath, durationSec, frameCount);

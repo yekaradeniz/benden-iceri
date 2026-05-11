@@ -1,0 +1,78 @@
+name: Rollback Last 3 Posts (one-time)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Delete last 3 Instagram posts + rewind log.json
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: |
+          node --input-type=module << 'EOF'
+          import { readFileSync, writeFileSync } from 'node:fs';
+          const userId = process.env.IG_USER_ID;
+          const token = process.env.IG_ACCESS_TOKEN;
+          const base = 'https://graph.facebook.com/v21.0';
+
+          // Son 3 postu Instagram'dan sil
+          const listUrl = `${base}/${userId}/media?fields=id,timestamp&limit=3&access_token=${token}`;
+          const list = await (await fetch(listUrl)).json();
+          if (!list.data || list.data.length === 0) {
+            console.log('Silinecek post yok.');
+            process.exit(0);
+          }
+          console.log(`${list.data.length} post bulundu, siliniyor...`);
+          for (const item of list.data) {
+            const res = await fetch(`${base}/${item.id}?access_token=${token}`, { method: 'DELETE' });
+            console.log(`Silindi ${item.id}:`, JSON.stringify(await res.json()));
+          }
+
+          // log.json'ı sb-0010 carousel state'ine geri al
+          const logPath = 'output/log.json';
+          const log = JSON.parse(readFileSync(logPath, 'utf-8'));
+
+          log.lastPost = {
+            date: '2026-05-08',
+            verseId: 'sb-0010',
+            photoId: 'unsplash--MVYp75sivw',
+            postId: '18318030427261160',
+            type: 'carousel',
+            carousel: true
+          };
+
+          // sb-0011, sb-0012, sb-0013'ü postedVerseIds'tan çıkar
+          log.postedVerseIds = log.postedVerseIds.filter(id =>
+            !['sb-0011', 'sb-0012', 'sb-0013'].includes(id)
+          );
+
+          // İlgili photo/video ID'lerini de recentPhotos'tan çıkar
+          // (usedVideoIds'te kalsın ki tekrar denenmesinler)
+          const removed = ['pexels-31086181', 'pexels-19043514', 'pexels-10610671', 'unsplash-hXuTdcAjoHs'];
+          log.recentPhotos = log.recentPhotos.filter(id => !removed.includes(id));
+
+          writeFileSync(logPath, JSON.stringify(log, null, 2) + '\n');
+          console.log('log.json sb-0010 state\'ine geri sarıldı.');
+          EOF
+
+      - name: Commit rewind
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add output/log.json
+          if git diff --staged --quiet; then
+            echo "Değişiklik yok"
+          else
+            git commit -m "rollback: son 3 post silindi, log sb-0010'a geri sarıldı"
+            git push
+          fi
