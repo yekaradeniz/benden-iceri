@@ -15,9 +15,11 @@ APPROPRIATE (YES):
 - Abstract spiritual/contemplative imagery, soft light scenes
 
 INAPPROPRIATE (NO):
-- People in modern Western attire (women in tank tops, men in jeans, sportswear)
+- ANY visible woman/female person (face, body, hands, hair) - automatic reject
+- People in modern Western attire (men in jeans, sportswear, casual modern clothing)
 - Manicured/painted nails, female hands with nail polish, modern cosmetic imagery
-- Visible bare skin (legs, arms, shoulders), bikini, swimwear
+- Visible bare skin (legs, arms, shoulders), bikini, swimwear, tight clothing
+- Mixed-gender gatherings, romantic imagery, weddings, dance scenes
 - Commercial brands, logos, store signs, neon advertising
 - Neon lights, club, party imagery, nightlife
 - Christian/Buddhist/Hindu/other non-Islamic religious imagery (crosses, Buddha statues, etc.)
