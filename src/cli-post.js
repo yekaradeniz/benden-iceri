@@ -24,7 +24,6 @@ if (state.lastPost.postId) {
   process.exit(0);
 }
 
-
 const entry = content.find(e => e.id === state.lastPost.verseId);
 if (!entry) throw new Error(`Entry ${state.lastPost.verseId} bulunamadı`);
 
@@ -37,6 +36,27 @@ const date = state.lastPost.date;
 
 const igUserId = process.env.IG_USER_ID;
 const accessToken = process.env.IG_ACCESS_TOKEN;
+
+// Instagram'da son 10 postu kontrol et - aynı caption varsa zaten paylaşılmış demektir
+{
+  const API_BASE = 'https://graph.facebook.com/v21.0';
+  const url = `${API_BASE}/${igUserId}/media?fields=id,caption,timestamp&limit=10&access_token=${accessToken}`;
+  const res = await fetch(url);
+  const json = await res.json();
+  if (json.data) {
+    const captionStart = entry.caption.slice(0, 40);
+    const existing = json.data.find(m => m.caption?.startsWith(captionStart));
+    if (existing) {
+      console.log(`Duplicate tespit edildi: ${existing.id} (${existing.timestamp}). postId kaydediliyor, atlanıyor.`);
+      writeState(statePath, {
+        ...state,
+        lastPost: { ...state.lastPost, postId: existing.id }
+      });
+      process.exit(0);
+    }
+    console.log(`Duplicate yok, post devam ediyor (son ${json.data.length} post kontrol edildi).`);
+  }
+}
 
 // Tip belirleme: yeni alan, geri uyumlu
 const type = state.lastPost.type
