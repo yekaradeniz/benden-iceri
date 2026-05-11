@@ -48,12 +48,21 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git config pull.rebase true
           git add output/
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
             git commit -m "chore: daily post $(date -u +%Y-%m-%d)"
-            git push
+            for i in 1 2 3; do
+              git pull --rebase origin "${GITHUB_REF_NAME}" 2>/dev/null || true
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+                echo "Push başarılı (deneme $i)"
+                break
+              fi
+              echo "Push başarısız (deneme $i), tekrar deneniyor..."
+              sleep 3
+            done
           fi
 
       - name: Wait for raw URL availability
@@ -74,5 +83,13 @@ jobs:
             echo "log.json degismedi"
           else
             git commit -m "chore: post sonucu kaydet $(date -u +%Y-%m-%d)"
-            git push
+            for i in 1 2 3; do
+              git pull --rebase origin "${GITHUB_REF_NAME}" 2>/dev/null || true
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+                echo "Push başarılı (deneme $i)"
+                break
+              fi
+              echo "Push başarısız (deneme $i), tekrar deneniyor..."
+              sleep 3
+            done
           fi
