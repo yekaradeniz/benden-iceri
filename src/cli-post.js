@@ -24,6 +24,13 @@ if (state.lastPost.postId) {
   process.exit(0);
 }
 
+const today = new Date().toISOString().slice(0, 10);
+if (state.lastPost.date === today && state.lastPost.postAttempted) {
+  console.log(`Bugün (${today}) post zaten denendi ama postId kaydedilemedi. Duplicate riskini önlemek için atlanıyor.`);
+  console.log('Eğer post Instagram'"'"'da yoksa: output/log.json içindeki postAttempted alanını silerek tekrar çalıştırın.');
+  process.exit(0);
+}
+
 const entry = content.find(e => e.id === state.lastPost.verseId);
 if (!entry) throw new Error(`Entry ${state.lastPost.verseId} bulunamadı`);
 
@@ -40,6 +47,9 @@ const accessToken = process.env.IG_ACCESS_TOKEN;
 // Tip belirleme: yeni alan, geri uyumlu
 const type = state.lastPost.type
   ?? (state.lastPost.carousel === true ? 'carousel' : 'carousel'); // legacy default
+
+// postAttempted flag'i yaz - sonraki run duplicate yapmaktan kaçınsın
+writeState(statePath, { ...state, lastPost: { ...state.lastPost, postAttempted: true } });
 
 let result;
 if (type === 'reel') {
