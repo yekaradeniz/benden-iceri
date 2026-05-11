@@ -1,11 +1,28 @@
 // Mood → Pexels arama terimi (Sufi/Islamic temalı)
 const MOOD_QUERIES = {
-  'divan':    ['islamic calligraphy', 'mosque interior', 'arabic manuscript'],
-  'ic-dunya': ['mosque arch', 'mosque dome', 'sufi spiritual'],
-  'tefekkür': ['mosque prayer', 'mosque interior', 'mosque candle']
+  'divan': [
+    'islamic calligraphy', 'arabic manuscript', 'quran writing',
+    'mosque interior', 'ottoman calligraphy', 'arabic art'
+  ],
+  'ic-dunya': [
+    'mosque interior dome', 'mosque arch', 'mosque architecture',
+    'samarkand mosque', 'bukhara mosque', 'registan',
+    'blue mosque istanbul', 'hagia sophia', 'suleymaniye',
+    'sheikh zayed mosque', 'sultan ahmed mosque', 'islamic architecture',
+    'mosque tiles', 'iznik tile', 'persian mosque'
+  ],
+  'tefekkür': [
+    'mosque prayer', 'mosque interior peaceful', 'mosque candle',
+    'mosque sunlight rays', 'mosque silence', 'prayer beads tesbih',
+    'mosque morning light', 'medina mosque', 'masjid nabawi'
+  ]
 };
 
-const FALLBACK_QUERIES = ['mosque', 'sufi', 'islamic architecture'];
+const FALLBACK_QUERIES = [
+  'mosque interior', 'mosque dome', 'islamic architecture',
+  'samarkand', 'bukhara', 'persian mosque', 'turkish mosque',
+  'islamic calligraphy', 'arabic manuscript'
+];
 
 // Süre aralıkları sıralı olarak denenecek - sıkıdan gevşeğe.
 // Video render'ımız 33 saniye, en az 34 saniyelik kaynak ideal (loop atlama olmasın).
