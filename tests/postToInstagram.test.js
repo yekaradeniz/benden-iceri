@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { postToInstagram } from '../src/postToInstagram.js';
+import { postToInstagram, ActionBlockError } from '../src/postToInstagram.js';
 
 describe('postToInstagram', () => {
   beforeEach(() => {
@@ -50,7 +50,7 @@ describe('postToInstagram', () => {
     })).rejects.toThrow(/Bad image URL/);
   });
 
-  it('throws when publish fails', async () => {
+  it('throws when publish fails with 4xx (no retry)', async () => {
     const mockFetch = vi.fn()
       .mockResolvedValueOnce({
         ok: true,
@@ -58,7 +58,7 @@ describe('postToInstagram', () => {
       })
       .mockResolvedValueOnce({
         ok: false,
-        status: 500,
+        status: 400,
         json: async () => ({ error: { message: 'IG server error' } })
       });
     vi.stubGlobal('fetch', mockFetch);
@@ -67,5 +67,47 @@ describe('postToInstagram', () => {
       igUserId: 'X', accessToken: 'Y',
       imageUrl: 'u', caption: 'c'
     })).rejects.toThrow(/IG server error/);
+  });
+});
+
+describe('apiCall error handling', () => {
+  it('ActionBlockError firlatir subcode 2207051 icin', async () => {
+    const mockFetch = vi.fn().mockResolvedValueOnce({
+      ok: false,
+      status: 400,
+      json: async () => ({
+        error: {
+          message: 'Action is blocked',
+          type: 'OAuthException',
+          code: 4,
+          error_subcode: 2207051
+        }
+      })
+    });
+    vi.stubGlobal('fetch', mockFetch);
+
+    await expect(postToInstagram({
+      igUserId: 'X', accessToken: 'Y',
+      imageUrl: 'u', caption: 'c'
+    })).rejects.toThrow(ActionBlockError);
+
+    // Tek deneme yapmali, retry YOK
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+  });
+
+  it('ActionBlockError code 4 (rate limit) icin de firlar', async () => {
+    const mockFetch = vi.fn().mockResolvedValueOnce({
+      ok: false,
+      status: 400,
+      json: async () => ({
+        error: { message: 'Application limit', code: 4 }
+      })
+    });
+    vi.stubGlobal('fetch', mockFetch);
+
+    await expect(postToInstagram({
+      igUserId: 'X', accessToken: 'Y',
+      imageUrl: 'u', caption: 'c'
+    })).rejects.toThrow(ActionBlockError);
   });
 });

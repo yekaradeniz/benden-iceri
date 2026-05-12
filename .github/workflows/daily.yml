@@ -2,8 +2,7 @@ name: Daily Post
 
 on:
   schedule:
-    - cron: '0 9 * * *'   # 09:00 UTC = 12:00 GMT+3
-    - cron: '0 16 * * *'  # 16:00 UTC = 19:00 GMT+3
+    - cron: '0 9 * * *'   # 09:00 UTC = 12:00 GMT+3. Gunde tek post (carousel/reel alternating)
   workflow_dispatch:      # manual trigger button
 
 permissions:
@@ -35,6 +34,13 @@ jobs:
 
       - name: Install FFmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Random jitter (0-30 dk) - sadece schedule icin, bot pattern bozma
+        if: github.event_name == 'schedule'
+        run: |
+          DELAY=$((RANDOM % 1800))
+          echo "Random delay: ${DELAY}s ($((DELAY/60)) dk)"
+          sleep $DELAY
 
       - name: Generate today's media (carousel veya reel)
         run: npm run render
