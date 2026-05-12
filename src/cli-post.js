@@ -37,24 +37,34 @@ const date = state.lastPost.date;
 const igUserId = process.env.IG_USER_ID;
 const accessToken = process.env.IG_ACCESS_TOKEN;
 
-// Instagram'da son 10 postu kontrol et - aynı caption varsa zaten paylaşılmış demektir
+// Senkron kontrolu: Instagram'in son postId'si state.lastSuccessfulPostId ile esit mi?
+// Esit degilse ve son post yakin zamanda atildiysa, onceki run state'e yazamadan postlamis demektir.
+// Caption-based check kullanmiyoruz cunku tum sb-XXXX postlari ayni caption template'i ile basliyor.
 {
   const API_BASE = 'https://graph.facebook.com/v21.0';
-  const url = `${API_BASE}/${igUserId}/media?fields=id,caption,timestamp&limit=10&access_token=${accessToken}`;
+  const url = `${API_BASE}/${igUserId}/media?fields=id,caption,timestamp&limit=1&access_token=${accessToken}`;
   const res = await fetch(url);
   const json = await res.json();
-  if (json.data) {
-    const captionStart = entry.caption.slice(0, 40);
-    const existing = json.data.find(m => m.caption?.startsWith(captionStart));
-    if (existing) {
-      console.log(`Duplicate tespit edildi: ${existing.id} (${existing.timestamp}). postId kaydediliyor, atlanıyor.`);
+  const igLatest = json.data?.[0];
+  const previousPostId = state.lastSuccessfulPostId;
+
+  if (igLatest && previousPostId && igLatest.id !== previousPostId) {
+    const ageMs = Date.now() - new Date(igLatest.timestamp).getTime();
+    const twoHoursMs = 2 * 60 * 60 * 1000;
+    if (ageMs < twoHoursMs) {
+      console.log(`Senkron uyusmazligi: Instagram son post ${igLatest.id} state'de bilinmiyor ama ${Math.round(ageMs/60000)} dk once atildi. State guncelleniyor, atlaniyor.`);
       writeState(statePath, {
         ...state,
-        lastPost: { ...state.lastPost, postId: existing.id }
+        lastPost: { ...state.lastPost, postId: igLatest.id },
+        lastSuccessfulPostId: igLatest.id
       });
       process.exit(0);
     }
-    console.log(`Duplicate yok, post devam ediyor (son ${json.data.length} post kontrol edildi).`);
+    console.log(`Instagram son post ${igLatest.id} state'de bilinmiyor ama ${Math.round(ageMs/60000)} dk once atilmis (eski). Devam ediyor.`);
+  } else if (igLatest && previousPostId && igLatest.id === previousPostId) {
+    console.log(`Senkron OK: Instagram son post (${igLatest.id}) state ile esit. Post devam ediyor.`);
+  } else {
+    console.log(`State'de lastSuccessfulPostId yok veya IG bos. Post devam ediyor.`);
   }
 }
 
@@ -94,5 +104,6 @@ if (type === 'reel') {
 
 writeState(statePath, {
   ...state,
-  lastPost: { ...state.lastPost, postId: result.postId }
+  lastPost: { ...state.lastPost, postId: result.postId },
+  lastSuccessfulPostId: result.postId
 });
