@@ -45,4 +45,20 @@ describe('buildCaption', () => {
     }
     expect(captions.size).toBe(30);
   });
+
+  it('verse undefined ise hata firlatir', () => {
+    expect(() => buildCaption({ id: 'sb-x' }, '2026-05-12')).toThrow(/verse eksik/);
+  });
+
+  it('verse bos string ise hata firlatir', () => {
+    expect(() => buildCaption({ id: 'sb-x', verse: '   ' }, '2026-05-12')).toThrow(/verse eksik/);
+  });
+
+  it('entry null ise hata firlatir', () => {
+    expect(() => buildCaption(null, '2026-05-12')).toThrow(/verse eksik/);
+  });
+
+  it('gecersiz tarih format hata firlatir', () => {
+    expect(() => buildCaption(entry, 'May 12, 2026')).toThrow(/dateStr gecersiz/);
+  });
 });

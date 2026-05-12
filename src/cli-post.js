@@ -6,6 +6,7 @@ import {
   postCarouselToInstagram,
   postReelToInstagram,
   checkTokenHealth,
+  fetchLatestMedia,
   ActionBlockError
 } from './postToInstagram.js';
 import { readState, writeState } from './state.js';
@@ -65,11 +66,7 @@ try {
 
 // 3) Senkron kontrolu: Instagram'in son postId'si state.lastSuccessfulPostId ile esit mi?
 {
-  const API_BASE = 'https://graph.facebook.com/v21.0';
-  const url = `${API_BASE}/${igUserId}/media?fields=id,timestamp&limit=1&access_token=${accessToken}`;
-  const res = await fetch(url);
-  const json = await res.json();
-  const igLatest = json.data?.[0];
+  const igLatest = await fetchLatestMedia({ igUserId, accessToken });
   const previousPostId = state.lastSuccessfulPostId;
 
   if (igLatest && previousPostId && igLatest.id !== previousPostId) {
@@ -97,7 +94,7 @@ const caption = buildCaption(entry, date);
 console.log(`Caption (${caption.length} char): ${caption.split('\n')[0]}...`);
 
 const type = state.lastPost.type
-  ?? (state.lastPost.carousel === true ? 'carousel' : 'carousel');
+  ?? (state.lastPost.carousel === true ? 'carousel' : 'photo');
 
 async function publishPost() {
   if (type === 'reel') {

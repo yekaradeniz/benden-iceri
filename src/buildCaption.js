@@ -46,6 +46,13 @@ function pickIntro(verse, seed) {
 }
 
 export function buildCaption(entry, dateStr) {
+  if (!entry || typeof entry.verse !== 'string' || entry.verse.trim() === '') {
+    throw new Error(`buildCaption: entry.verse eksik veya gecersiz (id: ${entry?.id ?? 'unknown'})`);
+  }
+  if (typeof dateStr !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+    throw new Error(`buildCaption: dateStr gecersiz format (beklenen YYYY-MM-DD, alindi: ${dateStr})`);
+  }
+
   const seed = dateSeed(dateStr);
   const intro = pickIntro(entry.verse, seed);
 

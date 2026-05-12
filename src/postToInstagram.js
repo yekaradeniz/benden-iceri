@@ -41,7 +41,20 @@ async function apiCall(url, params, { method = 'POST', maxRetries = 3 } = {}) {
       continue;
     }
 
-    const json = await res.json();
+    // Defansif JSON parse: CDN/proxy bazen HTML hata sayfasi dondurur
+    let json;
+    try {
+      json = await res.json();
+    } catch (parseErr) {
+      console.error(`JSON parse hatasi (attempt ${attempt + 1}, HTTP ${res.status}):`, parseErr.message);
+      // 5xx + parse hatasi = transient, retry et
+      if (res.status >= 500 && attempt < maxRetries) {
+        await backoff(attempt);
+        continue;
+      }
+      throw new Error(`Instagram API gecersiz JSON dondurdu (HTTP ${res.status})`);
+    }
+
     if (res.ok) return json;
 
     const errorBody = json.error;
@@ -95,6 +108,15 @@ export async function checkTokenHealth({ igUserId, accessToken }) {
     access_token: accessToken
   });
   return { id: data.id, username: data.username };
+}
+
+export async function fetchLatestMedia({ igUserId, accessToken }) {
+  const data = await apiGet(`${API_BASE}/${igUserId}/media`, {
+    fields: 'id,timestamp',
+    limit: '1',
+    access_token: accessToken
+  });
+  return data.data?.[0] ?? null;
 }
 
 export async function postToInstagram({ igUserId, accessToken, imageUrl, caption }) {
