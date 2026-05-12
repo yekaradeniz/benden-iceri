@@ -4,9 +4,12 @@ import { dirname, join } from 'node:path';
 import {
   postToInstagram,
   postCarouselToInstagram,
-  postReelToInstagram
+  postReelToInstagram,
+  checkTokenHealth,
+  ActionBlockError
 } from './postToInstagram.js';
 import { readState, writeState } from './state.js';
+import { buildCaption } from './buildCaption.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -17,6 +20,17 @@ const state = readState(statePath);
 
 if (!state.lastPost?.date) {
   throw new Error('Bekleyen post yok. Önce npm run render çalıştırın.');
+}
+
+// 1) Cooldown kontrolu: onceki run action block aldiysa belirli sure post atilmaz
+if (state.cooldownUntil) {
+  const cooldownDate = new Date(state.cooldownUntil);
+  if (cooldownDate > new Date()) {
+    const remainMin = Math.ceil((cooldownDate.getTime() - Date.now()) / 60000);
+    console.log(`Cooldown aktif: ${state.cooldownUntil} kadar bekleniyor (~${remainMin} dk). Post atlaniyor.`);
+    process.exit(0);
+  }
+  console.log('Cooldown suresi doldu, devam ediliyor.');
 }
 
 if (state.lastPost.postId) {
@@ -36,13 +50,23 @@ const date = state.lastPost.date;
 
 const igUserId = process.env.IG_USER_ID;
 const accessToken = process.env.IG_ACCESS_TOKEN;
+if (!igUserId || !accessToken) {
+  throw new Error('IG_USER_ID veya IG_ACCESS_TOKEN env var eksik');
+}
 
-// Senkron kontrolu: Instagram'in son postId'si state.lastSuccessfulPostId ile esit mi?
-// Esit degilse ve son post yakin zamanda atildiysa, onceki run state'e yazamadan postlamis demektir.
-// Caption-based check kullanmiyoruz cunku tum sb-XXXX postlari ayni caption template'i ile basliyor.
+// 2) Pre-flight token health check
+try {
+  const me = await checkTokenHealth({ igUserId, accessToken });
+  console.log(`Token saglikli: ${me.username || me.id}`);
+} catch (err) {
+  console.error(`Token health check basarisiz: ${err.message}`);
+  throw new Error(`Token gecersiz veya erisim yok: ${err.message}`);
+}
+
+// 3) Senkron kontrolu: Instagram'in son postId'si state.lastSuccessfulPostId ile esit mi?
 {
   const API_BASE = 'https://graph.facebook.com/v21.0';
-  const url = `${API_BASE}/${igUserId}/media?fields=id,caption,timestamp&limit=1&access_token=${accessToken}`;
+  const url = `${API_BASE}/${igUserId}/media?fields=id,timestamp&limit=1&access_token=${accessToken}`;
   const res = await fetch(url);
   const json = await res.json();
   const igLatest = json.data?.[0];
@@ -50,9 +74,9 @@ const accessToken = process.env.IG_ACCESS_TOKEN;
 
   if (igLatest && previousPostId && igLatest.id !== previousPostId) {
     const ageMs = Date.now() - new Date(igLatest.timestamp).getTime();
-    const twoHoursMs = 2 * 60 * 60 * 1000;
-    if (ageMs < twoHoursMs) {
-      console.log(`Senkron uyusmazligi: Instagram son post ${igLatest.id} state'de bilinmiyor ama ${Math.round(ageMs/60000)} dk once atildi. State guncelleniyor, atlaniyor.`);
+    const twentyFourHoursMs = 24 * 60 * 60 * 1000;
+    if (ageMs < twentyFourHoursMs) {
+      console.log(`Senkron uyusmazligi: Instagram son post ${igLatest.id} state'de bilinmiyor, ${Math.round(ageMs/60000)} dk once atildi. State guncelleniyor, atlaniyor.`);
       writeState(statePath, {
         ...state,
         lastPost: { ...state.lastPost, postId: igLatest.id },
@@ -60,7 +84,7 @@ const accessToken = process.env.IG_ACCESS_TOKEN;
       });
       process.exit(0);
     }
-    console.log(`Instagram son post ${igLatest.id} state'de bilinmiyor ama ${Math.round(ageMs/60000)} dk once atilmis (eski). Devam ediyor.`);
+    console.log(`Instagram son post ${igLatest.id} state'de bilinmiyor ama ${Math.round(ageMs/60000)} dk once atilmis (>24 saat). Devam ediyor.`);
   } else if (igLatest && previousPostId && igLatest.id === previousPostId) {
     console.log(`Senkron OK: Instagram son post (${igLatest.id}) state ile esit. Post devam ediyor.`);
   } else {
@@ -68,42 +92,53 @@ const accessToken = process.env.IG_ACCESS_TOKEN;
   }
 }
 
-// Tip belirleme: yeni alan, geri uyumlu
-const type = state.lastPost.type
-  ?? (state.lastPost.carousel === true ? 'carousel' : 'carousel'); // legacy default
+// 4) Caption'i runtime'da uret (verse ilk satiri + hashtag rotation)
+const caption = buildCaption(entry, date);
+console.log(`Caption (${caption.length} char): ${caption.split('\n')[0]}...`);
 
+const type = state.lastPost.type
+  ?? (state.lastPost.carousel === true ? 'carousel' : 'carousel');
+
+async function publishPost() {
+  if (type === 'reel') {
+    const videoUrl = `${base}/${date}.mp4`;
+    console.log(`Reel paylaşılıyor: ${videoUrl}`);
+    return postReelToInstagram({ igUserId, accessToken, videoUrl, caption });
+  } else if (state.lastPost.carousel) {
+    return postCarouselToInstagram({
+      igUserId, accessToken,
+      imageUrls: [`${base}/${date}-1.png`, `${base}/${date}-2.png`],
+      caption
+    });
+  } else {
+    return postToInstagram({
+      igUserId, accessToken,
+      imageUrl: `${base}/${date}-1.png`,
+      caption
+    });
+  }
+}
 
 let result;
-if (type === 'reel') {
-  const videoUrl = `${base}/${date}.mp4`;
-  console.log(`Reel paylaşılıyor: ${videoUrl}`);
-  result = await postReelToInstagram({
-    igUserId,
-    accessToken,
-    videoUrl,
-    caption: entry.caption
-  });
-  console.log(`Reel paylasildi: ${result.postId}`);
-} else if (state.lastPost.carousel) {
-  result = await postCarouselToInstagram({
-    igUserId,
-    accessToken,
-    imageUrls: [`${base}/${date}-1.png`, `${base}/${date}-2.png`],
-    caption: entry.caption
-  });
-  console.log(`Carousel paylasildi: ${result.postId}`);
-} else {
-  result = await postToInstagram({
-    igUserId,
-    accessToken,
-    imageUrl: `${base}/${date}-1.png`,
-    caption: entry.caption
-  });
-  console.log(`Tekli gonderi paylasildi: ${result.postId}`);
+try {
+  result = await publishPost();
+  console.log(`Paylasildi (${type}): ${result.postId}`);
+} catch (err) {
+  if (err instanceof ActionBlockError) {
+    // 6 saat cooldown set, workflow basarili bitsin
+    const cooldownHours = 6;
+    const cooldownUntil = new Date(Date.now() + cooldownHours * 60 * 60 * 1000).toISOString();
+    console.log(`Action block tespit edildi: ${err.message}`);
+    console.log(`Cooldown ${cooldownHours} saat olarak ayarlandi: ${cooldownUntil}`);
+    writeState(statePath, { ...state, cooldownUntil });
+    process.exit(0);
+  }
+  throw err;
 }
 
 writeState(statePath, {
   ...state,
   lastPost: { ...state.lastPost, postId: result.postId },
-  lastSuccessfulPostId: result.postId
+  lastSuccessfulPostId: result.postId,
+  cooldownUntil: null
 });

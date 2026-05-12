@@ -1,24 +1,75 @@
 const API_BASE = 'https://graph.facebook.com/v21.0';
 
-async function apiPost(url, params) {
+// Instagram'in spam/integrity koruma kodlari.
+// Bu hatalar gelince retry YAPMIYORUZ, cunku retry block'u uzatir.
+const ACTION_BLOCK_SUBCODES = new Set([2207051]);
+const RATE_LIMIT_CODES = new Set([4, 17, 32, 613]);
+
+export class ActionBlockError extends Error {
+  constructor(message, errorBody) {
+    super(message);
+    this.name = 'ActionBlockError';
+    this.errorBody = errorBody;
+  }
+}
+
+function isActionBlock(errorBody) {
+  if (!errorBody) return false;
+  const sub = errorBody.error_subcode;
+  const code = errorBody.code;
+  return ACTION_BLOCK_SUBCODES.has(sub) || RATE_LIMIT_CODES.has(code);
+}
+
+async function backoff(attempt) {
+  const ms = Math.min(60000, 2000 * Math.pow(2, attempt));
+  console.log(`Retry ${attempt + 1} ${ms}ms sonra...`);
+  await new Promise(r => setTimeout(r, ms));
+}
+
+async function apiCall(url, params, { method = 'POST', maxRetries = 3 } = {}) {
   const u = new URL(url);
   for (const [k, v] of Object.entries(params)) u.searchParams.set(k, v);
-  const res = await fetch(u.toString(), { method: 'POST' });
-  const json = await res.json();
-  if (!res.ok) {
-    console.error('Instagram API error:', JSON.stringify(json));
-    throw new Error(json.error?.message || res.statusText);
+
+  for (let attempt = 0; ; attempt++) {
+    let res;
+    try {
+      res = await fetch(u.toString(), { method });
+    } catch (networkErr) {
+      console.error(`Network error (attempt ${attempt + 1}):`, networkErr.message);
+      if (attempt >= maxRetries) throw networkErr;
+      await backoff(attempt);
+      continue;
+    }
+
+    const json = await res.json();
+    if (res.ok) return json;
+
+    const errorBody = json.error;
+    console.error(`Instagram API error (attempt ${attempt + 1}):`, JSON.stringify(json));
+
+    if (errorBody && isActionBlock(errorBody)) {
+      throw new ActionBlockError(errorBody.message || 'Action blocked', errorBody);
+    }
+
+    // 4xx client error: retry yapma
+    if (res.status >= 400 && res.status < 500) {
+      throw new Error(errorBody?.message || res.statusText);
+    }
+
+    // 5xx server error: retry
+    if (attempt >= maxRetries) {
+      throw new Error(errorBody?.message || res.statusText);
+    }
+    await backoff(attempt);
   }
-  return json;
+}
+
+async function apiPost(url, params) {
+  return apiCall(url, params, { method: 'POST' });
 }
 
 async function apiGet(url, params) {
-  const u = new URL(url);
-  for (const [k, v] of Object.entries(params)) u.searchParams.set(k, v);
-  const res = await fetch(u.toString());
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.error?.message || res.statusText);
-  return json;
+  return apiCall(url, params, { method: 'GET', maxRetries: 2 });
 }
 
 async function waitUntilReady(mediaId, accessToken, maxWaitMs = 120000) {
@@ -38,6 +89,14 @@ async function waitUntilReady(mediaId, accessToken, maxWaitMs = 120000) {
   throw new Error(`Media ${mediaId} not ready after ${maxWaitMs}ms`);
 }
 
+export async function checkTokenHealth({ igUserId, accessToken }) {
+  const data = await apiGet(`${API_BASE}/${igUserId}`, {
+    fields: 'id,username',
+    access_token: accessToken
+  });
+  return { id: data.id, username: data.username };
+}
+
 export async function postToInstagram({ igUserId, accessToken, imageUrl, caption }) {
   const { id: containerId } = await apiPost(`${API_BASE}/${igUserId}/media`, {
     image_url: imageUrl,
@@ -52,7 +111,6 @@ export async function postToInstagram({ igUserId, accessToken, imageUrl, caption
 }
 
 export async function postReelToInstagram({ igUserId, accessToken, videoUrl, caption }) {
-  // 1) Reel container oluştur
   const { id: containerId } = await apiPost(`${API_BASE}/${igUserId}/media`, {
     media_type: 'REELS',
     video_url: videoUrl,
@@ -61,10 +119,8 @@ export async function postReelToInstagram({ igUserId, accessToken, videoUrl, cap
     access_token: accessToken
   });
 
-  // 2) Container'ın FINISHED olmasını bekle (videolarda 30-90 sn sürebilir)
   await waitUntilReady(containerId, accessToken, 300000);
 
-  // 3) Yayınla
   const { id: postId } = await apiPost(`${API_BASE}/${igUserId}/media_publish`, {
     creation_id: containerId,
     access_token: accessToken
@@ -73,7 +129,6 @@ export async function postReelToInstagram({ igUserId, accessToken, videoUrl, cap
 }
 
 export async function postCarouselToInstagram({ igUserId, accessToken, imageUrls, caption }) {
-  // Step 1: create a child media item for each image
   const childIds = [];
   for (const imageUrl of imageUrls) {
     const { id } = await apiPost(`${API_BASE}/${igUserId}/media`, {
@@ -84,12 +139,10 @@ export async function postCarouselToInstagram({ igUserId, accessToken, imageUrls
     childIds.push(id);
   }
 
-  // Step 1b: wait for all child items to finish processing
   for (const childId of childIds) {
     await waitUntilReady(childId, accessToken);
   }
 
-  // Step 2: create carousel container
   const { id: containerId } = await apiPost(`${API_BASE}/${igUserId}/media`, {
     media_type: 'CAROUSEL',
     children: childIds.join(','),
@@ -97,10 +150,8 @@ export async function postCarouselToInstagram({ igUserId, accessToken, imageUrls
     access_token: accessToken
   });
 
-  // Step 2b: wait for carousel container to finish processing
   await waitUntilReady(containerId, accessToken);
 
-  // Step 3: publish
   const { id: postId } = await apiPost(`${API_BASE}/${igUserId}/media_publish`, {
     creation_id: containerId,
     access_token: accessToken
