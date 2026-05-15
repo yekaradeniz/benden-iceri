@@ -22,8 +22,10 @@ const state = readState(statePath);
 const today = new Date().toISOString().slice(0, 10);
 const launchDate = state.launchDate ?? today;
 
-// Önceki post başarısız olduysa (postId null) aynı girişi tekrar kullan
-const pendingRetry = state.lastPost && !state.lastPost.postId && state.lastPost.verseId;
+// Önceki post başarısız olduysa (postId null) aynı girişi tekrar kullan.
+// Sadece BUGÜNKÜ post için geçerli - önceki günün bekleyeni varsa yeni içeriğe geç.
+const pendingRetry = state.lastPost && !state.lastPost.postId && state.lastPost.verseId
+  && state.lastPost.date === today;
 let entry;
 if (pendingRetry) {
   entry = content.find(e => e.id === state.lastPost.verseId);
