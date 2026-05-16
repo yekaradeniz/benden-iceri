@@ -119,6 +119,19 @@ export async function fetchLatestMedia({ igUserId, accessToken }) {
   return data.data?.[0] ?? null;
 }
 
+/**
+ * Son N gonderiyi caption + timestamp ile getirir.
+ * Caption tabanli cift-post tespiti / publish sonrasi dogrulama icin kullanilir.
+ */
+export async function fetchRecentMedia({ igUserId, accessToken, limit = 10 }) {
+  const data = await apiGet(`${API_BASE}/${igUserId}/media`, {
+    fields: 'id,timestamp,caption',
+    limit: String(limit),
+    access_token: accessToken
+  });
+  return data.data ?? [];
+}
+
 export async function postToInstagram({ igUserId, accessToken, imageUrl, caption }) {
   const { id: containerId } = await apiPost(`${API_BASE}/${igUserId}/media`, {
     image_url: imageUrl,
