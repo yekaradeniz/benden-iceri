@@ -10,7 +10,7 @@ const MOOD_KEYWORDS = {
   'tefekkür': [
     'mosque prayer', 'mosque silence', 'mosque morning light',
     'medina mosque', 'masjid nabawi', 'mosque sunlight',
-    'prayer beads tesbih', 'mosque candle',
+    'prayer beads tesbih',
     'mosque empty hall light', 'mosque window light rays',
     'islamic prayer atmosphere', 'mosque peaceful interior',
     'mosque dawn light', 'mosque soft light columns'
@@ -31,9 +31,9 @@ const MOOD_KEYWORDS = {
   ],
   'halvet': [
     'mosque empty quiet', 'mosque solitude', 'islamic monastery',
-    'sufi spiritual', 'mosque meditation', 'dervish cell',
+    'sufi spiritual', 'mosque meditation',
     'mosque corridor empty', 'mosque silent hall',
-    'tekke dervish lodge', 'mosque stone archway',
+    'mosque stone archway',
     'mosque dim light corner', 'masjid empty prayer hall'
   ],
   'divan': [
@@ -44,8 +44,7 @@ const MOOD_KEYWORDS = {
     'mosque inscription calligraphy', 'arabic script wall'
   ],
   'ask-yangini': [
-    'whirling dervish', 'mevlevi sema',
-    'mosque candle light', 'mosque chandelier',
+    'mosque chandelier',
     'mosque lantern light', 'mosque oil lamp',
     'mosque chandelier gold', 'islamic lantern glow',
     'sufi shrine lamp', 'mosque torch flame',
