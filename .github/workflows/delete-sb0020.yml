@@ -1,0 +1,56 @@
+name: Delete sb-0020 carousel (one-time, surgical)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  delete-sb0020:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Delete only the sb-0020 carousel by caption match
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: |
+          node --input-type=module << 'EOF'
+          const userId = process.env.IG_USER_ID;
+          const token = process.env.IG_ACCESS_TOKEN;
+          const base = 'https://graph.facebook.com/v21.0';
+
+          // sb-0020 misrasinin ayirt edici ilk satiri
+          const NEEDLE = 'Helak etmek dilersin mâr-ı nefsin';
+          const norm = s => (s || '').replace(/\s+/g, ' ').trim().toLocaleLowerCase('tr');
+          const needle = norm(NEEDLE);
+
+          const listUrl = `${base}/${userId}/media?fields=id,caption,timestamp&limit=15&access_token=${token}`;
+          const listRes = await fetch(listUrl);
+          const list = await listRes.json();
+          if (!list.data || list.data.length === 0) {
+            console.log('IG son gonderiler bos, silinecek bir sey yok.');
+            process.exit(0);
+          }
+
+          console.log('Son gonderiler:');
+          for (const m of list.data) {
+            console.log(`  ${m.id} | ${m.timestamp} | ${(m.caption || '').split('\n')[0].slice(0, 50)}`);
+          }
+
+          const targets = list.data.filter(m => norm(m.caption).includes(needle));
+          if (targets.length === 0) {
+            console.log(`Caption "${NEEDLE}" ile eslesn post YOK. (Zaten silinmis olabilir.) Hicbir sey yapilmadi.`);
+            process.exit(0);
+          }
+
+          for (const t of targets) {
+            console.log(`Siliniyor (sb-0020): ${t.id} | ${t.timestamp}`);
+            const delRes = await fetch(`${base}/${t.id}?access_token=${token}`, { method: 'DELETE' });
+            const delJson = await delRes.json();
+            console.log('Silme sonucu:', JSON.stringify(delJson));
+            if (delJson.error) {
+              console.error('SILME BASARISIZ:', delJson.error.message);
+              process.exit(1);
+            }
+          }
+          console.log(`${targets.length} sb-0020 postu silindi. log.json'a DOKUNULMADI (sb-0019 retry korunuyor).`);
+          EOF
