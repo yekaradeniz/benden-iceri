@@ -2,26 +2,67 @@
 const MOOD_QUERIES = {
   'divan': [
     'islamic calligraphy', 'arabic manuscript', 'quran writing',
-    'mosque interior', 'ottoman calligraphy', 'arabic art'
+    'mosque interior', 'ottoman calligraphy', 'arabic art',
+    'arabic calligraphy gold', 'quran pages close up',
+    'mosque inscription wall', 'islamic geometric pattern',
+    'ottoman manuscript', 'mosque tile detail'
   ],
   'ic-dunya': [
     'mosque interior dome', 'mosque arch', 'mosque architecture',
     'samarkand mosque', 'bukhara mosque', 'registan',
     'blue mosque istanbul', 'hagia sophia', 'suleymaniye',
     'sheikh zayed mosque', 'sultan ahmed mosque', 'islamic architecture',
-    'mosque tiles', 'iznik tile', 'persian mosque'
+    'mosque tiles', 'iznik tile', 'persian mosque',
+    'mosque ceiling dome', 'mosque muqarnas', 'mosque arabesque',
+    'ottoman mosque interior', 'mosque corridor', 'masjid dome',
+    'mosque courtyard', 'islamic tilework', 'mosque gold detail',
+    'umayyad mosque', 'mosque column arch', 'mosque window light'
   ],
   'tefekkür': [
     'mosque prayer', 'mosque interior peaceful', 'mosque candle',
     'mosque sunlight rays', 'mosque silence', 'prayer beads tesbih',
-    'mosque morning light', 'medina mosque', 'masjid nabawi'
+    'mosque morning light', 'medina mosque', 'masjid nabawi',
+    'mosque empty hall', 'mosque light column', 'mosque dawn',
+    'mosque soft light', 'mosque atmosphere', 'mosque shadow light'
+  ],
+  'mihrap': [
+    'mosque mihrab', 'mosque niche', 'mosque arch interior',
+    'sultan ahmed mosque inside', 'mosque prayer niche',
+    'mosque golden arch', 'mosque ornate interior'
+  ],
+  'halvet': [
+    'mosque empty', 'mosque quiet', 'mosque solitude',
+    'mosque stone corridor', 'mosque dim light', 'mosque doorway',
+    'mosque archway', 'mosque shadow', 'mosque narrow passage'
+  ],
+  'ask-yangini': [
+    'mosque chandelier', 'mosque lantern', 'mosque candle light',
+    'mosque lamp glow', 'mosque lights hanging', 'mosque oil lamp',
+    'mosque interior warm light', 'mosque golden light'
+  ],
+  'yalnizlik': [
+    'mosque minaret sky', 'minaret silhouette', 'mosque exterior',
+    'mosque desert', 'mosque sunset', 'minaret clouds',
+    'mosque horizon', 'mosque lone minaret', 'mosque dusk'
+  ],
+  'seyran': [
+    'kaaba mecca', 'masjid al haram', 'medina mosque aerial',
+    'mosque grand entrance', 'mosque courtyard crowd',
+    'masjid nabawi green dome', 'islamic holy site'
+  ],
+  'gece': [
+    'mosque night', 'mosque illuminated dark', 'minaret night sky',
+    'mosque blue hour', 'mosque night lights', 'masjid night',
+    'mosque lit up', 'mosque moonlight', 'mosque stars'
   ]
 };
 
 const FALLBACK_QUERIES = [
   'mosque interior', 'mosque dome', 'islamic architecture',
   'samarkand', 'bukhara', 'persian mosque', 'turkish mosque',
-  'islamic calligraphy', 'arabic manuscript'
+  'islamic calligraphy', 'arabic manuscript',
+  'mosque ceiling', 'mosque arch', 'ottoman mosque',
+  'mosque minaret', 'masjid interior'
 ];
 
 // Süre aralıkları sıralı olarak denenecek - sıkıdan gevşeğe.
