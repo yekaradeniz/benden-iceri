@@ -19,7 +19,7 @@ const MOOD_QUERIES = {
     'umayyad mosque', 'mosque column arch', 'mosque window light'
   ],
   'tefekkür': [
-    'mosque prayer', 'mosque interior peaceful', 'mosque candle',
+    'mosque prayer', 'mosque interior peaceful',
     'mosque sunlight rays', 'mosque silence', 'prayer beads tesbih',
     'mosque morning light', 'medina mosque', 'masjid nabawi',
     'mosque empty hall', 'mosque light column', 'mosque dawn',
@@ -36,11 +36,11 @@ const MOOD_QUERIES = {
     'mosque archway', 'mosque shadow', 'mosque narrow passage'
   ],
   'ask-yangini': [
-    'mosque chandelier', 'mosque lantern', 'mosque candle light',
+    'mosque chandelier', 'mosque lantern',
     'mosque lamp glow', 'mosque lights hanging', 'mosque oil lamp',
     'mosque interior warm light', 'mosque golden light',
-    'sufi shrine candle', 'mosque torch', 'islamic devotion light',
-    'mosque spiritual atmosphere', 'dervish prayer'
+    'mosque torch', 'islamic devotion light',
+    'mosque spiritual atmosphere'
   ],
   'seyran': [
     'kaaba mecca', 'masjid al haram', 'medina mosque aerial',
