@@ -58,13 +58,6 @@ const MOOD_KEYWORDS = {
     'mosque grand courtyard', 'islamic shrine architecture',
     'mosque entrance gate', 'masjid al haram night'
   ],
-  'gece': [
-    'night desert stars', 'mosque night', 'minaret moonlight',
-    'mosque illuminated night', 'starry sky mosque',
-    'mosque night lights reflection', 'minaret night sky',
-    'mosque blue hour', 'islamic architecture night',
-    'mosque lit up dark', 'masjid night illumination'
-  ]
 };
 
 const FALLBACK_KEYWORDS = [
