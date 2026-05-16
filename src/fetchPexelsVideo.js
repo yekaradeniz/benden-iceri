@@ -47,11 +47,6 @@ const MOOD_QUERIES = {
     'mosque grand entrance', 'mosque courtyard crowd',
     'masjid nabawi green dome', 'islamic holy site'
   ],
-  'gece': [
-    'mosque night', 'mosque illuminated dark', 'minaret night sky',
-    'mosque blue hour', 'mosque night lights', 'masjid night',
-    'mosque lit up', 'mosque moonlight', 'mosque stars'
-  ]
 };
 
 const FALLBACK_QUERIES = [
