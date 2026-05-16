@@ -50,7 +50,7 @@ async function checkFrame(framePath, geminiKey) {
  * @param {string} geminiKey
  * @returns {Promise<{approved: boolean, reason?: string}>}
  */
-export async function validateVideoFrames(videoPath, durationSec, geminiKey, frameCount = 4) {
+export async function validateVideoFrames(videoPath, durationSec, geminiKey, frameCount = 6) {
   if (!geminiKey) return { approved: true, reason: 'no-gemini-key-skipped' };
 
   const { tmpDir, framePaths } = await extractFrames(videoPath, durationSec, frameCount);
