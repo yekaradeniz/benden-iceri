@@ -43,20 +43,6 @@ const MOOD_KEYWORDS = {
     'quran pages detail', 'islamic geometric art',
     'mosque inscription calligraphy', 'arabic script wall'
   ],
-  'ask-yangini': [
-    'mosque chandelier',
-    'mosque lantern light', 'mosque oil lamp',
-    'mosque chandelier gold', 'islamic lantern glow',
-    'sufi shrine lamp', 'mosque torch flame',
-    'islamic devotion prayer', 'mosque spiritual light'
-  ],
-  'seyran': [
-    'mecca kaaba', 'medina mosque', 'masjid al haram',
-    'mosque pilgrimage', 'islamic holy place',
-    'kaaba aerial view', 'masjid nabawi dome green',
-    'mosque grand courtyard', 'islamic shrine architecture',
-    'mosque entrance gate', 'masjid al haram night'
-  ],
 };
 
 const FALLBACK_KEYWORDS = [
