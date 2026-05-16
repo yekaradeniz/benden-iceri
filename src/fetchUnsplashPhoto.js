@@ -2,43 +2,73 @@
 const MOOD_KEYWORDS = {
   'mihrap': [
     'mosque interior mihrab', 'mosque arch', 'masjid mihrab',
-    'sultan ahmed mosque interior', 'hagia sophia interior'
+    'sultan ahmed mosque interior', 'hagia sophia interior',
+    'mosque niche arch', 'islamic mihrab ornament',
+    'mosque golden dome interior', 'masjid ceiling dome',
+    'mosque pillar arch', 'ottoman mosque interior detail'
   ],
   'tefekkür': [
     'mosque prayer', 'mosque silence', 'mosque morning light',
     'medina mosque', 'masjid nabawi', 'mosque sunlight',
-    'prayer beads tesbih', 'mosque candle'
+    'prayer beads tesbih', 'mosque candle',
+    'mosque empty hall light', 'mosque window light rays',
+    'islamic prayer atmosphere', 'mosque peaceful interior',
+    'mosque dawn light', 'mosque soft light columns'
   ],
   'ic-dunya': [
     'islamic architecture', 'mosque dome', 'mosque interior',
     'samarkand registan', 'bukhara mosque',
     'blue mosque istanbul', 'hagia sophia', 'suleymaniye',
     'sheikh zayed mosque', 'iznik tile', 'persian mosque',
-    'turkish mosque interior', 'cordoba mosque'
+    'turkish mosque interior', 'cordoba mosque',
+    'mosque geometric pattern', 'islamic tilework',
+    'mosque muqarnas ceiling', 'ottoman mosque tile',
+    'mosque arabesque detail', 'masjid dome ceiling',
+    'istanbul mosque interior', 'mosque courtyard fountain',
+    'umayyad mosque damascus', 'masjid al aqsa interior',
+    'mosque stalactite ceiling', 'kairouan mosque',
+    'mosque gold calligraphy', 'mosque blue tile wall'
   ],
   'halvet': [
     'mosque empty quiet', 'mosque solitude', 'islamic monastery',
-    'sufi spiritual', 'mosque meditation', 'dervish cell'
+    'sufi spiritual', 'mosque meditation', 'dervish cell',
+    'mosque corridor empty', 'mosque silent hall',
+    'tekke dervish lodge', 'mosque stone archway',
+    'mosque dim light corner', 'masjid empty prayer hall'
   ],
   'divan': [
     'islamic calligraphy', 'arabic manuscript', 'quran writing',
-    'ottoman calligraphy', 'arabic art', 'islamic illumination tezhip'
+    'ottoman calligraphy', 'arabic art', 'islamic illumination tezhip',
+    'ottoman manuscript illumination', 'arabic calligraphy gold',
+    'quran pages detail', 'islamic geometric art',
+    'mosque inscription calligraphy', 'arabic script wall'
   ],
   'ask-yangini': [
     'whirling dervish', 'mevlevi sema', 'sufi dance',
-    'mosque candle light', 'mosque chandelier'
+    'mosque candle light', 'mosque chandelier',
+    'mosque lantern light', 'mosque oil lamp',
+    'mosque chandelier gold', 'islamic lantern glow'
   ],
   'yalnizlik': [
     'desert silence dunes', 'desert solitude', 'mosque desert',
-    'minaret silhouette', 'mountain mist solitude'
+    'minaret silhouette', 'mountain mist solitude',
+    'mosque minaret sky', 'single minaret sunset',
+    'mosque lone minaret', 'desert mosque horizon',
+    'mosque silhouette dusk', 'minaret crescent moon'
   ],
   'seyran': [
     'mecca kaaba', 'medina mosque', 'masjid al haram',
-    'mosque pilgrimage', 'islamic holy place'
+    'mosque pilgrimage', 'islamic holy place',
+    'kaaba aerial view', 'masjid nabawi dome green',
+    'mosque grand courtyard', 'islamic shrine architecture',
+    'mosque entrance gate', 'masjid al haram night'
   ],
   'gece': [
     'night desert stars', 'mosque night', 'minaret moonlight',
-    'mosque illuminated night', 'starry sky mosque'
+    'mosque illuminated night', 'starry sky mosque',
+    'mosque night lights reflection', 'minaret night sky',
+    'mosque blue hour', 'islamic architecture night',
+    'mosque lit up dark', 'masjid night illumination'
   ]
 };
 
@@ -48,7 +78,11 @@ const FALLBACK_KEYWORDS = [
   'samarkand mosque',
   'persian mosque',
   'turkish mosque',
-  'islamic calligraphy'
+  'islamic calligraphy',
+  'mosque dome ceiling',
+  'ottoman mosque',
+  'mosque minaret',
+  'masjid interior light'
 ];
 
 /**
