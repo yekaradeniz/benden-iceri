@@ -56,6 +56,85 @@ async function findPostedByCaption({ igUserId, accessToken, firstLine, maxAgeMs,
   return null;
 }
 
+// Bir misranin caption'da kullanilan ayirt edici ilk satiri.
+function verseFirstLine(verse) {
+  return (String(verse).split('\n').find(l => l.trim().length > 0) ?? '').trim();
+}
+
+// IG caption'indan hangi misra oldugunu bul (content sirasindaki index ile).
+function findVerseByCaption(igCaption) {
+  if (!igCaption) return null;
+  for (let i = 0; i < content.length; i++) {
+    if (captionMatches(igCaption, verseFirstLine(content[i].verse))) {
+      return { verse: content[i], index: i };
+    }
+  }
+  return null;
+}
+
+/**
+ * SIRA GUVENLIGI: Post atmadan once Instagram'in son gonderilerine bakar.
+ * En guncel (bilinen bir misraya eslesn) postu tespit eder ve atilacak
+ * misranin TAM bir sonraki olup olmadigini dogrular.
+ *  - tam bir sonraki  -> devam
+ *  - zaten en guncel   -> zaten atilmis, state senkronla & cik
+ *  - atlama / geri donus / anomali -> DURDUR (exit 1) ki yanlis sira
+ *    daha kotuye gitmesin; workflow basarisiz olur, haber alinir.
+ */
+async function verifySequenceOrAbort({ igUserId, accessToken, entry }) {
+  const entryIndex = content.findIndex(e => e.id === entry.id);
+  if (entryIndex <= 0) {
+    console.log('Sira kontrolu: ilk misra / bilinmeyen entry, kontrol atlandi.');
+    return;
+  }
+
+  let recent = [];
+  try {
+    recent = await fetchRecentMedia({ igUserId, accessToken });
+  } catch (e) {
+    console.warn(`Sira kontrolu: IG son gonderiler cekilemedi (${e.message}). Kontrol atlandi, post devam.`);
+    return;
+  }
+
+  let latest = null;
+  for (const m of recent) {
+    const hit = findVerseByCaption(m.caption);
+    if (hit) { latest = { ...hit, media: m }; break; }
+  }
+  if (!latest) {
+    console.warn('Sira kontrolu: IG son gonderilerden hicbiri bilinen misraya eslesmedi (eski caption formati olabilir). Kontrol atlandi, post devam.');
+    return;
+  }
+
+  const L = latest.index;
+  console.log(`Sira kontrolu: IG en guncel misra=${latest.verse.id} (idx ${L}) | atilacak=${entry.id} (idx ${entryIndex})`);
+
+  if (entryIndex === L + 1) {
+    console.log('Sira DOGRU: tam bir sonraki misra. Post devam ediyor.');
+    return;
+  }
+
+  if (entryIndex === L) {
+    console.log(`Sira: ${entry.id} zaten Instagram'da en guncel post. Tekrar atilmiyor, state senkronlaniyor.`);
+    writeState(statePath, {
+      ...state,
+      lastPost: { ...state.lastPost, postId: latest.media.id },
+      lastSuccessfulPostId: latest.media.id,
+      cooldownUntil: null
+    });
+    process.exit(0);
+  }
+
+  console.error(
+    `SIRA HATASI: IG'deki son misra ${latest.verse.id} (idx ${L}) ama ${entry.id} (idx ${entryIndex}) atilmak uzere. ` +
+    (entryIndex > L + 1
+      ? `Aradaki ${entryIndex - L - 1} misra atlanacakti (gap).`
+      : `Geriye donus / yanlis sira.`) +
+    ` Post DURDURULDU - manuel mudahale gerek (log.json lastPost/postedVerseIds).`
+  );
+  process.exit(1);
+}
+
 if (!state.lastPost?.date) {
   throw new Error('Bekleyen post yok. Önce npm run render çalıştırın.');
 }
@@ -129,6 +208,9 @@ console.log(`Caption (${caption.length} char): ${caption.split('\n')[0]}...`);
     process.exit(0);
   }
 }
+
+// 5) SIRA GUVENLIGI: son gonderilere bakip dogru sirada miyiz kontrol et.
+await verifySequenceOrAbort({ igUserId, accessToken, entry });
 
 const type = state.lastPost.type
   ?? (state.lastPost.carousel === true ? 'carousel' : 'photo');
