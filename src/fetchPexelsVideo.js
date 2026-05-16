@@ -38,12 +38,9 @@ const MOOD_QUERIES = {
   'ask-yangini': [
     'mosque chandelier', 'mosque lantern', 'mosque candle light',
     'mosque lamp glow', 'mosque lights hanging', 'mosque oil lamp',
-    'mosque interior warm light', 'mosque golden light'
-  ],
-  'yalnizlik': [
-    'mosque minaret sky', 'minaret silhouette', 'mosque exterior',
-    'mosque desert', 'mosque sunset', 'minaret clouds',
-    'mosque horizon', 'mosque lone minaret', 'mosque dusk'
+    'mosque interior warm light', 'mosque golden light',
+    'sufi shrine candle', 'mosque torch', 'islamic devotion light',
+    'mosque spiritual atmosphere', 'dervish prayer'
   ],
   'seyran': [
     'kaaba mecca', 'masjid al haram', 'medina mosque aerial',

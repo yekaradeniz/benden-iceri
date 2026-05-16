@@ -44,17 +44,12 @@ const MOOD_KEYWORDS = {
     'mosque inscription calligraphy', 'arabic script wall'
   ],
   'ask-yangini': [
-    'whirling dervish', 'mevlevi sema', 'sufi dance',
+    'whirling dervish', 'mevlevi sema',
     'mosque candle light', 'mosque chandelier',
     'mosque lantern light', 'mosque oil lamp',
-    'mosque chandelier gold', 'islamic lantern glow'
-  ],
-  'yalnizlik': [
-    'desert silence dunes', 'desert solitude', 'mosque desert',
-    'minaret silhouette', 'mountain mist solitude',
-    'mosque minaret sky', 'single minaret sunset',
-    'mosque lone minaret', 'desert mosque horizon',
-    'mosque silhouette dusk', 'minaret crescent moon'
+    'mosque chandelier gold', 'islamic lantern glow',
+    'sufi shrine lamp', 'mosque torch flame',
+    'islamic devotion prayer', 'mosque spiritual light'
   ],
   'seyran': [
     'mecca kaaba', 'medina mosque', 'masjid al haram',
