@@ -4,7 +4,7 @@
     "date": "2026-05-16",
     "verseId": "sb-0019",
     "photoId": "pexels-4646329",
-    "postId": null,
+    "postId": "17880926883589461",
     "type": "reel",
     "carousel": false
   },
@@ -45,7 +45,7 @@
     "sb-0018",
     "sb-0019"
   ],
-  "lastSuccessfulPostId": "18081425891146461",
+  "lastSuccessfulPostId": "17880926883589461",
   "usedVideoIds": [
     "pexels-36114345",
     "pexels-35081866",
@@ -75,5 +75,5 @@
     "pexels-4646329"
   ],
   "audioIndex": 12,
-  "cooldownUntil": "2026-05-15T17:28:03.029Z"
+  "cooldownUntil": null
 }
