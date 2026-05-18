@@ -40,6 +40,19 @@ Respond with EXACTLY one word: YES or NO. No explanation, no punctuation, just t
 
 const SUPPORTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 
+// Gemini bazen gecici asiri yuk hatasi doner (503/500/502/504, UNAVAILABLE,
+// "high demand", "overloaded"). Bunlar genelde saniyeler/dakika icinde gecer.
+const TRANSIENT_GEMINI_STATUSES = new Set([500, 502, 503, 504]);
+function isTransientGeminiError(err) {
+  if (!err) return false;
+  if (TRANSIENT_GEMINI_STATUSES.has(err.status)) return true;
+  const m = String(err.message || '').toLowerCase();
+  return m.includes('unavailable') || m.includes('high demand')
+    || m.includes('overloaded') || m.includes('try again')
+    || m.includes('"code":503') || m.includes('"code":500')
+    || m.includes('"code":502') || m.includes('"code":504');
+}
+
 /**
  * Validates whether an image is appropriate for the Sufi poetry account.
  * Uses Google Gemini Flash (free tier) for vision moderation.
@@ -57,30 +70,42 @@ export async function isImageBufferSpiritual(buffer, mimeType, apiKey) {
   const base64 = Buffer.from(buffer).toString('base64');
 
   const ai = new GoogleGenAI({ apiKey });
-  try {
-    const result = await ai.models.generateContent({
-      model: 'gemini-2.5-flash-lite',
-      contents: [{
-        role: 'user',
-        parts: [
-          { inlineData: { mimeType: validMime, data: base64 } },
-          { text: 'Is this image appropriate as the background for a Sufi poetry post?' }
-        ]
-      }],
-      config: {
-        systemInstruction: SYSTEM_PROMPT,
-        maxOutputTokens: 10,
-        temperature: 0
+  const maxRetries = 4; // toplam ~75s (5+10+20+40), 8 dk render timeout icinde guvenli
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const result = await ai.models.generateContent({
+        model: 'gemini-2.5-flash-lite',
+        contents: [{
+          role: 'user',
+          parts: [
+            { inlineData: { mimeType: validMime, data: base64 } },
+            { text: 'Is this image appropriate as the background for a Sufi poetry post?' }
+          ]
+        }],
+        config: {
+          systemInstruction: SYSTEM_PROMPT,
+          maxOutputTokens: 10,
+          temperature: 0
+        }
+      });
+      const answer = (result.text || '').trim().toUpperCase();
+      return { approved: answer.startsWith('YES'), reason: answer };
+    } catch (err) {
+      if (err.status === 429 || (err.message && err.message.includes('quota'))) {
+        console.warn('Gemini quota exceeded, skipping moderation.');
+        return { approved: true, reason: 'quota-exceeded-skipped' };
       }
-    });
-    const answer = (result.text || '').trim().toUpperCase();
-    return { approved: answer.startsWith('YES'), reason: answer };
-  } catch (err) {
-    if (err.status === 429 || (err.message && err.message.includes('quota'))) {
-      console.warn('Gemini quota exceeded, skipping moderation.');
-      return { approved: true, reason: 'quota-exceeded-skipped' };
+      // Gecici asiri yuk: backoff ile tekrar dene. Tukenirse FIRLAT
+      // (guvenli: moderasyonsuz post atilmaz, o gun post gelmeyebilir
+      // ama uygunsuz icerik riski sifir).
+      if (isTransientGeminiError(err) && attempt < maxRetries) {
+        const waitMs = Math.min(60000, 5000 * Math.pow(2, attempt));
+        console.warn(`Gemini gecici hata (${err.status ?? ''} ${String(err.message || '').slice(0, 80)}). ${waitMs / 1000}s sonra tekrar (deneme ${attempt + 1}/${maxRetries})...`);
+        await new Promise(r => setTimeout(r, waitMs));
+        continue;
+      }
+      throw err;
     }
-    throw err;
   }
 }
 
