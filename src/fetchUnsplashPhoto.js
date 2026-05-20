@@ -71,39 +71,56 @@ export async function fetchUnsplashPhoto(moods, accessKey, recentlyUsed = new Se
   const moodPool = moods.flatMap(m => MOOD_KEYWORDS[m] ?? []);
   const pool = moodPool.length > 0 ? moodPool : FALLBACK_KEYWORDS;
 
-  for (let attempt = 0; attempt < maxAttempts; attempt++) {
-    // Her denemede havuzdan rastgele bir keyword seç (çeşitlilik)
-    const keyword = pool[Math.floor(Math.random() * pool.length)];
-    const url = new URL('https://api.unsplash.com/photos/random');
-    url.searchParams.set('query', keyword);
-    url.searchParams.set('orientation', 'portrait');
-    url.searchParams.set('client_id', accessKey);
-
-    const res = await fetch(url.toString());
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(`Unsplash API hatası ${res.status}: ${err.errors?.[0] ?? res.statusText}`);
+  // Tek bir keyword icin foto ceker. Hata olursa null doner (fail-soft).
+  async function tryFetch(keyword) {
+    try {
+      const url = new URL('https://api.unsplash.com/photos/random');
+      url.searchParams.set('query', keyword);
+      url.searchParams.set('orientation', 'portrait');
+      url.searchParams.set('client_id', accessKey);
+      const res = await fetch(url.toString());
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        console.warn(`  Unsplash "${keyword}" basarisiz (${res.status}: ${body.errors?.[0] ?? res.statusText}), siradaki keyword denenecek.`);
+        return null;
+      }
+      const data = await res.json();
+      return {
+        id: `unsplash-${data.id}`,
+        url: `${data.urls.raw}&w=1200&q=85&fit=crop&crop=entropy`,
+        description: data.description ?? data.alt_description ?? 'aciklama yok',
+        rawId: data.id
+      };
+    } catch (e) {
+      console.warn(`  Unsplash "${keyword}" cagrisinda hata: ${e.message}, siradaki keyword denenecek.`);
+      return null;
     }
+  }
 
-    const data = await res.json();
-    const photoId = `unsplash-${data.id}`;
-    const photoUrl = `${data.urls.raw}&w=1200&q=85&fit=crop&crop=entropy`;
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    const keyword = pool[Math.floor(Math.random() * pool.length)];
+    const photo = await tryFetch(keyword);
+    if (!photo) continue;
 
-    if (recentlyUsed.has(photoId)) {
-      console.log(`  Unsplash ${data.id} son kullanılanlarda, tekrar deneniyor...`);
+    if (recentlyUsed.has(photo.id)) {
+      console.log(`  Unsplash ${photo.rawId} son kullanılanlarda, tekrar deneniyor...`);
       continue;
     }
 
-    console.log(`  Unsplash foto: ${data.id} (${data.description ?? data.alt_description ?? 'açıklama yok'})`);
-    return { id: photoId, url: photoUrl, moods };
+    console.log(`  Unsplash foto: ${photo.rawId} (${photo.description})`);
+    return { id: photo.id, url: photo.url, moods };
   }
 
-  // Tüm denemeler recently-used ile çakıştı, son çekileni kullan (nadir durum)
-  const url = new URL('https://api.unsplash.com/photos/random');
-  url.searchParams.set('query', keyword);
-  url.searchParams.set('orientation', 'portrait');
-  url.searchParams.set('client_id', accessKey);
-  const res = await fetch(url.toString());
-  const data = await res.json();
-  return { id: `unsplash-${data.id}`, url: `${data.urls.raw}&w=1200&q=85&fit=crop&crop=entropy`, moods };
+  // Mood havuzu tukendi/coktu. FALLBACK'lerle sirayla bir daha dene
+  // (genel "mosque interior" gibi terimler Unsplash'te neredeyse hep sonuc verir).
+  console.warn(`Mood havuzu ile foto bulunamadi (${maxAttempts} deneme), FALLBACK_KEYWORDS deneniyor...`);
+  for (const keyword of FALLBACK_KEYWORDS) {
+    const photo = await tryFetch(keyword);
+    if (!photo) continue;
+    if (recentlyUsed.has(photo.id)) continue;
+    console.log(`  Unsplash foto (fallback "${keyword}"): ${photo.rawId} (${photo.description})`);
+    return { id: photo.id, url: photo.url, moods };
+  }
+
+  throw new Error(`Unsplash: ${maxAttempts} mood denemesi + ${FALLBACK_KEYWORDS.length} fallback denemesi sonrasi foto bulunamadi.`);
 }
