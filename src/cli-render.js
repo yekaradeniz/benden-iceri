@@ -45,9 +45,10 @@ if (pendingRetry) {
 }
 
 // Tip alternasyonu: normalde bir öncekinin tersi (carousel <-> reel).
-// REELS_ENABLED=false ile reels devre dışı bırakılır, sadece carousel atılır.
-// İlerde geri dönmek istersen REELS_ENABLED env'ini kaldır veya true yap.
-const REELS_ENABLED = process.env.REELS_ENABLED !== 'false';
+// REELS_ENABLED=false   → sadece carousel atılır
+// CAROUSEL_ENABLED=false → sadece reel atılır (carousel kodu silinmedi, geri açmak için bu satırı kaldır)
+const REELS_ENABLED    = process.env.REELS_ENABLED    !== 'false';
+const CAROUSEL_ENABLED = process.env.CAROUSEL_ENABLED !== 'false';
 
 const lastType = state.lastPost?.type
   ?? (state.lastPost?.carousel === true ? 'carousel'
@@ -56,13 +57,15 @@ const lastType = state.lastPost?.type
 
 let nextType;
 if (pendingRetry) {
-  nextType = lastType ?? 'carousel';
+  nextType = lastType ?? 'reel';
 } else if (!REELS_ENABLED) {
   nextType = 'carousel';
+} else if (!CAROUSEL_ENABLED) {
+  nextType = 'reel';
 } else {
   nextType = lastType === 'reel' ? 'carousel' : 'reel';
 }
-console.log(`Bu post tipi: ${nextType} (önceki: ${lastType ?? 'yok'}, reels: ${REELS_ENABLED ? 'açık' : 'kapalı'})`);
+console.log(`Bu post tipi: ${nextType} (önceki: ${lastType ?? 'yok'}, reels: ${REELS_ENABLED ? 'açık' : 'kapalı'}, carousel: ${CAROUSEL_ENABLED ? 'açık' : 'kapalı'})`);
 
 const recentPhotos = state.recentPhotos ?? [];
 
