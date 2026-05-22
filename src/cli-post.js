@@ -11,6 +11,7 @@ import {
 } from './postToInstagram.js';
 import { readState, writeState } from './state.js';
 import { buildCaption } from './buildCaption.js';
+import { uploadToYoutube } from './uploadToYoutube.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -283,3 +284,30 @@ writeState(statePath, {
   lastSuccessfulPostId: result.postId,
   cooldownUntil: null
 });
+
+// YouTube Shorts upload (sadece reel'ler icin, env var yoksa sessizce atla)
+if (type === 'reel') {
+  const ytClientId     = process.env.YOUTUBE_CLIENT_ID;
+  const ytClientSecret = process.env.YOUTUBE_CLIENT_SECRET;
+  const ytRefreshToken = process.env.YOUTUBE_REFRESH_TOKEN;
+
+  if (ytClientId && ytClientSecret && ytRefreshToken) {
+    try {
+      const videoPath = join(ROOT, 'output', `${date}.mp4`);
+      const { videoId, url: ytUrl } = await uploadToYoutube({
+        videoPath,
+        verse: entry.verse,
+        caption,
+        clientId: ytClientId,
+        clientSecret: ytClientSecret,
+        refreshToken: ytRefreshToken
+      });
+      console.log(`YouTube Shorts yuklendi: ${ytUrl} (${videoId})`);
+    } catch (ytErr) {
+      // YouTube hatasi Instagram postunu etkilemesin - sadece logla
+      console.error(`YouTube upload hatasi (Instagram postu basarili): ${ytErr.message}`);
+    }
+  } else {
+    console.log('YouTube credentials eksik, YouTube upload atlandi.');
+  }
+}
