@@ -42,6 +42,21 @@ if (pendingRetry) {
     throw new Error(`Tüm günler paylaşıldı (${state.postedVerseIds.length} gün). salih-baba.json bitti.`);
   }
   entry = unposted[0];
+
+  // SAFETY: Sira basindaki misranin verse VE explanation alanlari dolu olmali.
+  // Boş icerikle paylasim yapilmasin - workflow durur, kullanici manuel doldursun.
+  const hasVerse = entry.verse && entry.verse.trim().length > 0;
+  const hasExplanation = entry.explanation && entry.explanation.trim().length > 0;
+  if (!hasVerse || !hasExplanation) {
+    const missing = [];
+    if (!hasVerse) missing.push('verse');
+    if (!hasExplanation) missing.push('explanation (mânâ)');
+    throw new Error(
+      `${entry.id} icin eksik alan(lar): ${missing.join(', ')}. ` +
+      `content/salih-baba.json'a doldurun, sonra workflow'u tekrar tetikleyin. ` +
+      `Post atilmadi (sira korunuyor).`
+    );
+  }
 }
 
 // Tip alternasyonu: normalde bir öncekinin tersi (carousel <-> reel).
