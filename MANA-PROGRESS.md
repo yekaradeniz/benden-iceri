@@ -2,8 +2,8 @@
 
 ## Mevcut Durum (2026-05-24)
 
-**Tamamlanan:** sb-0001 → sb-0050 (50 mânâ, 50 günlük buffer)
-**Kalan:** sb-0051 → sb-1222 (1172 mânâ)
+**Tamamlanan:** sb-0001 → sb-0410 (410 mânâ, 410 günlük buffer)
+**Kalan:** sb-0411 → sb-1222 (812 mânâ)
 
 ## Kurallar
 
