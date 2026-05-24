@@ -13,7 +13,7 @@
   }
   .content {
     position: absolute; left: 0; right: 0; bottom: 0;
-    padding: 0 140px 380px 80px;
+    padding: 0 80px 380px 80px;
     text-align: center;
     color: #faf6ec;
   }
@@ -74,8 +74,9 @@
     const explanation = document.querySelector('.explanation');
     let size = parseFloat(window.getComputedStyle(explanation).fontSize);
     // Ekran 1920px - üstte ~150px görünür video alanı bırak.
+    // Font min 40px - okunabilirligi korumak icin.
     const maxHeight = 1770;
-    while (content.offsetHeight > maxHeight && size > 24) {
+    while (content.offsetHeight > maxHeight && size > 40) {
       size -= 1;
       explanation.style.fontSize = size + 'px';
     }

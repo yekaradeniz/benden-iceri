@@ -13,7 +13,7 @@
   }
   .content {
     position: absolute; left: 0; right: 0; bottom: 0;
-    padding: 0 140px 380px 65px;
+    padding: 0 80px 380px 80px;
     text-align: center;
     color: #faf6ec;
   }
@@ -24,7 +24,7 @@
     line-height: 1.38;
     color: #faf6ec;
     margin-bottom: 56px;
-    white-space: pre;
+    white-space: pre-line;
     letter-spacing: 0.6px;
     text-shadow: 0 2px 14px rgba(0,0,0,0.85);
   }
@@ -52,13 +52,16 @@
   </div>
 <script>
   (function() {
+    // Yukseklik bazli shrink: uzun beyitler sigsin diye, ama font asla 40'ın altına dusmesin.
+    // Uzun misralar otomatik olarak wrap edilir (white-space: pre-line).
+    const content = document.querySelector('.content');
     const verse = document.querySelector('#verse');
     let size = parseFloat(window.getComputedStyle(verse).fontSize);
-    while (verse.scrollWidth > verse.clientWidth && size > 20) {
+    const maxHeight = 1450; // 1920 - 380 bottom - ~90 buffer
+    while (content.offsetHeight > maxHeight && size > 40) {
       size -= 1;
       verse.style.fontSize = size + 'px';
     }
-    verse.style.whiteSpace = 'pre-line';
   })();
 </script>
 </body>
