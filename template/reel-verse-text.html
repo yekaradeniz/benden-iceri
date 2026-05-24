@@ -24,7 +24,7 @@
     line-height: 1.38;
     color: #faf6ec;
     margin-bottom: 56px;
-    white-space: pre-line;
+    white-space: pre;
     letter-spacing: 0.6px;
     text-shadow: 0 2px 14px rgba(0,0,0,0.85);
   }
@@ -52,13 +52,11 @@
   </div>
 <script>
   (function() {
-    // Yukseklik bazli shrink: uzun beyitler sigsin diye, ama font asla 40'ın altına dusmesin.
-    // Uzun misralar otomatik olarak wrap edilir (white-space: pre-line).
-    const content = document.querySelector('.content');
+    // Width-based shrink: cli-render.js'te 45+ char misrali beyitler zaten atlaniyor.
+    // Bu shrink sadece 40-44 char misralar icin devreye girer, min font 40px.
     const verse = document.querySelector('#verse');
     let size = parseFloat(window.getComputedStyle(verse).fontSize);
-    const maxHeight = 1450; // 1920 - 380 bottom - ~90 buffer
-    while (content.offsetHeight > maxHeight && size > 40) {
+    while (verse.scrollWidth > verse.clientWidth && size > 40) {
       size -= 1;
       verse.style.fontSize = size + 'px';
     }

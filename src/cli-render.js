@@ -37,9 +37,14 @@ if (pendingRetry) {
   console.log(`Yeniden deneniyor: ${entry.id} - yeni medya render ediliyor (eski medya kullanilmaz)`);
 } else {
   const postedSet = new Set(state.postedVerseIds);
-  const unposted = content.filter(e => !postedSet.has(e.id));
+  // SKIP: 45+ karakterli misralı beyitleri atla (gorsellestirilince font cok kuculur).
+  // Bu beyitler postedVerseIds'e EKLENMEZ, yalnizca iterasyondan disarda birakilir.
+  // Threshold degisirse veya tema buyuyebilirse bunlar tekrar yakalanir.
+  const MAX_LINE_CHARS = 45;
+  const tooLong = (e) => e.verse.split('\n').some(l => l.length >= MAX_LINE_CHARS);
+  const unposted = content.filter(e => !postedSet.has(e.id) && !tooLong(e));
   if (unposted.length === 0) {
-    throw new Error(`Tüm günler paylaşıldı (${state.postedVerseIds.length} gün). salih-baba.json bitti.`);
+    throw new Error(`Tüm uygun günler paylaşıldı. salih-baba.json bitti.`);
   }
   entry = unposted[0];
 
