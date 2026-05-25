@@ -62,12 +62,18 @@ function verseFirstLine(verse) {
   return (String(verse).split('\n').find(l => l.trim().length > 0) ?? '').trim();
 }
 
-// IG caption'indan hangi misra oldugunu bul (content sirasindaki index ile).
+// 45+ char misrali beyitler cli-render.js'te atlaniyor - sira kontrolu da bunlari hesaba katmali.
+// "Eligible" = atilabilen (siraya dahil) beyitlerin listesi. Sira karsilastirmasi bu liste uzerinde.
+const MAX_LINE_CHARS = 45;
+const isTooLong = (e) => e.verse.split('\n').some(l => l.length >= MAX_LINE_CHARS);
+const eligibleContent = content.filter(e => !isTooLong(e));
+
+// IG caption'indan hangi misra oldugunu bul (eligible siradaki index ile).
 function findVerseByCaption(igCaption) {
   if (!igCaption) return null;
-  for (let i = 0; i < content.length; i++) {
-    if (captionMatches(igCaption, verseFirstLine(content[i].verse))) {
-      return { verse: content[i], index: i };
+  for (let i = 0; i < eligibleContent.length; i++) {
+    if (captionMatches(igCaption, verseFirstLine(eligibleContent[i].verse))) {
+      return { verse: eligibleContent[i], index: i };
     }
   }
   return null;
@@ -83,9 +89,9 @@ function findVerseByCaption(igCaption) {
  *    daha kotuye gitmesin; workflow basarisiz olur, haber alinir.
  */
 async function verifySequenceOrAbort({ igUserId, accessToken, entry }) {
-  const entryIndex = content.findIndex(e => e.id === entry.id);
+  const entryIndex = eligibleContent.findIndex(e => e.id === entry.id);
   if (entryIndex <= 0) {
-    console.log('Sira kontrolu: ilk misra / bilinmeyen entry, kontrol atlandi.');
+    console.log('Sira kontrolu: ilk misra / bilinmeyen entry / atlanmis beyit, kontrol atlandi.');
     return;
   }
 
