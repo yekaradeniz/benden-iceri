@@ -88,9 +88,11 @@ async function searchPage(apiKey, query) {
 }
 
 function pickBestFile(video) {
+  // Portrait video (height > width), minimum 1080p. En yuksek cozunurluk tercih edilir
+  // (ffmpeg lanczos ile 1080x1920'ye downscale yapacak - text/detay daha keskin gorunur).
   const files = (video.video_files ?? [])
-    .filter(f => f.height >= 1080 && f.width <= 1080)
-    .sort((a, b) => Math.abs(a.height - 1920) - Math.abs(b.height - 1920));
+    .filter(f => f.height > f.width && f.height >= 1080)
+    .sort((a, b) => b.height - a.height);
   return files[0];
 }
 

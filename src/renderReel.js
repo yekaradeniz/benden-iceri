@@ -46,13 +46,19 @@ function fillTemplate(name, vars) {
 }
 
 async function renderHtmlToPng(html, outPath, browser) {
-  const page = await browser.newPage();
-  await page.setViewportSize({ width: 1080, height: 1920 });
+  // 2x render (Retina): viewport 1080x1920 ama deviceScaleFactor 2 => screenshot 2160x3840 px.
+  // ffmpeg lanczos ile 1080x1920'ye geri olcekler. Sonuc: text kenarlari super keskin.
+  const context = await browser.newContext({
+    viewport: { width: 1080, height: 1920 },
+    deviceScaleFactor: 2
+  });
+  const page = await context.newPage();
   await page.setContent(html, { waitUntil: 'networkidle' });
   await page.waitForTimeout(800);
   const buf = await page.screenshot({ type: 'png', omitBackground: true });
   writeFileSync(outPath, buf);
   await page.close();
+  await context.close();
 }
 
 export async function downloadVideo(url, outPath) {
@@ -125,11 +131,12 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
     //  12-13  geçiş (sade arka plan)
     //  13-31  mana (fade in 13-13.7, fade out 29.5-30.5) - 18 sn toplam
     //  32-33  kapanış (final fade)
+    // 2x render PNG'leri (2160x3840) lanczos ile 1080x1920'ye dusururuz - text keskinlesir
     const filterComplex =
       `[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1[bg];` +
-      `[1:v]setpts=PTS-STARTPTS[grad];` +
-      `[2:v]format=rgba,fade=t=out:st=10.5:d=1:alpha=1,setpts=PTS-STARTPTS[vtxt];` +
-      `[3:v]format=rgba,fade=t=in:st=0:d=0.7:alpha=1,fade=t=out:st=16.5:d=1:alpha=1,setpts=PTS+13/TB[mtxt];` +
+      `[1:v]scale=1080:1920:flags=lanczos,setpts=PTS-STARTPTS[grad];` +
+      `[2:v]scale=1080:1920:flags=lanczos,format=rgba,fade=t=out:st=10.5:d=1:alpha=1,setpts=PTS-STARTPTS[vtxt];` +
+      `[3:v]scale=1080:1920:flags=lanczos,format=rgba,fade=t=in:st=0:d=0.7:alpha=1,fade=t=out:st=16.5:d=1:alpha=1,setpts=PTS+13/TB[mtxt];` +
       `[bg][grad]overlay=0:0[bg2];` +
       `[bg2][vtxt]overlay=0:0[tmp];` +
       `[tmp][mtxt]overlay=0:0,fade=t=out:st=32:d=1[outv]`;
