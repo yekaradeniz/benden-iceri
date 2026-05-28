@@ -8,6 +8,7 @@ import { fetchPexelsCandidates } from './fetchPexelsVideo.js';
 import { validateVideoFrames } from './checkVideoFrames.js';
 import { renderToPng, renderExplanationToPng } from './render.js';
 import { renderReel, downloadVideo, pickAudioByIndex, listAudioTracks } from './renderReel.js';
+import { generateVoice, getAudioDuration } from './generateVoice.js';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { readState, writeState } from './state.js';
@@ -133,12 +134,57 @@ if (nextType === 'reel') {
     const audioPath = tracks.length > 0 ? pickAudioByIndex(audioIdx) : null;
     if (audioPath) console.log(`Müzik #${(audioIdx % tracks.length) + 1}/${tracks.length}: ${audioPath.split('/').pop()}`);
 
+    // ElevenLabs ile verse + mana sesi uret (env varlarsa). Cache: output/audio-cache/
+    // Cache .gitignore'da, GitHub'da kalici depolanmaz - her run sifirdan uretir.
+    let voicePath = null;
+    let voiceDuration = 0;
+    let manaVoicePath = null;
+    let manaVoiceDuration = 0;
+    const elevenKey = process.env.ELEVENLABS_API_KEY;
+    const elevenVoiceId = process.env.ELEVENLABS_VOICE_ID;
+    if (elevenKey && elevenVoiceId) {
+      const voiceCacheDir = join(ROOT, 'output', 'audio-cache');
+      try {
+        console.log('Beyit sesi (ElevenLabs)...');
+        voicePath = await generateVoice({
+          text: entry.verse,
+          voiceId: elevenVoiceId,
+          apiKey: elevenKey,
+          cacheDir: voiceCacheDir
+        });
+        voiceDuration = await getAudioDuration(voicePath);
+        console.log(`  Verse voice: ${voiceDuration.toFixed(1)}sn`);
+
+        if (entry.explanation && entry.explanation.trim()) {
+          console.log('Mana sesi (ElevenLabs)...');
+          manaVoicePath = await generateVoice({
+            text: entry.explanation,
+            voiceId: elevenVoiceId,
+            apiKey: elevenKey,
+            cacheDir: voiceCacheDir
+          });
+          manaVoiceDuration = await getAudioDuration(manaVoicePath);
+          console.log(`  Mana voice: ${manaVoiceDuration.toFixed(1)}sn`);
+        }
+      } catch (e) {
+        console.warn(`ElevenLabs basarisiz, sesli devre disi: ${e.message}`);
+        voicePath = null;
+        manaVoicePath = null;
+      }
+    } else {
+      console.log('ElevenLabs env yok, reel sessiz gidecek.');
+    }
+
     const outVideo = join(ROOT, 'output', `${today}.mp4`);
     await renderReel({
       verse: entry.verse,
       explanation: entry.explanation || '',
       videoPath: chosenPath,
       audioPath,
+      voicePath,
+      voiceDuration,
+      manaVoicePath,
+      manaVoiceDuration,
       outPath: outVideo
     });
     console.log(`Reel hazir: ${outVideo}`);

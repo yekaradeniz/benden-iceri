@@ -92,9 +92,17 @@ function ffmpeg(args) {
  * @param {string} [opts.videoUrl] - Pexels video URL (videoPath verilmediyse indirilir)
  * @param {string} [opts.videoPath] - lokal MP4 yolu (zaten indirilmiş)
  * @param {string} [opts.audioPath] - opsiyonel arka plan müziği (mp3/m4a/wav). Verilmezse sessiz.
+ * @param {string} [opts.voicePath] - opsiyonel insan/AI sesi (beyit periyodu boyunca). Verilirse:
+ *   - verse suresi otomatik olarak voiceDuration + 2sn olur (1sn lead + voice + 1sn trail)
+ *   - voice tam ses, audioPath (background) ise %25 volume mix edilir
+ * @param {number} [opts.voiceDuration] - voicePath suresi (saniye). voicePath varsa zorunlu.
+ * @param {string} [opts.manaVoicePath] - opsiyonel mana sesi (mana periyodu boyunca). Verilirse:
+ *   - mana suresi otomatik olarak manaVoiceDuration + 2sn olur
+ *   - background music %25 volume devam eder
+ * @param {number} [opts.manaVoiceDuration] - manaVoicePath suresi (saniye). manaVoicePath varsa zorunlu.
  * @param {string} opts.outPath - çıkış MP4 yolu
  */
-export async function renderReel({ verse, explanation, videoUrl, videoPath, audioPath, outPath }) {
+export async function renderReel({ verse, explanation, videoUrl, videoPath, audioPath, voicePath, voiceDuration, manaVoicePath, manaVoiceDuration, outPath }) {
   const tmp = mkdtempSync(join(tmpdir(), 'reel-'));
   const browser = await chromium.launch();
   try {
@@ -126,34 +134,105 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
     }
 
     // 3) FFmpeg ile compose et
-    // Süre planı:
-    //  0-12   verse (fade in 0-0.7, fade out 10.5-11.5) - 12 sn toplam
-    //  12-13  geçiş (sade arka plan)
-    //  13-31  mana (fade in 13-13.7, fade out 29.5-30.5) - 18 sn toplam
-    //  32-33  kapanış (final fade)
+    // DINAMIK SURE PLANI:
+    //   verseLen = voiceDuration + 2 (1sn lead + voice + 1sn trail). Voice yoksa 12sn sabit.
+    //   manaLen = manaVoiceDuration + 2. Mana voice yoksa 18sn sabit.
+    //   transitionLen = 1sn (verse ile mana arasi)
+    //   totalLen = verseLen + transitionLen + manaLen + 2 (final fade)
+    const hasVoice = !!voicePath && existsSync(voicePath) && voiceDuration > 0;
+    const hasManaVoice = !!manaVoicePath && existsSync(manaVoicePath) && manaVoiceDuration > 0;
+    const verseLen = hasVoice ? Math.round(voiceDuration + 2) : 12;
+    const manaLen = hasManaVoice ? Math.round(manaVoiceDuration + 2) : 18;
+    const transitionLen = 1;
+    const finalFadeStart = verseLen + transitionLen + manaLen;
+    const totalLen = finalFadeStart + 2;
+
+    // Verse fade-out: son 1sn icinde
+    const verseFadeOutStart = verseLen - 1.5;
+    // Mana fade-in: 0.7sn (mana akisi icinde, offset edildi)
+    // Mana fade-out: son 1.5sn icinde
+    const manaFadeOutStart = manaLen - 1.5;
+    // Mana baslangic offset'i (PTS+X/TB)
+    const manaOffset = verseLen + transitionLen;
+
     // 2x render PNG'leri (2160x3840) lanczos ile 1080x1920'ye dusururuz - text keskinlesir
     const filterComplex =
       `[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1[bg];` +
       `[1:v]scale=1080:1920:flags=lanczos,setpts=PTS-STARTPTS[grad];` +
-      `[2:v]scale=1080:1920:flags=lanczos,format=rgba,fade=t=out:st=10.5:d=1:alpha=1,setpts=PTS-STARTPTS[vtxt];` +
-      `[3:v]scale=1080:1920:flags=lanczos,format=rgba,fade=t=in:st=0:d=0.7:alpha=1,fade=t=out:st=16.5:d=1:alpha=1,setpts=PTS+13/TB[mtxt];` +
+      `[2:v]scale=1080:1920:flags=lanczos,format=rgba,fade=t=in:st=0:d=0.7:alpha=1,fade=t=out:st=${verseFadeOutStart}:d=1:alpha=1,setpts=PTS-STARTPTS[vtxt];` +
+      `[3:v]scale=1080:1920:flags=lanczos,format=rgba,fade=t=in:st=0:d=0.7:alpha=1,fade=t=out:st=${manaFadeOutStart}:d=1:alpha=1,setpts=PTS+${manaOffset}/TB[mtxt];` +
       `[bg][grad]overlay=0:0[bg2];` +
       `[bg2][vtxt]overlay=0:0[tmp];` +
-      `[tmp][mtxt]overlay=0:0,fade=t=out:st=32:d=1[outv]`;
+      `[tmp][mtxt]overlay=0:0,fade=t=out:st=${finalFadeStart}:d=1[outv]`;
 
     const args = [
       '-y',
       '-stream_loop', '-1', '-i', actualVideoPath,
-      '-loop', '1', '-t', '33', '-i', gradientPng,
-      '-loop', '1', '-t', '12', '-i', versePng,
-      '-loop', '1', '-t', '18', '-i', manaPng
+      '-loop', '1', '-t', String(totalLen), '-i', gradientPng,
+      '-loop', '1', '-t', String(verseLen), '-i', versePng,
+      '-loop', '1', '-t', String(manaLen), '-i', manaPng
     ];
 
-    if (audioPath && existsSync(audioPath)) {
+    // Audio karma matrix:
+    //  - voicePath + audioPath: voice 1.0 vol (verse periyodu), bg music 0.25 vol (full)
+    //  - sadece audioPath: bg music 0.85 vol (mevcut davranis)
+    //  - sadece voicePath: voice 1.0 (verse periyodu), sonrasi sessiz
+    //  - hicbiri: sessiz
+    const hasMusic = !!audioPath && existsSync(audioPath);
+
+    // Mana voice'i ne zaman baslar: verseLen + transitionLen (geçiş sonrasi)
+    // adelay millisaniye cinsinden
+    const manaVoiceStartMs = (verseLen + transitionLen + 1) * 1000;  // +1sn lead
+    const voiceFadeOutStart = hasVoice ? voiceDuration - 0.5 : 0;
+    const manaVoiceFadeOutStart = hasManaVoice ? manaVoiceDuration - 0.5 : 0;
+
+    if (hasVoice && hasManaVoice && hasMusic) {
+      console.log(`Verse voice (${voiceDuration.toFixed(1)}sn) + Mana voice (${manaVoiceDuration.toFixed(1)}sn) + müzik`);
+      args.push(
+        '-i', voicePath,                                    // [4] verse voice
+        '-i', manaVoicePath,                                // [5] mana voice
+        '-stream_loop', '-1', '-i', audioPath,              // [6] bg music
+        '-filter_complex',
+        filterComplex +
+        `;[4:a]volume=1.0,afade=t=in:st=0:d=0.5,afade=t=out:st=${voiceFadeOutStart}:d=0.7,adelay=1000|1000[vvoice]` +
+        `;[5:a]volume=1.0,afade=t=in:st=0:d=0.5,afade=t=out:st=${manaVoiceFadeOutStart}:d=0.7,adelay=${manaVoiceStartMs}|${manaVoiceStartMs}[mvoice]` +
+        `;[6:a]volume=0.25,afade=t=in:st=0:d=1,afade=t=out:st=${finalFadeStart}:d=1[bgmus]` +
+        `;[vvoice][mvoice][bgmus]amix=inputs=3:duration=longest:dropout_transition=0[outa]`,
+        '-map', '[outv]',
+        '-map', '[outa]',
+        '-c:a', 'aac', '-b:a', '192k', '-ar', '48000'
+      );
+    } else if (hasVoice && hasMusic) {
+      console.log(`Voice (${voiceDuration.toFixed(1)}sn) + müzik karışıyor`);
+      args.push(
+        '-i', voicePath,                                    // [4]
+        '-stream_loop', '-1', '-i', audioPath,              // [5]
+        '-filter_complex',
+        filterComplex +
+        `;[4:a]volume=1.0,afade=t=in:st=0:d=0.5,afade=t=out:st=${voiceFadeOutStart}:d=0.7,adelay=1000|1000[voice]` +
+        `;[5:a]volume=0.25,afade=t=in:st=0:d=1,afade=t=out:st=${finalFadeStart}:d=1[bgmus]` +
+        `;[voice][bgmus]amix=inputs=2:duration=longest:dropout_transition=0[outa]`,
+        '-map', '[outv]',
+        '-map', '[outa]',
+        '-c:a', 'aac', '-b:a', '192k', '-ar', '48000'
+      );
+    } else if (hasVoice) {
+      console.log(`Voice (${voiceDuration.toFixed(1)}sn) (müzik yok)`);
+      args.push(
+        '-i', voicePath,
+        '-filter_complex',
+        filterComplex +
+        `;[4:a]volume=1.0,afade=t=in:st=0:d=0.5,afade=t=out:st=${voiceFadeOutStart}:d=0.7,adelay=1000|1000[outa]`,
+        '-map', '[outv]',
+        '-map', '[outa]',
+        '-c:a', 'aac', '-b:a', '192k', '-ar', '48000'
+      );
+    } else if (hasMusic) {
       console.log(`Müzik ekleniyor: ${audioPath}`);
       args.push(
         '-stream_loop', '-1', '-i', audioPath,
-        '-filter_complex', filterComplex + `;[4:a]afade=t=in:st=0:d=1,afade=t=out:st=32:d=1,volume=0.85[outa]`,
+        '-filter_complex',
+        filterComplex + `;[4:a]afade=t=in:st=0:d=1,afade=t=out:st=${finalFadeStart}:d=1,volume=0.85[outa]`,
         '-map', '[outv]',
         '-map', '[outa]',
         '-c:a', 'aac', '-b:a', '192k', '-ar', '48000'
@@ -175,7 +254,7 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
       '-r', '30',
       '-maxrate', '20M', '-bufsize', '40M',
       '-movflags', '+faststart',
-      '-t', '33',
+      '-t', String(totalLen),
       outPath
     );
 
