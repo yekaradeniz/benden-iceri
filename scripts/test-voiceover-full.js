@@ -21,9 +21,12 @@ import { renderReel, downloadVideo, pickAudioByIndex, listAudioTracks } from '..
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 
-const PEXELS_KEY = 'FfYvsftVEt3tjnLIf1SLrMykrrTBkOJSUGW5sYPWC25dfpNKyVHEyv9o';
-const ELEVEN_API_KEY = 'sk_1dcb9d8049477a8fe76ac530cbbcba1fbea1029bcb549d72';
-const ELEVEN_VOICE_ID = 'j9K9HnBcmgA6xNWqjlX0';
+const PEXELS_KEY = process.env.PEXELS_API_KEY;
+const ELEVEN_API_KEY = process.env.ELEVENLABS_API_KEY;
+const ELEVEN_VOICE_ID = process.env.ELEVENLABS_VOICE_ID;
+if (!PEXELS_KEY) throw new Error('PEXELS_API_KEY env var gerekli');
+if (!ELEVEN_API_KEY) throw new Error('ELEVENLABS_API_KEY env var gerekli');
+if (!ELEVEN_VOICE_ID) throw new Error('ELEVENLABS_VOICE_ID env var gerekli');
 const VERSE_ID = process.argv[2] || 'sb-0041';
 const OUT_PATH = `/Users/yunusemrekaradeniz/Desktop/test-voiceover-${VERSE_ID}.mp4`;
 

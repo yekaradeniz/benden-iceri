@@ -1,7 +1,8 @@
 /**
  * Bizim mood query'leri ile Pexels'te kac tane yuksek cozunurluklu portrait video var?
  */
-const API_KEY = 'FfYvsftVEt3tjnLIf1SLrMykrrTBkOJSUGW5sYPWC25dfpNKyVHEyv9o';
+const API_KEY = process.env.PEXELS_API_KEY;
+if (!API_KEY) { console.error('PEXELS_API_KEY env var gerekli'); process.exit(1); }
 
 const QUERIES = [
   'mosque interior',
