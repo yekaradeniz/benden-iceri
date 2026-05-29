@@ -303,7 +303,7 @@ if (type === 'reel') {
       const { videoId, url: ytUrl } = await uploadToYoutube({
         videoPath,
         verse: entry.verse,
-        caption,
+        explanation: entry.explanation,
         clientId: ytClientId,
         clientSecret: ytClientSecret,
         refreshToken: ytRefreshToken

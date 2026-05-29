@@ -25,43 +25,80 @@ async function getAccessToken({ clientId, clientSecret, refreshToken }) {
 }
 
 /**
- * Verse'in ilk satirini baslik olarak duzenler (max 90 karakter + ' #Shorts').
+ * Baslik: ilk misra + marka. Aranabilir ama vakarli (clickbait yok).
+ * Ornek: "Bed' olunsun besmeleyle hamdeleyle evsatı | Salih Baba Dîvânı"
+ * YouTube baslik limiti 100 karakter - asarsa misra kisaltilir, marka korunur.
  */
 function buildTitle(verse) {
   const firstLine = (String(verse).split('\n').find(l => l.trim().length > 0) ?? '').trim();
-  const base = firstLine.length > 90 ? firstLine.slice(0, 87) + '...' : firstLine;
-  return `${base} #Shorts`;
+  // Misra sonundaki noktalama baslikta hos durmaz, temizle
+  const clean = firstLine.replace(/[.,;:]+$/, '').trim();
+  const suffix = ' | Salih Baba Dîvânı';
+  const maxMisra = 100 - suffix.length;
+  const base = clean.length > maxMisra ? clean.slice(0, maxMisra - 1).trim() + '…' : clean;
+  return `${base}${suffix}`;
 }
 
 /**
- * Instagram caption'ini YouTube description'a donusturur (#Shorts ekler).
+ * Aciklama: tam beyit + manasi + kunye + aranabilir terimler + hashtag.
+ * Bu kitle (tasavvuf okuyucusu) icin kunye/kaynak guven verir; arama terimleri
+ * dogal cumle icinde gecer (spam degil).
  */
-function buildDescription(caption) {
-  return `${caption}\n\n#Shorts`;
+function buildDescription({ verse, explanation }) {
+  const parts = [];
+
+  // 1) Tam beyit
+  parts.push(verse.trim());
+
+  // 2) Manasi (varsa)
+  if (explanation && explanation.trim()) {
+    parts.push(`\nMânâsı:\n${explanation.trim()}`);
+  }
+
+  // 3) Kunye / kaynak - guven ve ciddiyet
+  parts.push('\nSalih Baba Dîvânı\'ndan. Her gün bir beyit, mânâsıyla birlikte paylaşılmaktadır.');
+
+  // 4) Aranabilir terimler - dogal cumle icinde
+  parts.push('Tasavvuf şiirleri, Nakşibendî geleneği ve ilâhî aşk yolunun beyitleri için kanalımıza abone olabilirsiniz.');
+
+  // 5) Hashtagler (en sonda, az ve oz)
+  parts.push('\n#SalihBaba #SalihBabaDîvânı #Tasavvuf #Nakşibendî #İlahiAşk #TasavvufŞiirleri #Sufizm #Shorts');
+
+  return parts.join('\n');
 }
+
+// Aranabilir, alakali tag'ler (YouTube tag alani)
+const VIDEO_TAGS = [
+  'salih baba', 'salih baba dîvânı', 'salih baba divanı', 'erzurumlu salih baba',
+  'tasavvuf', 'tasavvuf şiirleri', 'tasavvuf sözleri',
+  'nakşibendi', 'nakşibendî', 'sufizm', 'sufi',
+  'ilahi aşk', 'aşk-ı ilahi', 'divan edebiyatı', 'osmanlı şiiri',
+  'tekke şiiri', 'marifet', 'tefekkür', 'shorts'
+];
 
 /**
  * Resumable upload ile YouTube'a video yukler.
  * @param {object} opts
- * @param {string} opts.videoPath  - lokal MP4 dosyasi
- * @param {string} opts.verse      - misra metni (baslik icin)
- * @param {string} opts.caption    - Instagram caption (description icin)
+ * @param {string} opts.videoPath    - lokal MP4 dosyasi
+ * @param {string} opts.verse        - misra metni (baslik + aciklama icin)
+ * @param {string} [opts.explanation] - manasi (aciklama icin, varsa)
+ * @param {string} [opts.caption]    - (geriye donuk uyumluluk; artik kullanilmiyor)
  * @param {string} opts.clientId
  * @param {string} opts.clientSecret
  * @param {string} opts.refreshToken
  * @returns {Promise<{videoId: string, url: string}>}
  */
-export async function uploadToYoutube({ videoPath, verse, caption, clientId, clientSecret, refreshToken }) {
+export async function uploadToYoutube({ videoPath, verse, explanation, caption, clientId, clientSecret, refreshToken }) {
   const accessToken = await getAccessToken({ clientId, clientSecret, refreshToken });
 
   const title = buildTitle(verse);
-  const description = buildDescription(caption);
+  const description = buildDescription({ verse, explanation });
 
   const metadata = {
     snippet: {
       title,
       description,
-      tags: ['tasavvuf', 'salihbaba', 'salihhbabadivani', 'sufi', 'islamicpoetry', 'shorts', 'sufizm'],
+      tags: VIDEO_TAGS,
       categoryId: '29'   // Nonprofits & Activism
     },
     status: {
