@@ -61,8 +61,8 @@ function buildDescription({ verse, explanation }) {
   // 4) Aranabilir terimler - dogal cumle icinde
   parts.push('Tasavvuf şiirleri, Nakşibendî geleneği ve ilâhî aşk yolunun beyitleri için kanalımıza abone olabilirsiniz.');
 
-  // 5) Hashtagler (en sonda, az ve oz)
-  parts.push('\n#SalihBaba #SalihBabaDîvânı #Tasavvuf #Nakşibendî #İlahiAşk #TasavvufŞiirleri #Sufizm #Shorts');
+  // 5) Hashtagler (en sonda, az ve oz). #Shorts gereksiz: YouTube dikey/sure ile otomatik anlar.
+  parts.push('\n#SalihBaba #SalihBabaDîvânı #Tasavvuf #Nakşibendî #İlahiAşk #TasavvufŞiirleri #Sufizm');
 
   return parts.join('\n');
 }
@@ -73,7 +73,7 @@ const VIDEO_TAGS = [
   'tasavvuf', 'tasavvuf şiirleri', 'tasavvuf sözleri',
   'nakşibendi', 'nakşibendî', 'sufizm', 'sufi',
   'ilahi aşk', 'aşk-ı ilahi', 'divan edebiyatı', 'osmanlı şiiri',
-  'tekke şiiri', 'marifet', 'tefekkür', 'shorts'
+  'tekke şiiri', 'marifet', 'tefekkür'
 ];
 
 /**
