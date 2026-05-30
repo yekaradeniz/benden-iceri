@@ -137,13 +137,15 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
     // DINAMIK SURE PLANI:
     //   verseLen = voiceDuration + 2 (1sn lead + voice + 1sn trail). Voice yoksa 12sn sabit.
     //   manaLen = manaVoiceDuration + 2. Mana voice yoksa 18sn sabit.
-    //   transitionLen = 1sn (verse ile mana arasi)
+    //   transitionLen = 0 (geçiş boşluğu kaldirildi - sikilastirildi)
+    //   Soru sesi bitince cevap sesi baslayana kadar ~1.4sn (1 trailing + 0 gecis + 0.4 lead)
     //   totalLen = verseLen + transitionLen + manaLen + 2 (final fade)
     const hasVoice = !!voicePath && existsSync(voicePath) && voiceDuration > 0;
     const hasManaVoice = !!manaVoicePath && existsSync(manaVoicePath) && manaVoiceDuration > 0;
     const verseLen = hasVoice ? Math.round(voiceDuration + 2) : 12;
     const manaLen = hasManaVoice ? Math.round(manaVoiceDuration + 2) : 18;
-    const transitionLen = 1;
+    const transitionLen = 0;
+    const MANA_LEAD = 0.4;  // cevap belirdikten sonra ses baslayana kadarki bekleme
     const finalFadeStart = verseLen + transitionLen + manaLen;
     const totalLen = finalFadeStart + 2;
 
@@ -180,9 +182,9 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
     //  - hicbiri: sessiz
     const hasMusic = !!audioPath && existsSync(audioPath);
 
-    // Mana voice'i ne zaman baslar: verseLen + transitionLen (geçiş sonrasi)
+    // Mana voice'i ne zaman baslar: verseLen + transitionLen + MANA_LEAD
     // adelay millisaniye cinsinden
-    const manaVoiceStartMs = (verseLen + transitionLen + 1) * 1000;  // +1sn lead
+    const manaVoiceStartMs = (verseLen + transitionLen + MANA_LEAD) * 1000;
     const voiceFadeOutStart = hasVoice ? voiceDuration - 0.5 : 0;
     const manaVoiceFadeOutStart = hasManaVoice ? manaVoiceDuration - 0.5 : 0;
 
