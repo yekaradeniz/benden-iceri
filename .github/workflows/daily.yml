@@ -1,10 +1,10 @@
 name: Daily Post
 
 on:
-  schedule:
-    - cron: '0 16 * * *'  # 16:00 UTC = 19:00 GMT+3. Gunde tek post (carousel/reel alternating)
-  workflow_dispatch:      # manual trigger button
-  repository_dispatch:    # harici tetikleyici (cron-job.org) icin - tam saatinde calismasi icin
+  # GitHub schedule (cron) KALDIRILDI: gecikmeli/guvenilmez + cift post yapiyordu.
+  # Tek otomatik tetikleyici artik cron-job.org (asagidaki repository_dispatch).
+  workflow_dispatch:      # sadece elle 'Run' butonu - otomatik degil, acil durum icin
+  repository_dispatch:    # TEK otomatik tetikleyici: cron-job.org her gun 19:00'da cagirir
     types: [daily-post]
 
 permissions:
