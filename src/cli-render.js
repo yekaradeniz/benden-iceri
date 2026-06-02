@@ -50,7 +50,8 @@ if (pendingRetry) {
     const cycle = (state.cycle ?? 1) + 1;
     console.log(`Tum uygun beyitler paylasildi. LOOP -> ${cycle}. tur basliyor (basa donuldu).`);
     state.postedVerseIds = [];
-    state.usedVideoIds = [];   // video blacklist sifirla - yeni turda videolar tekrar kullanilabilir
+    // usedVideoIds SIFIRLANMAZ: rolling window zaten cesitliligi sagliyor; sifirlamak
+    // tur basinda son videolarin hemen tekrarina yol acardi.
     state.cycle = cycle;
     postedSet.clear();
     unposted = content.filter(e => !tooLong(e));
@@ -104,9 +105,15 @@ if (nextType === 'reel') {
   const geminiKey = process.env.GEMINI_API_KEY;
   if (!pexelsKey) throw new Error('PEXELS_API_KEY tanımlı değil; reel oluşturulamaz');
 
-  const usedVideoIds = new Set(state.usedVideoIds ?? []);
-  const candidates = await fetchPexelsCandidates(entry.moods, pexelsKey, usedVideoIds);
-  console.log(`${candidates.length} Pexels aday bulundu, moderasyondan geçecek...`);
+  // Iki blacklist:
+  //  - rejectedVideoIds: KALICI (moderasyon basarisiz, or. karede kadin) - asla tekrar denenmez
+  //  - usedVideoIds: ROLLING window (son N kullanilan, sadece cesitlilik icin) - eskiler tekrar kullanilabilir
+  // fetchPexelsCandidates ikisinin birlesimini disarda birakir.
+  const rejectedVideoIds = state.rejectedVideoIds ?? [];
+  const usedRolling = state.usedVideoIds ?? [];
+  const excludeSet = new Set([...rejectedVideoIds, ...usedRolling]);
+  const candidates = await fetchPexelsCandidates(entry.moods, pexelsKey, excludeSet);
+  console.log(`${candidates.length} Pexels aday bulundu (excl. ${excludeSet.size} blacklist), moderasyondan geçecek...`);
 
   // Adayları sırayla dene: indir, 5 kareyi Gemini'den geçir, ilk onaylananı kullan
   const tmpDir = mkdtempSync(join(tmpdir(), 'pexels-'));
@@ -197,11 +204,16 @@ if (nextType === 'reel') {
     });
     console.log(`Reel hazir: ${outVideo}`);
 
-    // Reddedilen adaylar da kalıcı blacklist'e gidiyor (tekrar denenmesin)
-    const newUsedIds = [
-      ...(state.usedVideoIds ?? []).filter(id => id !== chosen.id),
-      ...rejectedIds.filter(id => !(state.usedVideoIds ?? []).includes(id)),
-      chosen.id
+    // ROLLING window: kullanilan video ID'lerinin son N tanesini tut.
+    // Pexels cami havuzu ~500 video; window 150 ile her zaman ~350 taze kalir,
+    // bir video en az ~150 gun (5 ay) tekrar gelmez. Boylece havuz asla tukenmez.
+    const VIDEO_WINDOW = 150;
+    const newUsedRolling = [...usedRolling.filter(id => id !== chosen.id), chosen.id].slice(-VIDEO_WINDOW);
+
+    // Reddedilenler (moderasyon basarisiz) KALICI blacklist'e gider, tekrar denenmez/indirilmez.
+    const newRejected = [
+      ...rejectedVideoIds,
+      ...rejectedIds.filter(id => !rejectedVideoIds.includes(id))
     ];
 
     writeState(statePath, {
@@ -216,7 +228,8 @@ if (nextType === 'reel') {
         carousel: false
       },
       recentPhotos: [...recentPhotos.filter(id => id !== chosen.id), chosen.id].slice(-14),
-      usedVideoIds: newUsedIds,
+      usedVideoIds: newUsedRolling,
+      rejectedVideoIds: newRejected,
       audioIndex: tracks.length > 0 ? (audioIdx + 1) % tracks.length : (state.audioIndex ?? 0),
       postedVerseIds: [...state.postedVerseIds.filter(id => id !== entry.id), entry.id]
     });
