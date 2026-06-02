@@ -43,9 +43,17 @@ if (pendingRetry) {
   // Threshold degisirse veya tema buyuyebilirse bunlar tekrar yakalanir.
   const MAX_LINE_CHARS = 45;
   const tooLong = (e) => e.verse.split('\n').some(l => l.length >= MAX_LINE_CHARS);
-  const unposted = content.filter(e => !postedSet.has(e.id) && !tooLong(e));
+  let unposted = content.filter(e => !postedSet.has(e.id) && !tooLong(e));
+
   if (unposted.length === 0) {
-    throw new Error(`Tüm uygun günler paylaşıldı. salih-baba.json bitti.`);
+    // LOOP: tum uygun beyitler paylasildi. Basa don, sonsuz dongu.
+    const cycle = (state.cycle ?? 1) + 1;
+    console.log(`Tum uygun beyitler paylasildi. LOOP -> ${cycle}. tur basliyor (basa donuldu).`);
+    state.postedVerseIds = [];
+    state.usedVideoIds = [];   // video blacklist sifirla - yeni turda videolar tekrar kullanilabilir
+    state.cycle = cycle;
+    postedSet.clear();
+    unposted = content.filter(e => !tooLong(e));
   }
   entry = unposted[0];
 
