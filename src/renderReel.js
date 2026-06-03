@@ -196,8 +196,8 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
         '-stream_loop', '-1', '-i', audioPath,              // [6] bg music
         '-filter_complex',
         filterComplex +
-        `;[4:a]volume=1.0,afade=t=in:st=0:d=0.5,afade=t=out:st=${voiceFadeOutStart}:d=0.7,adelay=1000|1000[vvoice]` +
-        `;[5:a]volume=1.0,afade=t=in:st=0:d=0.5,afade=t=out:st=${manaVoiceFadeOutStart}:d=0.7,adelay=${manaVoiceStartMs}|${manaVoiceStartMs}[mvoice]` +
+        `;[4:a]volume=1.0,afade=t=out:st=${voiceFadeOutStart}:d=0.7,adelay=1000|1000[vvoice]` +
+        `;[5:a]volume=1.0,afade=t=out:st=${manaVoiceFadeOutStart}:d=0.7,adelay=${manaVoiceStartMs}|${manaVoiceStartMs}[mvoice]` +
         `;[6:a]volume=0.25,afade=t=in:st=0:d=1,afade=t=out:st=${finalFadeStart}:d=1[bgmus]` +
         `;[vvoice][mvoice][bgmus]amix=inputs=3:duration=longest:dropout_transition=0[outa]`,
         '-map', '[outv]',
@@ -211,7 +211,7 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
         '-stream_loop', '-1', '-i', audioPath,              // [5]
         '-filter_complex',
         filterComplex +
-        `;[4:a]volume=1.0,afade=t=in:st=0:d=0.5,afade=t=out:st=${voiceFadeOutStart}:d=0.7,adelay=1000|1000[voice]` +
+        `;[4:a]volume=1.0,afade=t=out:st=${voiceFadeOutStart}:d=0.7,adelay=1000|1000[voice]` +
         `;[5:a]volume=0.25,afade=t=in:st=0:d=1,afade=t=out:st=${finalFadeStart}:d=1[bgmus]` +
         `;[voice][bgmus]amix=inputs=2:duration=longest:dropout_transition=0[outa]`,
         '-map', '[outv]',
@@ -224,7 +224,7 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
         '-i', voicePath,
         '-filter_complex',
         filterComplex +
-        `;[4:a]volume=1.0,afade=t=in:st=0:d=0.5,afade=t=out:st=${voiceFadeOutStart}:d=0.7,adelay=1000|1000[outa]`,
+        `;[4:a]volume=1.0,afade=t=out:st=${voiceFadeOutStart}:d=0.7,adelay=1000|1000[outa]`,
         '-map', '[outv]',
         '-map', '[outa]',
         '-c:a', 'aac', '-b:a', '192k', '-ar', '48000'
