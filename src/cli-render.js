@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { pickPhoto } from './pickPhoto.js';
@@ -22,6 +22,21 @@ const statePath = join(ROOT, 'output', 'log.json');
 const state = readState(statePath);
 const today = new Date().toISOString().slice(0, 10);
 const launchDate = state.launchDate ?? today;
+
+// Eski post medyasini temizle: repoda sadece BUGUNKU post kalsin.
+// Instagram videoyu/gorseli o an raw GitHub URL'inden ceker; yayinlanan eski postlarin
+// dosyalarina artik gerek yoktur. Her render, bugunun tarihiyle baslamayan tum mp4/png'leri siler.
+// Boylece repo hicbir zaman birden fazla post'un medyasini tutmaz, sismez.
+{
+  const outputDir = join(ROOT, 'output');
+  if (existsSync(outputDir)) {
+    for (const f of readdirSync(outputDir)) {
+      if (/\.(mp4|png)$/i.test(f) && !f.startsWith(today)) {
+        try { rmSync(join(outputDir, f)); console.log(`Eski post medyasi silindi: ${f}`); } catch {}
+      }
+    }
+  }
+}
 
 // Önceki post başarısız olduysa (postId null) aynı girişi tekrar kullan.
 // Sadece BUGÜNKÜ post için geçerli - önceki günün bekleyeni varsa yeni içeriğe geç.
