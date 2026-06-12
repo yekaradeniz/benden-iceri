@@ -5,57 +5,57 @@
       "title": "Bed' olunsun besmeleyle hamdeleyle evsatı",
       "sourceUrl": "https://www.gonullersultani.net/kutuphane/salih-baba-divani/177-01-bed-olunsun-besmeleyle-hamdeleyle-evsat.html",
       "coupletCount": 19,
-      "sourceEntries": [
-        "sb-0001",
-        "sb-0002",
-        "sb-0003",
-        "sb-0004",
-        "sb-0005",
-        "sb-0006",
-        "sb-0007",
-        "sb-0008",
-        "sb-0009",
-        "sb-0010#beyit1"
-      ],
-      "lines": [
-        "Bed' olunsun besmeleyle hamdeleyle evsatı,",
-        "Salavatullah hatm olunsun bula cânlar izzeti.",
-        "Çok salât ile selâm olsun Resûlü Ahmed'e,",
-        "Bu kadar isyân ile bizlere demiş ümmetî.",
-        "Sad-hezârân âlini evlâdını ashâbını,",
-        "Fâtihayla yâd edelim kıla Hak çok rahmeti.",
-        "Çâr-ı Yâr'ı ol Ebû-Bekr ü Ömer Osman Ali,",
-        "Sâyesinde anların buldu bu İslâm kuvveti.",
-        "Geldi bunca âlim ü fâzıl meşâyih kâmilîn,",
-        "Hep merâtib üzredir bu âlemin devriyyeti.",
-        "Sâni'in sun'unda cümle mest ü hayrân oldular,",
-        "Seyr edip vahdet yüzünden görmediler kesreti.",
-        "Ehl-i dünyâyı görüp bir bir temâşâ ettiler,",
-        "Hep esîr etmiş oları hubb-u dünyâ illeti.",
-        "Cümle âlem kabza-i kudretdedir çün gördüler,",
-        "Her biri bir âlet olmuş dönderir bu fülketi.",
-        "Gördüler kim içlerinde bazı derdliler gezer,",
-        "El çekip işbu cihândan eylemişler uzleti.",
-        "Çıkmağa derbân bırakmaz cenge yok tâkatleri,",
-        "Nâtüvân olmuş çeker bunlar belâ-yı mihneti.",
-        "Her tarafı devrederler mürşid-i rabbânîler,",
-        "Anları kurtarmak içindir oların hizmeti.",
-        "Vâris-i Ahmed olar cân derdinin dermânıdır,",
-        "Her marîzin derdine göre verirler şerbeti.",
-        "Ekseri nakşında kaldı görmedi Nakkâş'ını,",
-        "Ehl-i irfânın bilinmez oldu kadri kıymeti.",
-        "Hamdulillah gezmedikse Hind ü Bağdâd'ı Yemen,",
-        "Hak nasib etdi bize zî-kadri âlî himmeti.",
-        "Pîr-i Sâmî Hazretini bize irsâl eyledi,",
-        "Beldemiz kıldı münevver ref olundu zulmeti.",
-        "Kuvve-i kudsiyyesiyle cümle irşâd eyledi,",
-        "Kim ki destinden tutup sıdk ile kıldı bîati.",
-        "Hem şerîat hem tarîkat hem hakîkat kâmili,",
-        "Hakk ile icrâ edip eyler bu yolda gayreti.",
-        "Kâbiliyyet bizde olmazsa meşâyih neylesin,",
-        "İster ise mürşidi olsun Muhammed Hazreti.",
-        "Salihem şeyhim Muhammed Sâmi'dir,",
-        "İstemem bundan ziyâde devlet ile rif'ati."
+      "units": [
+        {
+          "sourceId": "sb-0001",
+          "beyit": "Bed' olunsun besmeleyle hamdeleyle evsatı,\nSalavatullah hatm olunsun bula cânlar izzeti.\n\nÇok salât ile selâm olsun Resûlü Ahmed'e,\nBu kadar isyân ile bizlere demiş ümmetî.",
+          "serh": "Salih Baba, Dîvânı'na asırların âdetince başlıyor: her sözün, her işin başı Allah'ın adıyla, besmeleyle ve O'na hamd ederek olmalı. \"Bed' olunsun\", yani \"başlansın\" derken, eserin yalnız ilk satırını değil, ortasını ve gövdesini de bu temeller üzerine kurmak istiyor. Kitabın tamamı Hakk'ın anılmasıyla nefes alsın diye.\n\nİlk beyti \"salavatullah hatm olunsun\" diyerek mühürler: başlangıç Allah'ın adıyla açılıyorsa, son da Hz. Peygamber'e salavatla bağlanmalı. Çünkü cânlar, yani gönüller, asıl değerini ve izzetini ancak bu iki kapıdan geçerek bulur: Hakk'ı anmak ve Resûl'e tutunmak.\n\nİkinci beyitte ses birden içtenleşir, bir itirafa dönüşür. Salih Baba önce Resûl-i Ekrem'e bol bol salât ve selâm gönderir; ardından asıl yükü dile getirir: bunca isyana, bunca gaflete rağmen Hz. Muhammed bizi \"ümmetim\" diye sahiplenmiş, hiçbir kusurumuz O'nu bizden vazgeçirmemiştir. Salih Baba'nın durmadan salavat getirmesi işte bu yüzdendir; bu, terk edilmeyişin önünde eğilen bir gönlün minnetidir."
+        },
+        {
+          "sourceId": "sb-0002",
+          "beyit": "Sad-hezârân âlini evlâdını ashâbını,\nFâtihayla yâd edelim kıla Hak çok rahmeti.\n\nÇâr-ı Yâr'ı ol Ebû-Bekr ü Ömer Osman Ali,\nSâyesinde anların buldu bu İslâm kuvveti.",
+          "serh": "Salih Baba, az önce Hz. Peygamber'e yönelttiği selamı şimdi genişletir. Onun âlini, yani ehlibeytini, evlatlarını ve ashâbını da anar; hem de sad-hezârân, yani yüz binlerce diyerek sayıya sığmayan bir kalabalığı kucaklar. Hepsini bir Fâtiha ile yâd etmeyi diler, Hak'tan onlara bol rahmet ister. Buradaki incelik şudur: Resûl'e duyulan muhabbet tek bir kişide durmaz, onun yakınlarına ve yolundan gidenlere doğru halka halka açılır.\n\nSonraki beyitte dört büyük ismi anar: Çâr-ı Yâr, yani dört sadık dost olan Ebû Bekir, Ömer, Osman ve Ali. Salih Baba bu isimleri saymakla kalmaz, bir hakikati de teslim eder: İslâm'ın kuvveti onların sâyesinde, onların gayreti ve sadakatiyle yerleşmiştir. Dinin ilk yükünü omuzlayan, onu yayan ve koruyan bu dört isme duyulan minnet, gönlün geçmişe karşı vefasıdır.\n\nBöylece Dîvân'ın girişi bir saygı zinciri olarak örülür: önce Allah'ın adı ve hamdi, sonra Resûl'e salavat, ardından onun ehli ve ashâbı, en sonunda dört halife. Salih Baba kendi sözüne başlamadan önce bağlı olduğu bütün bir geleneği selamlar. Bu giriş, \"ben söyleyeceğim\" demeden önce \"kimin izindeyim\" demenin edebidir."
+        },
+        {
+          "sourceId": "sb-0003",
+          "beyit": "Geldi bunca âlim ü fâzıl meşâyih kâmilîn,\nHep merâtib üzredir bu âlemin devriyyeti.\n\nSâni'in sun'unda cümle mest ü hayrân oldular,\nSeyr edip vahdet yüzünden görmediler kesreti.",
+          "serh": "Salih Baba, az önce dört halifeyi andı, şimdi de asırlar boyunca gelip geçmiş bütün büyükleri zikrediyor. Âlimler, fazıl kullar, meşâyih ve kâmiller bu yolda durmadan yetişmiştir. Her biri kendi mertebesinde durur; çünkü bu âlem tek bir basamak değil, mertebeler üzerine kurulmuş bir devr-i daimdir. Birisi geldiği basamağı doldurur, sonra elini bir sonrakine uzatır; insanlık böylece yürür.\n\nİkinci beyitte bu büyüklerin müşterek hâlini söyler: Sâni'nin, yani Yaratıcı'nın işine baktıklarında hayretten kendilerinden geçtiler, mest oldular. Çünkü gerçek mârifet sahibi kâinata baktığında orada yalnız bir san'atı değil, bir san'atkârın elini görür. Bu bakışla kendilerine bir kapı açıldı: vahdetin, yani birliğin yüzünden seyrettiler; çoklukta artık kesreti, yani perdeyi göremediler.\n\nİşte tasavvufun en yüksek bakışlarından biri budur. Eşya çoktur ama O tektir; bütün perdelerin arkasında hep aynı el vardır. Salih Baba bu beyitle, kendinden önceki büyüklerin yalnızca varlığını değil, gözlerinin nasıl açıldığını da anlatır."
+        },
+        {
+          "sourceId": "sb-0004",
+          "beyit": "Ehl-i dünyâyı görüp bir bir temâşâ ettiler,\nHep esîr etmiş oları hubb-u dünyâ illeti.\n\nCümle âlem kabza-i kudretdedir çün gördüler,\nHer biri bir âlet olmuş dönderir bu fülketi.",
+          "serh": "Salih Baba bu beyitte söz konusu büyüklerin dünyaya bakışını anlatır. Onlar insanları tek tek temâşâ etmiş, hâllerini birer birer görmüşler. Manzara aynı çıkar: çoğu, bir hastalığa esir düşmüş gibi yaşıyor. Bu hastalığın adı hubb-u dünyâdır, yani dünya sevgisi. Mal, mevki, beğenilme, tutunma kaygısı insanı bir kafese koyar; kafesi çoğu zaman insan kendi eliyle örer.\n\nİkinci beyit hem teselli hem büyük bir hatırlatma getirir. Bütün bu insanlar, hatta esir düştükleri sevgi bile, sonunda Hakk'ın kabza-i kudretindedir; yani O'nun kudret elinin içindedir. Hiçbir şey O'nun bilgisinin dışında dönmez. Salih Baba der ki, görmüş olanlar şu hakikati anladılar: her insan farkında olsa da olmasa da bir âlettir, bu büyük çarkı bilmeden çevirir.\n\nBurada incelikli bir teselli vardır. Söz dünya kötü, insan zayıf demek değildir. Daha derin bir bakış konuşur: herkesin, hatta yanlış yapanın bile bir vazifesi vardır; çark Hakk'ın elindedir. Bu, kınayan değil, anlayan ve sabreden bir bakıştır."
+        },
+        {
+          "sourceId": "sb-0005",
+          "beyit": "Gördüler kim içlerinde bazı derdliler gezer,\nEl çekip işbu cihândan eylemişler uzleti.\n\nÇıkmağa derbân bırakmaz cenge yok tâkatleri,\nNâtüvân olmuş çeker bunlar belâ-yı mihneti.",
+          "serh": "Az önce dünyaya esir kalanlardan söz eden Salih Baba, şimdi başka bir cinsi gösterir. Bu büyükler insanların arasında daha farklı bir kalabalığı da gördüler: dertliler, yani gönlünde bir yara taşıyan, sıradan keyiflerle tatmin olmayan kimseler. Bunlar dünyadan el çekmiş, kalabalıkların arasından çekilip uzlete, kendi sessizliklerine sığınmışlar.\n\nAma hâlleri tam bir çözüm değildir. İkinci beyitte Salih Baba bu derdin nasıl bir hapis olduğunu söyler: bir bekçi onların dışarı çıkmasına izin vermez. Bu bekçi belki kendi nefisleridir, belki çevrenin ağır baskısıdır, belki tâkatsiz kalmış bir iradedir. Cengetmeye, yani mücadele etmeye güçleri kalmamış; nâtüvân, yani çaresiz düşmüşler. Bu hâlde ellerinden belâ-yı mihneti, yani sıkıntı belasını çekip durmaktan başka bir şey gelmez.\n\nBurada açılan kapı önemlidir: dert sahibi olmak başlı başına bir mertebedir, ama tek başına çözüm değildir. Bir el tutan olmadan, yalnız çekilmek çıkış sayılmaz. Salih Baba bir sonraki beyitte işte o el tutanı, mürşid-i rabbânîyi anacaktır."
+        },
+        {
+          "sourceId": "sb-0006",
+          "beyit": "Her tarafı devrederler mürşid-i rabbânîler,\nAnları kurtarmak içindir oların hizmeti.\n\nVâris-i Ahmed olar cân derdinin dermânıdır,\nHer marîzin derdine göre verirler şerbeti.",
+          "serh": "Salih Baba az önce çekilmiş ama çıkamayanları anlatırken kalpte bir soru bırakmıştı: peki bunlar nasıl kurtulacak? Bu beyitte cevabı verir. Onların kurtarıcısı mürşid-i rabbânîlerdir; yani Hakk'ın kapısında yetişmiş ve oradan görevlendirilmiş kâmillerdir. Bu mürşidler bir köşeye çekilip oturmaz; her tarafı devreder, dolaşır. Çünkü onların asıl meşgalesi kendi makamları değil, dertli gönülleri kurtarma hizmetidir.\n\nİkinci beyit mürşidin kim olduğunu açıklığa kavuşturur: o, vâris-i Ahmed'dir. Yani Hz. Peygamber'in mânâda mirasçısı, onun ilminin ve hâlinin sürekliliğidir. İşi şudur: gönüllerin derdine derman olmak. Salih Baba bunu çok ince bir benzetmeyle anlatır; her marîzin, yani her hastanın derdi farklıdır, mürşid de ona göre şerbet verir. Birinin yarası başka, birinin susuzluğu başka, birinin ateşi başka; aynı reçete herkese çare olmaz.\n\nBurada tasavvufun en ince yanlarından biri görünür: mürşid kuru bir formül vermez, herkese bir yol açar. Çünkü gönül tek tipte değildir; her gönlün kendi rengi, kendi yarası, kendi şerbeti vardır."
+        },
+        {
+          "sourceId": "sb-0007",
+          "beyit": "Ekseri nakşında kaldı görmedi Nakkâş'ını,\nEhl-i irfânın bilinmez oldu kadri kıymeti.\n\nHamdulillah gezmedikse Hind ü Bağdâd'ı Yemen,\nHak nasib etdi bize zî-kadri âlî himmeti.",
+          "serh": "Salih Baba bu beyitte derin bir teşhis koyar. İnsanların çoğu nakışta kalır, yani gördüğü güzelliği, sanatı, eseri seyreder ama o eserin arkasındaki Nakkâş'ı, yani Yaratıcı'yı göremez. Yüzeyin ötesine geçmeyen bu bakış, bir yandan başka bir kayba sebep olur: kâinatta hakikati gören ehl-i irfânın kıymeti anlaşılmaz olur. Çünkü Nakkâş'ı görmeyen, O'nu gösteren rehberi de hakkıyla göremez.\n\nİkinci beyitte ses kişiselleşir, bir hamd dökülür. Salih Baba kendi durumunu büyük bir tevazu ile dile getirir: \"biz Hindistan'ı, Bağdat'ı, Yemen'i gezmedik\" der. Bu üç yer, asırlarca tasavvufun büyük merkezleri olmuş, sayısız âlim ve velinin yetiştiği topraklardır. Salih Baba sanki \"biz o uzak yolculuklara çıkıp ders almadık\" diyor. Ama Allah bunca yokluğa rağmen bize yine de büyük bir nimet ihsan etti; zî-kadr ve âlî himmet sahibi bir mürşid nasib etti.\n\nBurada hem bir teslimiyet hem bir minnet konuşur. Salih Baba, Hakk'ın bizi olduğumuz yerde de gözettiğini, uzakların aranmasına ihtiyaç bırakmadığını söyler. Verecekse en yakında verir."
+        },
+        {
+          "sourceId": "sb-0008",
+          "beyit": "Pîr-i Sâmî Hazretini bize irsâl eyledi,\nBeldemiz kıldı münevver ref olundu zulmeti.\n\nKuvve-i kudsiyyesiyle cümle irşâd eyledi,\nKim ki destinden tutup sıdk ile kıldı bîati.",
+          "serh": "Salih Baba az önce kendisine nasib edilen yüksek himmet sahibinden bahsetmişti; şimdi onun adını verir: Pîr-i Sâmî Hazretleri. Allah'ın bir ihsanı olarak onu o memlekete göndermiş; o gelmesiyle birlikte belde münevver olmuş, yani nurlanmış. Önceki karanlık kalkmış. Tasavvuf dilinde bir beldenin aydınlanması demek, o yerde gönüllerin uyanması, içlerinde bir ışığın yanması demektir.\n\nİkinci beyitte Pîr-i Sâmî'nin nasıl bir kuvvete sahip olduğu söylenir: kuvve-i kudsiyye, yani kutsal bir güç. Bu sıradan bir hocalık, bir bilgi aktarımı değildir; doğrudan kalpten kalbe geçen, gönlü mânen besleyen bir tesirdir. Sâmî Efendi bu kudsî kuvvetle çevresindeki herkesi irşad etti, yola koydu. Ama bir incelik vardır: bilhassa kim onun elinden tutup sıdk ile, yani içtenlikle bîat ettiyse, ona daha derin bir gelişim açıldı.\n\nSıdk burada anahtar kelimedir. Mürşide bağlanmak bir tören değildir; gönlün gerçekten verdiği bir sözdür. Sıdk varsa, kuvve-i kudsiyye o gönülde tam karşılığını bulur. Salih Baba bu beyitte hem şeyhini selamlar hem de yolun girişindeki şartı söyler."
+        },
+        {
+          "sourceId": "sb-0009",
+          "beyit": "Hem şerîat hem tarîkat hem hakîkat kâmili,\nHakk ile icrâ edip eyler bu yolda gayreti.\n\nKâbiliyyet bizde olmazsa meşâyih neylesin,\nİster ise mürşidi olsun Muhammed Hazreti.",
+          "serh": "Salih Baba, Pîr-i Sâmî'nin nasıl bir kâmil olduğunu açıklar. O, dinin yalnız bir katmanında değil, üçünde birden tamdır: şerîatte, yani görünen hükümlerde; tarîkatte, yani manevi yolda; hakîkatte, yani gerçeğin bilgisinde. Üçünü birbirinden ayırmaz, üçünü birden Hakk'ın rızası için yaşar. Bu yolda hiç gevşememiş, sürekli bir gayret içindedir. Tasavvufta bir mürşidin kâmil sayılması için tam böyle olması gerekir: bilen, yaşayan ve emek veren.\n\nİkinci beyit aniden muhatabı çevirir. Az önce mürşidin büyüklüğünden söz eden Salih Baba, şimdi bizim eksikliğimize döner. Bir uyarıyla başlar: eğer kabiliyet bizde yoksa, meşâyih ne yapsın? Bu çok keskin bir hatırlatmadır. Hatta öyle ileri gider ki, \"isterse mürşidin Hz. Muhammed olsun\" der; en yüce rehber elimizde bile olsa, biz almaya hazır değilsek o nur bizden geçmez.\n\nBuradaki ders gönüllüleri sarsacak güçtedir. Yolun kalitesi sadece rehbere bağlı değildir; talebenin teslimiyetine, içtenliğine, hazırlığına bağlıdır. Mürşid sebeptir, kabiliyet anahtardır. İkisi birleşince kapı açılır."
+        },
+        {
+          "sourceId": "sb-0010#beyit1",
+          "beyit": "Salihem şeyhim Muhammed Sâmi'dir,\nİstemem bundan ziyâde devlet ile rif'ati.",
+          "serh": "Salih Baba bu kapanış beytinde adını verir ve sözünü bağlar. Tasavvuf şiirinde buna mahlas denir; şair son beyitte kendi adını anar, böylece şiirine mührünü vurur. Burada Salih Baba kendi adını sade bir cümleyle söyler: \"Salihem\", yani \"ben Salih'im\". Hemen ardından kim olduğunu tanımlayan asıl bağı zikreder: \"şeyhim Muhammed Sâmi'dir\". Bu kısacık cümle ona göre yeterli bir kimliktir.\n\nİkinci mısra hem teslimiyet hem yetinme bildirir. \"İstemem bundan ziyâde devlet ile rif'ati\", yani \"bundan başka bir devlet ve yükselme istemem\". Dünyada veya manevi yolda hangi rütbe, hangi makam olursa olsun gözü yoktur. Çünkü ona göre en büyük devlet, en yüksek mertebe, gerçek bir mürşide bağlı olmaktır. Bu bağ bütün arayışları tamamlar.\n\nBöylece Salih Baba Dîvân'ın ilk gazelini kapatır. Bir baştan bir sona şiirin yapısı şudur: en başta Allah'ın adı ve hamdi, sonra Resûl'e salavat, ardından ehlibeyt ve dört halife, sonra dünya ehlinin halleri, sonra mürşidler ve onların hizmeti, en sonunda kendi şeyhinin adı ve ona olan bağlılık. Salih Baba kelime kelime bir saygı zincirinden, kendi yerine kadar ilerlemiştir. Mahlas, bu zincirin son halkasıdır."
+        }
       ]
     }
   ]

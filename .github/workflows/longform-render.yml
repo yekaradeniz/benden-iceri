@@ -1,0 +1,62 @@
+name: Long-Form Poem Render
+
+# Manuel tetiklenir: bir gazel icin yatay uzun video uretir.
+# Output GitHub release/artifact olarak inmez - sadece YouTube'a yuklenir.
+
+on:
+  workflow_dispatch:
+    inputs:
+      poem_no:
+        description: 'Gazel numarasi (poems.json -> poemNo)'
+        required: true
+        default: '1'
+      units_limit:
+        description: 'Test icin birim limiti (bos = tum birimler)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Render long-form video
+        run: |
+          ARGS="${{ inputs.poem_no }}"
+          if [ -n "${{ inputs.units_limit }}" ]; then
+            ARGS="$ARGS --units ${{ inputs.units_limit }}"
+          fi
+          node scripts/render-longform-poem.js $ARGS
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVENLABS_VOICE_ID: ${{ secrets.ELEVENLABS_VOICE_ID }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gazel-${{ inputs.poem_no }}
+          path: output/gazel-*.mp4
+          retention-days: 7

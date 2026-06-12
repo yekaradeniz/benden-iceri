@@ -72,10 +72,10 @@ const DURATION_RANGES = [
   { min: 22, max: 120 }
 ];
 
-async function searchPage(apiKey, query) {
+async function searchPage(apiKey, query, orientation = 'portrait') {
   const url = new URL('https://api.pexels.com/videos/search');
   url.searchParams.set('query', query);
-  url.searchParams.set('orientation', 'portrait');
+  url.searchParams.set('orientation', orientation);
   url.searchParams.set('per_page', '15');
 
   const res = await fetch(url.toString(), { headers: { Authorization: apiKey } });
@@ -87,12 +87,16 @@ async function searchPage(apiKey, query) {
   return data.videos ?? [];
 }
 
-function pickBestFile(video) {
-  // Portrait video (height > width), minimum 1080p. En yuksek cozunurluk tercih edilir
-  // (ffmpeg lanczos ile 1080x1920'ye downscale yapacak - text/detay daha keskin gorunur).
+function pickBestFile(video, orientation = 'portrait') {
+  // Min 1080p, en yuksek cozunurluk tercih edilir.
+  // Portrait: height > width, Landscape: width > height
+  const cond = orientation === 'landscape'
+    ? (f) => f.width > f.height && f.width >= 1920
+    : (f) => f.height > f.width && f.height >= 1080;
+  const sizeKey = orientation === 'landscape' ? 'width' : 'height';
   const files = (video.video_files ?? [])
-    .filter(f => f.height > f.width && f.height >= 1080)
-    .sort((a, b) => b.height - a.height);
+    .filter(cond)
+    .sort((a, b) => b[sizeKey] - a[sizeKey]);
   return files[0];
 }
 
@@ -105,8 +109,12 @@ function pickBestFile(video) {
  * @param {Set<string>} usedVideoIds
  * @returns {Promise<Array<{id, url, duration, query}>>}
  */
-export async function fetchPexelsCandidates(moods, apiKey, usedVideoIds = new Set()) {
+export async function fetchPexelsCandidates(moods, apiKey, usedVideoIds = new Set(), opts = {}) {
   if (!apiKey) throw new Error('PEXELS_API_KEY tanımlı değil');
+  const orientation = opts.orientation || 'portrait';
+  const minCandidates = opts.minCandidates ?? 5;
+  // Long-form icin daha gevsek sure (sahne sayisi az olsun, render verimli)
+  const ranges = opts.durationRanges || DURATION_RANGES;
 
   const moodQueries = moods.flatMap(m => MOOD_QUERIES[m] ?? []);
   const queries = [...new Set([...moodQueries, ...FALLBACK_QUERIES])];
@@ -115,12 +123,13 @@ export async function fetchPexelsCandidates(moods, apiKey, usedVideoIds = new Se
   const candidates = [];
   const seenIds = new Set();
 
-  for (const range of DURATION_RANGES) {
+  for (const range of ranges) {
     for (const query of queries) {
-      let videos = cache.get(query);
+      const cacheKey = `${orientation}::${query}`;
+      let videos = cache.get(cacheKey);
       if (!videos) {
-        videos = await searchPage(apiKey, query);
-        cache.set(query, videos);
+        videos = await searchPage(apiKey, query, orientation);
+        cache.set(cacheKey, videos);
       }
 
       for (const video of videos) {
@@ -128,7 +137,7 @@ export async function fetchPexelsCandidates(moods, apiKey, usedVideoIds = new Se
         const fullId = `pexels-${video.id}`;
         if (usedVideoIds.has(fullId)) continue;
         if (seenIds.has(fullId)) continue;
-        const best = pickBestFile(video);
+        const best = pickBestFile(video, orientation);
         if (!best) continue;
         seenIds.add(fullId);
         candidates.push({
@@ -142,12 +151,12 @@ export async function fetchPexelsCandidates(moods, apiKey, usedVideoIds = new Se
         });
       }
     }
-    if (candidates.length >= 5) break; // 5 aday yeterli; reddedilirse bir sonraki çekime geçer
+    if (candidates.length >= minCandidates) break;
     console.log(`Süre aralığı ${range.min}-${range.max}sn ile ${candidates.length} aday, gerekirse genişletiliyor...`);
   }
 
   if (candidates.length === 0) {
-    throw new Error(`Pexels'te uygun yeni video bulunamadı (mood: ${moods.join(', ')}, kullanılmış: ${usedVideoIds.size})`);
+    throw new Error(`Pexels'te uygun yeni video bulunamadı (mood: ${moods.join(', ')}, orientation: ${orientation}, kullanılmış: ${usedVideoIds.size})`);
   }
   return candidates;
 }
