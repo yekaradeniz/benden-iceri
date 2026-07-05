@@ -12,11 +12,16 @@ import {
 import { readState, writeState } from './state.js';
 import { buildCaption } from './buildCaption.js';
 import { uploadToYoutube } from './uploadToYoutube.js';
+import { buildChunks } from './buildChunks.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 
-const content = JSON.parse(readFileSync(join(ROOT, 'content', 'salih-baba.json'), 'utf-8'));
+// CHUNK tabanli icerik (siir sinirlarini kesmeyen 8'erli gruplar, aciklamasiz).
+// "content" arayuzu korunur: her chunk {id, verse} olarak sunulur; boylece
+// dedupe/sira/caption mantigi degismeden calisir.
+const { chunks } = buildChunks();
+const content = chunks.map(c => ({ id: c.id, verse: c.text, poemNo: c.poemNo }));
 const statePath = join(ROOT, 'output', 'log.json');
 const state = readState(statePath);
 
@@ -64,9 +69,9 @@ function verseFirstLine(verse) {
 
 // 45+ char misrali beyitler cli-render.js'te atlaniyor - sira kontrolu da bunlari hesaba katmali.
 // "Eligible" = atilabilen (siraya dahil) beyitlerin listesi. Sira karsilastirmasi bu liste uzerinde.
-const MAX_LINE_CHARS = 45;
-const isTooLong = (e) => e.verse.split('\n').some(l => l.length >= MAX_LINE_CHARS);
-const eligibleContent = content.filter(e => !isTooLong(e));
+// Chunk sisteminde uzunluk filtresi yok (kullanici karari: iptal edildi).
+// Tum chunk'lar sirayla paylasilir; sira kontrolu bu listede yapilir.
+const eligibleContent = content;
 
 // IG caption'indan hangi misra oldugunu bul (eligible siradaki index ile).
 function findVerseByCaption(igCaption) {

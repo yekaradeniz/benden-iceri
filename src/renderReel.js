@@ -106,15 +106,15 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
   const tmp = mkdtempSync(join(tmpdir(), 'reel-'));
   const browser = await chromium.launch();
   try {
+    // VERSE-ONLY mod: aciklama yoksa mana bolumu tamamen atlanir (kisa reel).
+    const hasManaVoiceIn = !!manaVoicePath && existsSync(manaVoicePath) && manaVoiceDuration > 0;
+    const verseOnly = (!explanation || !explanation.trim()) && !hasManaVoiceIn;
+
     // 1) Overlay PNG'leri render et
     const gradientHtml = fillTemplate('reel-gradient.html', {});
     const verseHtml = fillTemplate('reel-verse-text.html', {
       verse,
       verseFontSize: `${calcVerseFontSize(verse)}px`
-    });
-    const manaHtml = fillTemplate('reel-mana-text.html', {
-      explanation,
-      explanationFontSize: `${calcExplanationFontSize(explanation)}px`
     });
 
     const gradientPng = join(tmp, 'gradient.png');
@@ -122,8 +122,14 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
     const manaPng = join(tmp, 'mana.png');
     await renderHtmlToPng(gradientHtml, gradientPng, browser);
     await renderHtmlToPng(verseHtml, versePng, browser);
-    await renderHtmlToPng(manaHtml, manaPng, browser);
-    console.log('Overlay PNGleri hazir');
+    if (!verseOnly) {
+      const manaHtml = fillTemplate('reel-mana-text.html', {
+        explanation,
+        explanationFontSize: `${calcExplanationFontSize(explanation)}px`
+      });
+      await renderHtmlToPng(manaHtml, manaPng, browser);
+    }
+    console.log(`Overlay PNGleri hazir${verseOnly ? ' (verse-only mod)' : ''}`);
 
     // 2) Pexels videosunu indir (gerekirse)
     let actualVideoPath = videoPath;
@@ -131,6 +137,60 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
       actualVideoPath = join(tmp, 'bg.mp4');
       await downloadVideo(videoUrl, actualVideoPath);
       console.log('Pexels video indirildi');
+    }
+
+    // ---------- VERSE-ONLY compose: beyit okunur, video biter ----------
+    if (verseOnly) {
+      const hasVoiceVO = !!voicePath && existsSync(voicePath) && voiceDuration > 0;
+      const hasMusicVO = !!audioPath && existsSync(audioPath);
+      const LEAD = 0.8, TAIL = 1.0, FADE = 1.2;
+      const vLen = hasVoiceVO ? LEAD + voiceDuration + TAIL : 12;
+      const fadeStart = vLen;
+      const totalVO = vLen + FADE;
+
+      const vf =
+        `[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30[bg];` +
+        `[1:v]scale=1080:1920:flags=lanczos,setpts=PTS-STARTPTS[grad];` +
+        `[2:v]scale=1080:1920:flags=lanczos,format=rgba,fade=t=in:st=0:d=0.7:alpha=1,setpts=PTS-STARTPTS[vt];` +
+        `[bg][grad]overlay=0:0[b2];[b2][vt]overlay=0:0,fade=t=out:st=${fadeStart.toFixed(2)}:d=${FADE}[outv]`;
+
+      const argsVO = [
+        '-y',
+        '-stream_loop', '-1', '-i', actualVideoPath,
+        '-loop', '1', '-t', String(totalVO), '-i', gradientPng,
+        '-loop', '1', '-t', String(totalVO), '-i', versePng
+      ];
+      if (hasVoiceVO && hasMusicVO) {
+        console.log(`Verse-only: voice ${voiceDuration.toFixed(1)}sn + müzik | toplam ${totalVO.toFixed(1)}sn`);
+        argsVO.push(
+          '-i', voicePath,
+          '-stream_loop', '-1', '-i', audioPath,
+          '-filter_complex', vf +
+            `;[3:a]volume=1.0,afade=t=out:st=${(voiceDuration - 0.3).toFixed(2)}:d=0.4,adelay=${Math.round(LEAD*1000)}|${Math.round(LEAD*1000)}[voice]` +
+            `;[4:a]volume=0.28,afade=t=in:st=0:d=1,afade=t=out:st=${fadeStart.toFixed(2)}:d=${FADE}[mus]` +
+            `;[voice][mus]amix=inputs=2:duration=longest:dropout_transition=0:normalize=0[outa]`,
+          '-map', '[outv]', '-map', '[outa]',
+          '-c:a', 'aac', '-b:a', '192k', '-ar', '48000'
+        );
+      } else if (hasMusicVO) {
+        argsVO.push(
+          '-stream_loop', '-1', '-i', audioPath,
+          '-filter_complex', vf + `;[3:a]afade=t=in:st=0:d=1,afade=t=out:st=${fadeStart.toFixed(2)}:d=${FADE},volume=0.85[outa]`,
+          '-map', '[outv]', '-map', '[outa]',
+          '-c:a', 'aac', '-b:a', '192k', '-ar', '48000'
+        );
+      } else {
+        argsVO.push('-filter_complex', vf, '-map', '[outv]', '-an');
+      }
+      argsVO.push(
+        '-c:v', 'libx264', '-preset', 'slower', '-crf', '14',
+        '-profile:v', 'high', '-level', '4.2', '-pix_fmt', 'yuv420p', '-r', '30',
+        '-maxrate', '20M', '-bufsize', '40M', '-movflags', '+faststart',
+        '-t', String(totalVO), outPath
+      );
+      await ffmpeg(argsVO);
+      console.log(`Reel video hazir (verse-only, ${totalVO.toFixed(1)}sn): ${outPath}`);
+      return;
     }
 
     // 3) FFmpeg ile compose et
@@ -199,7 +259,7 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
         `;[4:a]volume=1.0,afade=t=out:st=${voiceFadeOutStart}:d=0.7,adelay=1000|1000[vvoice]` +
         `;[5:a]volume=1.0,afade=t=out:st=${manaVoiceFadeOutStart}:d=0.7,adelay=${manaVoiceStartMs}|${manaVoiceStartMs}[mvoice]` +
         `;[6:a]volume=0.25,afade=t=in:st=0:d=1,afade=t=out:st=${finalFadeStart}:d=1[bgmus]` +
-        `;[vvoice][mvoice][bgmus]amix=inputs=3:duration=longest:dropout_transition=0[outa]`,
+        `;[vvoice][mvoice][bgmus]amix=inputs=3:duration=longest:dropout_transition=0:normalize=0[outa]`,
         '-map', '[outv]',
         '-map', '[outa]',
         '-c:a', 'aac', '-b:a', '192k', '-ar', '48000'
@@ -213,7 +273,7 @@ export async function renderReel({ verse, explanation, videoUrl, videoPath, audi
         filterComplex +
         `;[4:a]volume=1.0,afade=t=out:st=${voiceFadeOutStart}:d=0.7,adelay=1000|1000[voice]` +
         `;[5:a]volume=0.25,afade=t=in:st=0:d=1,afade=t=out:st=${finalFadeStart}:d=1[bgmus]` +
-        `;[voice][bgmus]amix=inputs=2:duration=longest:dropout_transition=0[outa]`,
+        `;[voice][bgmus]amix=inputs=2:duration=longest:dropout_transition=0:normalize=0[outa]`,
         '-map', '[outv]',
         '-map', '[outa]',
         '-c:a', 'aac', '-b:a', '192k', '-ar', '48000'
