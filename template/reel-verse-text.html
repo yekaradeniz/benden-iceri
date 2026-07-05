@@ -52,11 +52,12 @@
   </div>
 <script>
   (function() {
-    // Width-based shrink: cli-render.js'te 45+ char misrali beyitler zaten atlaniyor.
-    // Bu shrink sadece 40-44 char misralar icin devreye girer, min font 40px.
+    // Width-based shrink: uzunluk filtresi kaldirildi (tum misralar paylasiliyor).
+    // En uzun misra ekrana sigana kadar kuculur; taban 26px (58-char misra ~32px'e iner).
+    // Wrap YOK (kullanici karari) - misra butunlugu korunur.
     const verse = document.querySelector('#verse');
     let size = parseFloat(window.getComputedStyle(verse).fontSize);
-    while (verse.scrollWidth > verse.clientWidth && size > 40) {
+    while (verse.scrollWidth > verse.clientWidth && size > 26) {
       size -= 1;
       verse.style.fontSize = size + 'px';
     }
