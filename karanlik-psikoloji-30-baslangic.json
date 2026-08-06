@@ -1,0 +1,182 @@
+[
+  {
+    "id": "kp-0001",
+    "concept": "Schadenfreude",
+    "verse": "İnsanlar neden başkalarının acısına gizlice sevinir?",
+    "explanation": "Bu duyguya \"Schadenfreude\" denir. Beyin, başkalarının başarısızlığını gördüğünde kendini daha güvende hisseder; özellikle düşük özgüvenli insanlarda ödül merkezi aktive olur. Hissetmek insanidir, beslemek tehlikelidir."
+  },
+  {
+    "id": "kp-0002",
+    "concept": "Dunning-Kruger Effect",
+    "verse": "Hiçbir şey bilmeyenler neden en kendinden emin olur?",
+    "explanation": "\"Dunning-Kruger etkisi\" - bilgi azaldıkça öz değerlendirme becerisi de azalır. Kişi neyi bilmediğini bilmez. Gerçek uzmanlar tam tersine kendinden şüphe duyar; çünkü bilginin sınırını görür."
+  },
+  {
+    "id": "kp-0003",
+    "concept": "Halo Effect",
+    "verse": "İlk gördüğümüz insanları neden bu kadar hızlı yargılarız?",
+    "explanation": "\"Halo etkisi\" devreye girer. Beyin bir özelliğe (güzellik, gülümseme) bakıp diğerlerini (zeka, dürüstlük) onunla eşleştirir. Tanıdığını sandığın insan, çoğu zaman sergilediği maskedir."
+  },
+  {
+    "id": "kp-0004",
+    "concept": "Mere Exposure Effect",
+    "verse": "Sürekli gördüğümüz insanları neden çekici buluruz?",
+    "explanation": "\"Salt maruz kalma etkisi\" - beyin tanıdık olanı güvenli sayar. Tekrar tekrar gördüğü yüze duygusal değer atar. Bu çoğu zaman aşk değil, alışkanlığın evrimsel hâlidir."
+  },
+  {
+    "id": "kp-0005",
+    "concept": "Bystander Effect",
+    "verse": "Kalabalıkta neden birine yardım edilmez?",
+    "explanation": "\"Seyirci etkisi\" - \"başkası yardım eder\" düşüncesi sorumluluğu dağıtır. Tek başına olan kişi %85 ihtimalle yardım ederken, kalabalıktayken bu oran %30'a düşer."
+  },
+  {
+    "id": "kp-0006",
+    "concept": "Confirmation Bias",
+    "verse": "Neden sadece kendimizi haklı çıkaran şeyleri görürüz?",
+    "explanation": "\"Doğrulama yanlılığı\" - beyin var olan inancını sarsmamak için karşıt kanıtları görmezden gelir. Tartışmada gerçek değil, ego konuşur. Haklı çıkmak rahatlatır, yanılmak acı verir."
+  },
+  {
+    "id": "kp-0007",
+    "concept": "Narcissistic Supply",
+    "verse": "Narsistler neden sürekli ilgi peşindedir?",
+    "explanation": "Narsist için ilgi, oksijen gibidir. Kimliklerini ayakta tutan tek besin. Eleştirilince öfkelenmeleri kibirden değil iç boşluktandır. Övgü almazlarsa benlikleri çöker; bu yüzden hep sahne arar."
+  },
+  {
+    "id": "kp-0008",
+    "concept": "Gaslighting",
+    "verse": "Birinin sizi \"deli\" hissettirme tekniği nedir?",
+    "explanation": "Buna \"gaslighting\" denir - kişi yaşadığını inkâr ederek karşısındakinin gerçeklik duygusunu sarsar. \"Öyle bir şey demedim\", \"Hayal görüyorsun\". Tekrarlayan inkâr, zamanla kurbanın iç sesine güvensizlik aşılar."
+  },
+  {
+    "id": "kp-0009",
+    "concept": "Sunk Cost Fallacy",
+    "verse": "Mutsuz olduğumuz ilişkiyi neden bitiremeyiz?",
+    "explanation": "\"Batık maliyet\" yanılgısıdır. Beyin \"bunca yıl, emek boşa gitmesin\" der ve şu anki acıyı geçmiş yatırıma ekler. Oysa kayıp zaten yaşanmış; karar geleceğe göre verilmelidir."
+  },
+  {
+    "id": "kp-0010",
+    "concept": "Anxious Attachment",
+    "verse": "Bazı insanlar neden sürekli onay arar?",
+    "explanation": "\"Kaygılı bağlanma\" stili. Çocuklukta güven duygusu eksik kalmış; yetişkinlikte bu eksik \"beni hâlâ seviyor musun?\" cümlesinde aranır. Mesele şu anki partner değil, taşınan eski yaradır."
+  },
+  {
+    "id": "kp-0011",
+    "concept": "In-Group Bias",
+    "verse": "Neden \"bizden\" olanları daha doğru sayarız?",
+    "explanation": "\"İç-grup yanlılığı\" - beyin evrimsel olarak kabilesini güvenli, dışarıyı tehlikeli kodlar. Aynı takım, parti, milletten olanı haklı bulur. Bu, mantık değil; biyoloji konuşur."
+  },
+  {
+    "id": "kp-0012",
+    "concept": "Just-World Hypothesis",
+    "verse": "Mağdurları neden bazen kendi suçluymuş gibi yargılarız?",
+    "explanation": "\"Adil dünya yanılgısı\". Beyin \"iyiler iyi, kötüler kötü şey alır\" inanmak ister - çünkü aksi dünyayı tehlikeli yapar. Bu yüzden mağdurda kusur arar; bu kendi güvenliğini koruma refleksidir."
+  },
+  {
+    "id": "kp-0013",
+    "concept": "Hedonic Adaptation",
+    "verse": "Yeni alınan şeylerin mutluluğu neden kısa sürer?",
+    "explanation": "\"Hazsal uyum\". Beyin yeni bir uyaran aldığında dopamin salgılar, sonra normalleştirir. Telefon, araba, ev - her şey zamanla arka plana düşer. Mutluluk yeniyi almaktan değil, yeniliği farketmekten gelir."
+  },
+  {
+    "id": "kp-0014",
+    "concept": "Cognitive Dissonance",
+    "verse": "Yanlış yapan biri neden kendini haklı çıkarır?",
+    "explanation": "\"Bilişsel çelişki\" - beynin \"ben iyi insanım\" inancıyla \"kötü davrandım\" gerçeği çatışır. Bu acıyı çözmek için ya davranışı değiştirir ya da gerçeği yeniden yazar. Çoğu insan ikincisini seçer."
+  },
+  {
+    "id": "kp-0015",
+    "concept": "Loss Aversion",
+    "verse": "Kaybetmek neden kazanmaktan iki kat acı verir?",
+    "explanation": "\"Kayıp kaçınması\" - evrimsel olarak hayatta kalmak için kayba duyarlılık kazançtan iki kat yüksektir. 100 lira bulmak biraz mutlu eder, 100 lira kaybetmek gün boyu yer. Korkular, hayallerden daha güçlü karar verdirir."
+  },
+  {
+    "id": "kp-0016",
+    "concept": "Spotlight Effect",
+    "verse": "Yaptığımız hataları neden herkes fark etmiş sanırız?",
+    "explanation": "\"Spotlight etkisi\". Kendi hayatında sahne sen olduğun için bir hatanı dünya kadar büyük sanırsın. Oysa çevrendekilerin %95'i kendi sahnesindedir, seni ne fark eder ne hatırlar. Utanç çoğunlukla iç hayalettir."
+  },
+  {
+    "id": "kp-0017",
+    "concept": "Reactance",
+    "verse": "\"Yapma\" dendiğinde neden yapma isteği artar?",
+    "explanation": "\"Reactance\" denir. Beyin özgürlüğünü tehdit altında hissedince, kaybetmeden önce geri almak için tersini yapar. Yasak ne kadar net, çekim o kadar büyük. İsrar genelde geri tepme yaratır."
+  },
+  {
+    "id": "kp-0018",
+    "concept": "Social Proof",
+    "verse": "Restoran kuyruktaysa yemek neden daha lezzetli gelir?",
+    "explanation": "\"Sosyal kanıt\" prensibi. Beyin \"çok insan tercih ediyorsa iyidir\" kestirmesi yapar - her şeyi tek tek değerlendirmek yorucudur. Kuyruk kalite garantisi değildir; ama beyin öyle yorumlar."
+  },
+  {
+    "id": "kp-0019",
+    "concept": "Authority Bias",
+    "verse": "Beyaz önlüklü birine neden daha çok inanırız?",
+    "explanation": "\"Otorite yanlılığı\". Beyin uzman işaretlerini (önlük, unvan, kürsü) görünce eleştirel düşünmeyi kapatır. Milgram deneyleri gösterdi: insanlar otoritenin emriyle korkunç şeyler yapabilir. Sorgulamak en güçlü silahtır."
+  },
+  {
+    "id": "kp-0020",
+    "concept": "Negativity Bias",
+    "verse": "10 övgü, 1 eleştiriden neden eleştiriyi hatırlarız?",
+    "explanation": "\"Negatiflik yanlılığı\". Beyin tehlikeden korunmak için olumsuz uyaranları öncelikli kaydeder. Övgü bir an gelir geçer; eleştiri günlerce yankı bulur. Evrimsel koruma sistemi, modern hayatta huzuru çalar."
+  },
+  {
+    "id": "kp-0021",
+    "concept": "Projection",
+    "verse": "Karşımızdakini neden çoğunlukla yanlış okuruz?",
+    "explanation": "\"Projeksiyon\" mekanizması. Beyin içindeki duyguyu tanıyamadığında, onu dışarıdaki kişiye yansıtır. \"O kıskanç\" diyen, kendi kıskançlığını taşıyor olabilir. Çoğu suçlama içsel muhasebenin dışavurumudur."
+  },
+  {
+    "id": "kp-0022",
+    "concept": "Hangry Effect",
+    "verse": "Aç insanlar neden bu kadar sinirli olur?",
+    "explanation": "\"Hangry\" durumu. Düşük kan şekeri ön korteksi (mantık) zayıflatır, amigdala (duygu) baskın çıkar. Mantıklı karar verme kapasiten %30'a kadar düşer. Tartışmalar çoğunlukla yemek öncesi yaşanır."
+  },
+  {
+    "id": "kp-0023",
+    "concept": "Imposter Syndrome",
+    "verse": "Başarılı insanlar neden kendini sahtekar hisseder?",
+    "explanation": "\"İmposter sendromu\". Beyin başarıyı şansa, çabayı eksikliklere bağlar; içsel yeterlilik hissi gelişmemiştir. Ne kadar yüksek pozisyon, o kadar derin kaygı. Çözüm: başarıyı \"kim oldum\" değil \"ne yaptım\" üzerinden okumak."
+  },
+  {
+    "id": "kp-0024",
+    "concept": "Self-Fulfilling Prophecy",
+    "verse": "Korktuğumuz şey neden başımıza gelir?",
+    "explanation": "\"Kendini gerçekleştiren kehanet\". Korku, davranışı değiştirir - kişi tetikte, savunmacı, kaçınan olur. Bu olumsuz sonucu kendi yaratır. \"Beni terk eder\" korkusu, terkin tetikleyicisine dönüşür."
+  },
+  {
+    "id": "kp-0025",
+    "concept": "Door in the Face",
+    "verse": "Büyük ricayı reddedince küçüğü neden kabul ederiz?",
+    "explanation": "\"Door-in-the-face\" tekniği. Reddetmek suçluluk yaratır, telafi isteği doğar. Manipülatör önce abartılı bir şey ister, sonra \"asıl istediği\"ne iner. Sen \"küçük şey\" sanırsın, oysa pazarlık ettin."
+  },
+  {
+    "id": "kp-0026",
+    "concept": "Anchoring",
+    "verse": "Markette indirimli fiyat neden bu kadar cazip?",
+    "explanation": "\"Anchoring\" - çapalama etkisi. Beyin ilk gördüğü sayıyı referans alır. 1000 TL çizilip 600 TL yazılırsa \"indirim\" gibi gelir - oysa ürünün gerçek değeri belki 400 TL. İlk sayı tüm algıyı çapalar."
+  },
+  {
+    "id": "kp-0027",
+    "concept": "Cocktail Party Effect",
+    "verse": "Kalabalıkta adımız söylenince neden anında duyarız?",
+    "explanation": "\"Kokteyl partisi etkisi\". Beyin tüm sesleri arka planda işler ama bilince sadece anlamlı olanı çıkarır. Adın - kimliğinin işareti - filtreyi geçen birkaç şeyden biridir. Sen dinlemiyorsun ama beynin dinler."
+  },
+  {
+    "id": "kp-0028",
+    "concept": "Foot in the Door",
+    "verse": "Küçük bir \"evet\"ten sonra büyük rica neden kabul edilir?",
+    "explanation": "\"Foot-in-the-door\" tekniği. Beyin tutarlı görünmek ister; daha önce evet dediği yönde kalır. Manipülatör önce küçük taahhüt alır, sonra üstüne ekler. Kapıdan girersen evden çıkmak zorlaşır."
+  },
+  {
+    "id": "kp-0029",
+    "concept": "Pluralistic Ignorance",
+    "verse": "Sınıfta kimse anlamamışken neden hepimiz susarız?",
+    "explanation": "\"Çoğul cehalet\". Herkes \"ben anlamadım ama diğerleri anlamış görünüyor, soru sorarsam aptal görünürüm\" düşünür. Aslında tüm sınıf aynı durumda. Soran kişi, herkesi rahatlatır."
+  },
+  {
+    "id": "kp-0030",
+    "concept": "Mirror Neurons",
+    "verse": "Başkasının esnemesi neden bize de bulaşır?",
+    "explanation": "\"Ayna nöronlar\" devreye girer. Beyin gördüğü hareketi içsel olarak taklit eder - bu empati ve sosyal bağın temel mekanizmasıdır. Esneme, ağlama, gülme bulaşıcıdır çünkü biz aslında tek bir sosyal organizmayız."
+  }
+]

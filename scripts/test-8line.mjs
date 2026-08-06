@@ -7,7 +7,7 @@ import { fetchPexelsCandidates } from '../src/fetchPexelsVideo.js';
 import { generateVoice, getAudioDuration } from '../src/generateVoice.js';
 import { downloadVideo, pickAudioByIndex } from '../src/renderReel.js';
 
-const ROOT = '/Users/yunusemrekaradeniz/Desktop/InstaTasavvuf';
+const ROOT = '/Users/yunusemrekaradeniz/Desktop/Deviant/InstaTasavvuf';
 const FFMPEG = process.env.FFMPEG_PATH;
 const OUT = '/Users/yunusemrekaradeniz/Desktop/ornek-8-satir.mp4';
 

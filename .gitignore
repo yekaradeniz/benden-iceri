@@ -11,3 +11,4 @@ coverage/
 
 # ElevenLabs voice cache - gecici, GitHub'da kalici depolanmaz
 output/audio-cache/
+.playwright-mcp/
